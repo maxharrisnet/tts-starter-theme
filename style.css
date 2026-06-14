@@ -1,0 +1,20 @@
+/*
+Theme Name: TTS Theme
+Theme URI:
+Author: Max Harris
+Author URI:
+Description: Multi-profile WordPress starter theme — 8 site profiles, classic editor, Tailwind CSS via Vite. Fork for client sites within one day of receiving content and specs.
+Version: 1.0.0
+Requires at least: 6.5
+Tested up to: 6.7
+Requires PHP: 8.2
+License: GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: tts-theme
+Tags: custom-menu, featured-images, custom-colors, full-width-template
+*/
+
+/*
+ * Theme styles live in assets/src/main.css (compiled via Vite).
+ * This file contains the theme header only — do not add styles here.
+ */

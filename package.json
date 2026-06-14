@@ -1,0 +1,20 @@
+{
+  "name": "tts-theme",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev":        "vite",
+    "build":      "vite build --mode development",
+    "build:prod": "composer lint && vite build --mode production",
+    "preview":    "vite preview",
+    "lint:js":    "eslint assets/src",
+    "lint:php":   "composer lint"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0",
+    "@vitejs/plugin-legacy": "^5.0.0",
+    "tailwindcss": "^4.0.0",
+    "@tailwindcss/vite": "^4.0.0",
+    "autoprefixer": "^10.4.0"
+  }
+}
