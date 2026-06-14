@@ -32,7 +32,7 @@ is documented here. Do not deviate from these patterns without explicit instruct
 22. REST API & n8n Integration
 23. Shortcodes & Embeds
 24. Coming Soon (Splash) & Maintenance Mode
-25. Environment Variables
+25. Environment Variables``
 26. Coding Standards
 27. PHP_CodeSniffer Setup
 28. What NOT to Do
