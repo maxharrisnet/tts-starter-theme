@@ -3,7 +3,7 @@
  * Template Name: Splash
  * Coming soon / pre-launch page. Standalone — no standard header/footer.
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 $post_id       = get_the_ID();
@@ -23,16 +23,16 @@ $pdf_id        = absint( get_post_meta( $post_id, 'splash_pdf', true ) );
 if ( $logo_id ) {
 	$logo_img = wp_get_attachment_image( $logo_id, 'tts-logo', false, [
 		'class' => 'tts-splash__logo-img',
-		'alt'   => get_post_meta( $logo_id, '_wp_attachment_image_alt', true ) ?: tts_get_option( 'tts_logo_alt' ) ?: tts_get_option( 'tts_business_name' ),
+		'alt'   => get_post_meta( $logo_id, '_wp_attachment_image_alt', true ) ?: drumstudy_get_option( 'drumstudy_logo_alt' ) ?: drumstudy_get_option( 'drumstudy_business_name' ),
 	] );
 } else {
-	$site_logo_id = absint( tts_get_option( 'tts_logo' ) );
+	$site_logo_id = absint( drumstudy_get_option( 'drumstudy_logo' ) );
 	$logo_img = $site_logo_id
 		? wp_get_attachment_image( $site_logo_id, 'tts-logo', false, [
 			'class' => 'tts-splash__logo-img',
-			'alt'   => tts_get_option( 'tts_logo_alt' ) ?: tts_get_option( 'tts_business_name' ),
+			'alt'   => drumstudy_get_option( 'drumstudy_logo_alt' ) ?: drumstudy_get_option( 'drumstudy_business_name' ),
 		] )
-		: '<span class="tts-splash__logo-text">' . esc_html( tts_get_option( 'tts_business_name' ) ) . '</span>';
+		: '<span class="tts-splash__logo-text">' . esc_html( drumstudy_get_option( 'drumstudy_business_name' ) ) . '</span>';
 }
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -46,7 +46,7 @@ if ( $logo_id ) {
 
 <a href="#main-content"
    class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-black">
-	<?php esc_html_e( 'Skip to main content', 'tts-theme' ); ?>
+	<?php esc_html_e( 'Skip to main content', 'drumstudy' ); ?>
 </a>
 
 <main id="main-content" role="main" class="tts-splash">
@@ -67,7 +67,7 @@ if ( $logo_id ) {
 		</div>
 
 		<h1 class="tts-splash__headline">
-			<?php echo esc_html( $headline ?: tts_placeholder( 'Splash Headline' ) ); ?>
+			<?php echo esc_html( $headline ?: drumstudy_placeholder( 'Splash Headline' ) ); ?>
 		</h1>
 
 		<?php if ( $subheadline ) : ?>
@@ -80,12 +80,12 @@ if ( $logo_id ) {
 
 		<?php if ( $embed ) : ?>
 			<div class="tts-embed-block">
-				<?php echo tts_render_embed( $embed ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+				<?php echo drumstudy_render_embed( $embed ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			</div>
 		<?php endif; ?>
 
 		<?php if ( $cta1_label || $cta2_label ) : ?>
-			<?php tts_render_cta( $cta1_label, $cta1_url, $cta2_label, $cta2_url ); ?>
+			<?php drumstudy_render_cta( $cta1_label, $cta1_url, $cta2_label, $cta2_url ); ?>
 		<?php endif; ?>
 
 		<?php if ( $pdf_id && get_post_mime_type( $pdf_id ) === 'application/pdf' ) : ?>
@@ -93,7 +93,7 @@ if ( $logo_id ) {
 				<a href="<?php echo esc_url( wp_get_attachment_url( $pdf_id ) ); ?>"
 				   target="_blank"
 				   rel="noopener noreferrer">
-					<?php esc_html_e( 'Download PDF', 'tts-theme' ); ?>
+					<?php esc_html_e( 'Download PDF', 'drumstudy' ); ?>
 				</a>
 			</p>
 		<?php endif; ?>

@@ -2,7 +2,7 @@
 /**
  * Card: Team Member
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 $post_id  = get_the_ID();
@@ -38,15 +38,15 @@ $twitter  = get_post_meta( $post_id, 'twitter', true );
 			<div class="tts-card__links flex gap-3">
 				<?php if ( $email ) : ?>
 					<a href="<?php echo esc_url( 'mailto:' . $email ); ?>"
-					   aria-label="<?php printf( esc_attr__( 'Email %s', 'tts-theme' ), get_the_title() ); ?>">
-						<?php esc_html_e( 'Email', 'tts-theme' ); ?>
+					   aria-label="<?php printf( esc_attr__( 'Email %s', 'drumstudy' ), get_the_title() ); ?>">
+						<?php esc_html_e( 'Email', 'drumstudy' ); ?>
 					</a>
 				<?php endif; ?>
 				<?php if ( $linkedin ) : ?>
 					<a href="<?php echo esc_url( $linkedin ); ?>"
 					   target="_blank"
 					   rel="noopener noreferrer"
-					   aria-label="<?php printf( esc_attr__( '%s on LinkedIn', 'tts-theme' ), get_the_title() ); ?>">
+					   aria-label="<?php printf( esc_attr__( '%s on LinkedIn', 'drumstudy' ), get_the_title() ); ?>">
 						LinkedIn
 					</a>
 				<?php endif; ?>
@@ -54,7 +54,7 @@ $twitter  = get_post_meta( $post_id, 'twitter', true );
 					<a href="<?php echo esc_url( $twitter ); ?>"
 					   target="_blank"
 					   rel="noopener noreferrer"
-					   aria-label="<?php printf( esc_attr__( '%s on X / Twitter', 'tts-theme' ), get_the_title() ); ?>">
+					   aria-label="<?php printf( esc_attr__( '%s on X / Twitter', 'drumstudy' ), get_the_title() ); ?>">
 						X
 					</a>
 				<?php endif; ?>

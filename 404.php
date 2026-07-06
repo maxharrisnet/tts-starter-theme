@@ -2,16 +2,16 @@
 /**
  * 404 Not Found
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 get_template_part( 'template-parts/global/header' );
 ?>
 <main id="main-content" role="main">
 	<div class="tts-container tts-container-prose text-center py-24">
-		<h1><?php esc_html_e( 'Page Not Found', 'tts-theme' ); ?></h1>
+		<h1><?php esc_html_e( 'Page Not Found', 'drumstudy' ); ?></h1>
 		<p>
-			<?php esc_html_e( "Sorry, the page you're looking for doesn't exist or has been moved.", 'tts-theme' ); ?>
+			<?php esc_html_e( "Sorry, the page you're looking for doesn't exist or has been moved.", 'drumstudy' ); ?>
 		</p>
 		<?php
 		if ( has_nav_menu( 'primary' ) ) {
@@ -20,8 +20,8 @@ get_template_part( 'template-parts/global/header' );
 				'menu_class'     => 'tts-404-nav',
 			] );
 		}
-		tts_render_cta(
-			__( 'Go to Homepage', 'tts-theme' ),
+		drumstudy_render_cta(
+			__( 'Go to Homepage', 'drumstudy' ),
 			home_url( '/' )
 		);
 		?>

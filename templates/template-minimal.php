@@ -3,7 +3,7 @@
  * Template Name: Minimal
  * For landing pages — minimal header, no footer nav clutter.
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 // Use minimal header/footer directly, bypassing the Admin Options layout setting.

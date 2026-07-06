@@ -1,9 +1,14 @@
 <?php
 /**
- * Footer dispatcher — loads layout partial based on Admin Options.
+ * Footer dispatcher — loads the layout partial based on Admin Options, then
+ * closes the document shell opened in template-parts/global/header.php.
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
-$layout = sanitize_key( tts_get_option( 'tts_footer_layout' ) ?: 'standard' );
+$layout = sanitize_key( drumstudy_get_option( 'drumstudy_footer_layout' ) ?: 'standard' );
 get_template_part( 'template-parts/global/footer-' . $layout );
+?>
+<?php wp_footer(); ?>
+</body>
+</html>

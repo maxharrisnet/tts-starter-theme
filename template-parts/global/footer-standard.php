@@ -4,16 +4,16 @@
  * Logo + tagline, nav columns, contact info, social icons.
  * Footer Legal menu at bottom. Copyright auto-generated.
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
-$business_name = tts_get_option( 'tts_business_name' ) ?: get_bloginfo( 'name' );
-$tagline       = tts_get_option( 'tts_tagline' );
-$phone         = tts_get_option( 'tts_phone' );
-$email         = tts_get_option( 'tts_email' );
-$logo_id       = absint( tts_get_option( 'tts_logo' ) );
-$logo_alt      = tts_get_option( 'tts_logo_alt' ) ?: $business_name;
-$social_links  = tts_social_links();
+$business_name = drumstudy_get_option( 'drumstudy_business_name' ) ?: get_bloginfo( 'name' );
+$tagline       = drumstudy_get_option( 'drumstudy_tagline' );
+$phone         = drumstudy_get_option( 'drumstudy_phone' );
+$email         = drumstudy_get_option( 'drumstudy_email' );
+$logo_id       = absint( drumstudy_get_option( 'drumstudy_logo' ) );
+$logo_alt      = drumstudy_get_option( 'drumstudy_logo_alt' ) ?: $business_name;
+$social_links  = drumstudy_social_links();
 ?>
 <footer class="tts-footer" role="contentinfo">
 	<div class="tts-container">
@@ -23,7 +23,7 @@ $social_links  = tts_social_links();
 			<div class="flex-shrink-0 md:w-64">
 				<?php if ( $logo_id ) : ?>
 					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="<?php echo esc_attr( $business_name ); ?>" class="inline-block mb-4">
-						<?php echo wp_get_attachment_image( $logo_id, 'tts-logo', false, [ 'alt' => esc_attr( $logo_alt ), 'class' => 'h-10 w-auto brightness-0 invert' ] ); ?>
+						<?php echo wp_get_attachment_image( $logo_id, 'tts-logo', false, [ 'alt' => esc_attr( $logo_alt ), 'class' => 'h-10 w-auto' ] ); ?>
 					</a>
 				<?php else : ?>
 					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="tts-header__logo-text block mb-4 text-inherit">
@@ -59,7 +59,7 @@ $social_links  = tts_social_links();
 			<!-- Contact column -->
 			<?php if ( $phone || $email ) : ?>
 				<div class="flex-shrink-0">
-					<h3 class="text-sm font-semibold uppercase tracking-wider opacity-60 mb-3"><?php esc_html_e( 'Contact', 'tts-theme' ); ?></h3>
+					<h3 class="text-sm font-semibold uppercase tracking-wider opacity-60 mb-3"><?php esc_html_e( 'Contact', 'drumstudy' ); ?></h3>
 					<?php if ( $phone ) : ?>
 						<p class="mb-2"><a href="tel:<?php echo esc_attr( preg_replace( '/[^+0-9]/', '', $phone ) ); ?>"><?php echo esc_html( $phone ); ?></a></p>
 					<?php endif; ?>
@@ -73,7 +73,7 @@ $social_links  = tts_social_links();
 		<!-- Legal bar -->
 		<div class="tts-footer__legal flex flex-col sm:flex-row justify-between items-center gap-4">
 			<p class="m-0">
-				&copy; <?php echo esc_html( (string) gmdate( 'Y' ) ); ?> <?php echo esc_html( $business_name ); ?>. <?php esc_html_e( 'All rights reserved.', 'tts-theme' ); ?>
+				&copy; <?php echo esc_html( (string) gmdate( 'Y' ) ); ?> <?php echo esc_html( $business_name ); ?>. <?php esc_html_e( 'All rights reserved.', 'drumstudy' ); ?>
 			</p>
 			<?php
 			if ( has_nav_menu( 'footer-legal' ) ) {

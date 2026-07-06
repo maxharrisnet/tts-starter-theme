@@ -5,7 +5,7 @@
  * Full 6-slot version lives in template-features.php.
  * This section shows 3 feature highlights on the homepage.
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 $post_id = get_the_ID() ?: 0;
@@ -27,7 +27,7 @@ if ( ! $has_features ) {
 	<div class="tts-container">
 		<div class="tts-section-heading">
 			<h2 id="features-heading" class="tts-section-heading__title">
-				<?php echo esc_html( get_post_meta( $post_id, 'features_headline', true ) ?: __( 'Why Choose Us', 'tts-theme' ) ); ?>
+				<?php echo esc_html( get_post_meta( $post_id, 'features_headline', true ) ?: __( 'Why Choose Us', 'drumstudy' ) ); ?>
 			</h2>
 		</div>
 

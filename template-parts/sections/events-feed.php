@@ -2,10 +2,10 @@
 /**
  * Section: Events Feed (upcoming)
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
-$events = tts_get_events( 'upcoming', 3 );
+$events = drumstudy_get_events( 'upcoming', 3 );
 
 if ( ! $events->have_posts() ) {
 	return;
@@ -15,7 +15,7 @@ if ( ! $events->have_posts() ) {
 	<div class="tts-container">
 		<div class="tts-section-heading">
 			<h2 id="events-heading" class="tts-section-heading__title">
-				<?php echo esc_html( tts_get_option( 'tts_archive_header_events' ) ?: __( 'Upcoming Events', 'tts-theme' ) ); ?>
+				<?php echo esc_html( drumstudy_get_option( 'drumstudy_archive_header_events' ) ?: __( 'Upcoming Events', 'drumstudy' ) ); ?>
 			</h2>
 		</div>
 
@@ -30,9 +30,9 @@ if ( ! $events->have_posts() ) {
 		</div>
 
 		<?php
-		$archive = get_post_type_archive_link( 'tts_event' );
+		$archive = get_post_type_archive_link( 'drumstudy_event' );
 		if ( $archive ) {
-			tts_render_cta( __( 'View All Events', 'tts-theme' ), $archive );
+			drumstudy_render_cta( __( 'View All Events', 'drumstudy' ), $archive );
 		}
 		?>
 	</div>

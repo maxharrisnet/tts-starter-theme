@@ -3,7 +3,7 @@
  * Card: Search Result
  * Generic card used in search.php for all matched post types.
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 $post_type       = get_post_type();

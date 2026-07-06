@@ -2,7 +2,7 @@
 /**
  * Card: Testimonial
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 $post_id     = get_the_ID();
@@ -18,7 +18,7 @@ if ( ! $quote ) {
 ?>
 <figure class="tts-card tts-card--testimonial">
 	<?php if ( $rating >= 1 && $rating <= 5 ) : ?>
-		<div class="tts-card__rating" aria-label="<?php printf( esc_attr__( '%d out of 5 stars', 'tts-theme' ), $rating ); ?>">
+		<div class="tts-card__rating" aria-label="<?php printf( esc_attr__( '%d out of 5 stars', 'drumstudy' ), $rating ); ?>">
 			<?php for ( $i = 1; $i <= 5; $i++ ) : ?>
 				<span aria-hidden="true"><?php echo $i <= $rating ? '★' : '☆'; ?></span>
 			<?php endfor; ?>

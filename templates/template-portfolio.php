@@ -2,7 +2,7 @@
 /**
  * Template Name: Portfolio
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 get_template_part( 'template-parts/global/header' );
@@ -17,7 +17,7 @@ $intro        = get_post_meta( $post_id, 'portfolio_intro', true );
 		<div class="tts-container">
 			<div class="tts-section-heading">
 				<h1 id="portfolio-heading" class="tts-section-heading__title">
-					<?php echo esc_html( $headline ?: tts_placeholder( 'Portfolio Headline' ) ); ?>
+					<?php echo esc_html( $headline ?: drumstudy_placeholder( 'Portfolio Headline' ) ); ?>
 				</h1>
 				<?php if ( $intro ) : ?>
 					<p class="tts-section-heading__sub"><?php echo wp_kses_post( $intro ); ?></p>

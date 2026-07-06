@@ -52,3 +52,7 @@ tests/coverage/
 *.bak
 *.orig
 *.tmp
+
+# ── Local working material (not part of the theme) ─────────
+AGENT/
+populate-content.php

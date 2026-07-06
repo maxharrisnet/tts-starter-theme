@@ -1,10 +1,10 @@
 <?php
 /**
- * Meta Boxes: tts_service
+ * Meta Boxes: drumstudy_service
  *
  * Fields: price, service_image (ID), cta_label, cta_url
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -15,10 +15,10 @@ add_action(
 	'add_meta_boxes',
 	function (): void {
 		add_meta_box(
-			'tts_service_meta',
-			__( 'Service Details', 'tts-theme' ),
-			'tts_service_meta_cb',
-			'tts_service',
+			'drumstudy_service_meta',
+			__( 'Service Details', 'drumstudy' ),
+			'drumstudy_service_meta_cb',
+			'drumstudy_service',
 			'normal',
 			'high'
 		);
@@ -30,8 +30,8 @@ add_action(
  *
  * @param WP_Post $post Current post.
  */
-function tts_service_meta_cb( WP_Post $post ): void {
-	wp_nonce_field( 'tts_save_service_meta', 'tts_service_nonce' );
+function drumstudy_service_meta_cb( WP_Post $post ): void {
+	wp_nonce_field( 'drumstudy_save_service_meta', 'drumstudy_service_nonce' );
 
 	$price       = get_post_meta( $post->ID, 'price', true );
 	$img_id      = absint( get_post_meta( $post->ID, 'service_image', true ) );
@@ -41,29 +41,29 @@ function tts_service_meta_cb( WP_Post $post ): void {
 	?>
 	<div class="tts-meta-grid">
 		<div class="tts-meta-row">
-			<label for="price" class="tts-meta-label"><?php esc_html_e( 'Price', 'tts-theme' ); ?></label>
+			<label for="price" class="tts-meta-label"><?php esc_html_e( 'Price', 'drumstudy' ); ?></label>
 			<input type="text" id="price" name="price" value="<?php echo esc_attr( $price ); ?>" class="widefat" />
-			<p class="description"><?php esc_html_e( 'Where it appears: Service card and single page. Any format, e.g. $99/mo or Free.', 'tts-theme' ); ?></p>
+			<p class="description"><?php esc_html_e( 'Where it appears: Service card and single page. Any format, e.g. $99/mo or Free.', 'drumstudy' ); ?></p>
 		</div>
 		<div class="tts-meta-row">
-			<label class="tts-meta-label"><?php esc_html_e( 'Service Image', 'tts-theme' ); ?></label>
+			<label class="tts-meta-label"><?php esc_html_e( 'Service Image', 'drumstudy' ); ?></label>
 			<input type="hidden" id="service_image" name="service_image" value="<?php echo esc_attr( (string) $img_id ); ?>" />
 			<div id="service_image_preview" class="tts-image-preview"><?php echo $img_preview; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
-			<button type="button" class="button tts-media-upload-btn" data-field="service_image" data-preview="service_image_preview" data-title="<?php esc_attr_e( 'Select Service Image', 'tts-theme' ); ?>"><?php esc_html_e( 'Select Image', 'tts-theme' ); ?></button>
+			<button type="button" class="button tts-media-upload-btn" data-field="service_image" data-preview="service_image_preview" data-title="<?php esc_attr_e( 'Select Service Image', 'drumstudy' ); ?>"><?php esc_html_e( 'Select Image', 'drumstudy' ); ?></button>
 			<?php if ( $img_id ) : ?>
-				<button type="button" class="button tts-media-remove-btn" data-field="service_image" data-preview="service_image_preview"><?php esc_html_e( 'Remove', 'tts-theme' ); ?></button>
+				<button type="button" class="button tts-media-remove-btn" data-field="service_image" data-preview="service_image_preview"><?php esc_html_e( 'Remove', 'drumstudy' ); ?></button>
 			<?php endif; ?>
-			<p class="description"><?php esc_html_e( 'Where it appears: Service card thumbnail. Stored as attachment ID.', 'tts-theme' ); ?></p>
+			<p class="description"><?php esc_html_e( 'Where it appears: Service card thumbnail. Stored as attachment ID.', 'drumstudy' ); ?></p>
 		</div>
 		<div class="tts-meta-row">
-			<label for="cta_label" class="tts-meta-label"><?php esc_html_e( 'CTA Label', 'tts-theme' ); ?></label>
+			<label for="cta_label" class="tts-meta-label"><?php esc_html_e( 'CTA Label', 'drumstudy' ); ?></label>
 			<input type="text" id="cta_label" name="cta_label" value="<?php echo esc_attr( $cta_label ); ?>" class="widefat" />
-			<p class="description"><?php esc_html_e( 'Where it appears: Button on service card. Falls back to global CTA if empty.', 'tts-theme' ); ?></p>
+			<p class="description"><?php esc_html_e( 'Where it appears: Button on service card. Falls back to global CTA if empty.', 'drumstudy' ); ?></p>
 		</div>
 		<div class="tts-meta-row">
-			<label for="cta_url" class="tts-meta-label"><?php esc_html_e( 'CTA URL', 'tts-theme' ); ?></label>
+			<label for="cta_url" class="tts-meta-label"><?php esc_html_e( 'CTA URL', 'drumstudy' ); ?></label>
 			<input type="text" id="cta_url" name="cta_url" value="<?php echo esc_attr( $cta_url ); ?>" class="widefat" />
-			<p class="description"><?php esc_html_e( 'Where it appears: CTA button link. Supports external URLs, relative paths, anchor links.', 'tts-theme' ); ?></p>
+			<p class="description"><?php esc_html_e( 'Where it appears: CTA button link. Supports external URLs, relative paths, anchor links.', 'drumstudy' ); ?></p>
 		</div>
 	</div>
 	<?php
@@ -74,14 +74,14 @@ function tts_service_meta_cb( WP_Post $post ): void {
  *
  * @param int $post_id Post ID.
  */
-function tts_save_service_meta( int $post_id ): void {
-	if ( ! isset( $_POST['tts_service_nonce'] )
-		|| ! wp_verify_nonce( sanitize_key( $_POST['tts_service_nonce'] ), 'tts_save_service_meta' ) ) {
+function drumstudy_save_service_meta( int $post_id ): void {
+	if ( ! isset( $_POST['drumstudy_service_nonce'] )
+		|| ! wp_verify_nonce( sanitize_key( $_POST['drumstudy_service_nonce'] ), 'drumstudy_save_service_meta' ) ) {
 		return;
 	}
 	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
 	if ( ! current_user_can( 'edit_post', $post_id ) ) return;
-	if ( 'tts_service' !== get_post_type( $post_id ) ) return;
+	if ( 'drumstudy_service' !== get_post_type( $post_id ) ) return;
 
 	$fields = [
 		'price'         => 'sanitize_text_field',
@@ -96,12 +96,12 @@ function tts_save_service_meta( int $post_id ): void {
 		}
 	}
 }
-add_action( 'save_post', 'tts_save_service_meta' );
+add_action( 'save_post', 'drumstudy_save_service_meta' );
 
 add_filter(
-	'tts_image_meta_keys',
+	'drumstudy_image_meta_keys',
 	function ( array $keys, int $post_id ): array {
-		if ( 'tts_service' === get_post_type( $post_id ) ) {
+		if ( 'drumstudy_service' === get_post_type( $post_id ) ) {
 			$keys[] = 'service_image';
 		}
 		return $keys;

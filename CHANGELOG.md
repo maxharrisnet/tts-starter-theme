@@ -1,9 +1,22 @@
-# Changelog — TTS Starter Theme
+# Changelog — Drum Study Theme
 
 All notable changes to this theme are documented here.
 On fork: bump version in `style.css` and `functions.php`, then add an entry below.
 
 ---
+
+## [1.1.0] — 2026-07-02
+
+### Changed
+- Forked from TTS Starter Theme: completed the `tts_`/`TTS_` → `drumstudy_`/`DRUMSTUDY_` prefix rename across all functions, hooks, option keys, meta keys, CPT slugs, and REST namespace (`tts/v1` → `drumstudy/v1`); renamed `single-tts_*.php`/`archive-tts_*.php` files and `languages/tts-theme.pot`
+- Special case: `tts_testimonial` renamed to `drumstudy_testim` (not `drumstudy_testimonial`) to stay within WordPress's 20-character post-type slug limit
+- New bold rock/editorial design tokens (dark charcoal, brand blue accent, Oswald/Inter expressive pairing) replacing the generic starter palette
+- Populated site content for The Drum Study (Jordan Cohen — Las Vegas drum lessons, booking profile): hero, bio, services, FAQs, gallery, About/Contact pages
+
+### Added
+- `template-parts/sections/intro.php` (Groove Assessment lead-capture) completing a previously-documented-but-unbuilt homepage pattern
+- `template-parts/sections/gear-guide.php` (Beginner Starter Kit affiliate gear guide, 3 fixed slots)
+- Solo-bio layout branch in `template-parts/sections/team.php` for single-instructor businesses
 
 ## [1.0.0] — 2026-06-14
 

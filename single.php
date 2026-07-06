@@ -2,7 +2,7 @@
 /**
  * Single: Native Posts (Updates)
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 get_template_part( 'template-parts/global/header' );
@@ -56,13 +56,13 @@ $source_outlet = get_post_meta( $post_id, 'source_outlet', true );
 						   target="_blank"
 						   rel="noopener noreferrer"
 						   class="tts-btn tts-btn--secondary">
-							<?php esc_html_e( 'Read Full Article', 'tts-theme' ); ?>
+							<?php esc_html_e( 'Read Full Article', 'drumstudy' ); ?>
 						</a>
 					</div>
 				<?php endif; ?>
 
 				<nav class="tts-post-nav flex justify-between gap-4 mt-12 pt-8 border-t"
-				     aria-label="<?php esc_attr_e( 'Post navigation', 'tts-theme' ); ?>">
+				     aria-label="<?php esc_attr_e( 'Post navigation', 'drumstudy' ); ?>">
 					<?php
 					$prev = get_previous_post();
 					$next = get_next_post();

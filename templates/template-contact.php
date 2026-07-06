@@ -2,7 +2,7 @@
 /**
  * Template Name: Contact
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 get_template_part( 'template-parts/global/header' );
@@ -20,7 +20,7 @@ $secondary_body    = get_post_meta( $post_id, 'contact_secondary_body', true );
 		<div class="tts-container">
 			<div class="tts-section-heading">
 				<h1 id="contact-heading" class="tts-section-heading__title">
-					<?php echo esc_html( $headline ?: tts_placeholder( 'Contact Headline' ) ); ?>
+					<?php echo esc_html( $headline ?: drumstudy_placeholder( 'Contact Headline' ) ); ?>
 				</h1>
 				<?php if ( $subheadline ) : ?>
 					<p class="tts-section-heading__sub"><?php echo esc_html( $subheadline ); ?></p>
@@ -31,10 +31,10 @@ $secondary_body    = get_post_meta( $post_id, 'contact_secondary_body', true );
 				<div class="w-full lg:w-2/3">
 					<?php if ( $form_embed ) : ?>
 						<div class="tts-embed-block">
-							<?php echo tts_render_embed( $form_embed ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+							<?php echo drumstudy_render_embed( $form_embed ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 						</div>
 					<?php else : ?>
-						<p><?php echo esc_html( tts_placeholder( 'Contact Form Embed' ) ); ?></p>
+						<p><?php echo esc_html( drumstudy_placeholder( 'Contact Form Embed' ) ); ?></p>
 					<?php endif; ?>
 				</div>
 

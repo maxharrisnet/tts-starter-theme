@@ -5,7 +5,7 @@
  * All content is served via specific page templates, CPT singles, and archives.
  * This file handles any unmatched template requests.
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 get_template_part( 'template-parts/global/header' );
@@ -25,7 +25,7 @@ get_template_part( 'template-parts/global/header' );
 			<?php endwhile; ?>
 			<?php get_template_part( 'template-parts/global/pagination' ); ?>
 		<?php else : ?>
-			<p><?php esc_html_e( 'Nothing found.', 'tts-theme' ); ?></p>
+			<p><?php esc_html_e( 'Nothing found.', 'drumstudy' ); ?></p>
 		<?php endif; ?>
 	</div>
 </main>

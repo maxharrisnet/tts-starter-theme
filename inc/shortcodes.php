@@ -2,28 +2,28 @@
 /**
  * Theme Shortcodes
  *
- * [tts_cta]        — CTA button (primary or secondary style)
- * [tts_button]     — Alias for tts_cta
- * [tts_pdf_download] — PDF download link
+ * [drumstudy_cta]        — CTA button (primary or secondary style)
+ * [drumstudy_button]     — Alias for drumstudy_cta
+ * [drumstudy_pdf_download] — PDF download link
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-// ── [tts_cta] / [tts_button] ─────────────────────────────────────────────────
+// ── [drumstudy_cta] / [drumstudy_button] ─────────────────────────────────────────────────
 
 /**
  * Render a CTA button.
  *
- * Usage: [tts_cta label="Get Started" url="/contact" style="primary"]
+ * Usage: [drumstudy_cta label="Get Started" url="/contact" style="primary"]
  *
  * @param array<string, string>|string $atts Shortcode attributes.
  * @return string HTML output.
  */
-function tts_shortcode_cta( $atts ): string {
+function drumstudy_shortcode_cta( $atts ): string {
 	$atts = shortcode_atts(
 		[
 			'label' => '',
@@ -31,11 +31,11 @@ function tts_shortcode_cta( $atts ): string {
 			'style' => 'primary',
 		],
 		$atts,
-		'tts_cta'
+		'drumstudy_cta'
 	);
 
 	$label = sanitize_text_field( $atts['label'] );
-	$url   = tts_the_url( '', 0, sanitize_text_field( $atts['url'] ) );
+	$url   = drumstudy_the_url( '', 0, sanitize_text_field( $atts['url'] ) );
 	$style = in_array( $atts['style'], [ 'primary', 'secondary' ], true ) ? $atts['style'] : 'primary';
 
 	if ( ! $label || ! $url ) {
@@ -49,27 +49,27 @@ function tts_shortcode_cta( $atts ): string {
 		esc_html( $label )
 	);
 }
-add_shortcode( 'tts_cta',    'tts_shortcode_cta' );
-add_shortcode( 'tts_button', 'tts_shortcode_cta' );
+add_shortcode( 'drumstudy_cta',    'drumstudy_shortcode_cta' );
+add_shortcode( 'drumstudy_button', 'drumstudy_shortcode_cta' );
 
-// ── [tts_pdf_download] ───────────────────────────────────────────────────────
+// ── [drumstudy_pdf_download] ───────────────────────────────────────────────────────
 
 /**
  * Render a PDF download link.
  *
- * Usage: [tts_pdf_download id="42" label="Download Press Kit"]
+ * Usage: [drumstudy_pdf_download id="42" label="Download Press Kit"]
  *
  * @param array<string, string>|string $atts Shortcode attributes.
  * @return string HTML output.
  */
-function tts_shortcode_pdf_download( $atts ): string {
+function drumstudy_shortcode_pdf_download( $atts ): string {
 	$atts = shortcode_atts(
 		[
 			'id'    => '',
-			'label' => __( 'Download PDF', 'tts-theme' ),
+			'label' => __( 'Download PDF', 'drumstudy' ),
 		],
 		$atts,
-		'tts_pdf_download'
+		'drumstudy_pdf_download'
 	);
 
 	$id = absint( $atts['id'] );
@@ -95,4 +95,4 @@ function tts_shortcode_pdf_download( $atts ): string {
 		esc_html( $label )
 	);
 }
-add_shortcode( 'tts_pdf_download', 'tts_shortcode_pdf_download' );
+add_shortcode( 'drumstudy_pdf_download', 'drumstudy_shortcode_pdf_download' );

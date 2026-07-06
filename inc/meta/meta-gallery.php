@@ -1,10 +1,10 @@
 <?php
 /**
- * Meta Boxes: tts_gallery
+ * Meta Boxes: drumstudy_gallery
  *
  * Fields: gallery_image (ID), caption, category, project_link, project_name
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -15,10 +15,10 @@ add_action(
 	'add_meta_boxes',
 	function (): void {
 		add_meta_box(
-			'tts_gallery_meta',
-			__( 'Gallery Item Details', 'tts-theme' ),
-			'tts_gallery_meta_cb',
-			'tts_gallery',
+			'drumstudy_gallery_meta',
+			__( 'Gallery Item Details', 'drumstudy' ),
+			'drumstudy_gallery_meta_cb',
+			'drumstudy_gallery',
 			'normal',
 			'high'
 		);
@@ -30,8 +30,8 @@ add_action(
  *
  * @param WP_Post $post Current post.
  */
-function tts_gallery_meta_cb( WP_Post $post ): void {
-	wp_nonce_field( 'tts_save_gallery_meta', 'tts_gallery_nonce' );
+function drumstudy_gallery_meta_cb( WP_Post $post ): void {
+	wp_nonce_field( 'drumstudy_save_gallery_meta', 'drumstudy_gallery_nonce' );
 
 	$img_id       = absint( get_post_meta( $post->ID, 'gallery_image', true ) );
 	$caption      = get_post_meta( $post->ID, 'caption', true );
@@ -42,33 +42,33 @@ function tts_gallery_meta_cb( WP_Post $post ): void {
 	?>
 	<div class="tts-meta-grid">
 		<div class="tts-meta-row">
-			<label class="tts-meta-label"><?php esc_html_e( 'Gallery Image', 'tts-theme' ); ?></label>
+			<label class="tts-meta-label"><?php esc_html_e( 'Gallery Image', 'drumstudy' ); ?></label>
 			<input type="hidden" id="gallery_image" name="gallery_image" value="<?php echo esc_attr( (string) $img_id ); ?>" />
 			<div id="gallery_image_preview" class="tts-image-preview"><?php echo $img_preview; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
-			<button type="button" class="button tts-media-upload-btn" data-field="gallery_image" data-preview="gallery_image_preview"><?php esc_html_e( 'Select Image', 'tts-theme' ); ?></button>
+			<button type="button" class="button tts-media-upload-btn" data-field="gallery_image" data-preview="gallery_image_preview"><?php esc_html_e( 'Select Image', 'drumstudy' ); ?></button>
 			<?php if ( $img_id ) : ?>
-				<button type="button" class="button tts-media-remove-btn" data-field="gallery_image" data-preview="gallery_image_preview"><?php esc_html_e( 'Remove', 'tts-theme' ); ?></button>
+				<button type="button" class="button tts-media-remove-btn" data-field="gallery_image" data-preview="gallery_image_preview"><?php esc_html_e( 'Remove', 'drumstudy' ); ?></button>
 			<?php endif; ?>
-			<p class="description"><?php esc_html_e( 'Where it appears: Gallery grid. Primary display image.', 'tts-theme' ); ?></p>
+			<p class="description"><?php esc_html_e( 'Where it appears: Gallery grid. Primary display image.', 'drumstudy' ); ?></p>
 		</div>
 		<div class="tts-meta-row">
-			<label for="caption" class="tts-meta-label"><?php esc_html_e( 'Caption', 'tts-theme' ); ?></label>
+			<label for="caption" class="tts-meta-label"><?php esc_html_e( 'Caption', 'drumstudy' ); ?></label>
 			<input type="text" id="caption" name="caption" value="<?php echo esc_attr( $caption ); ?>" class="widefat" />
-			<p class="description"><?php esc_html_e( 'Where it appears: Overlay or below image in gallery grid.', 'tts-theme' ); ?></p>
+			<p class="description"><?php esc_html_e( 'Where it appears: Overlay or below image in gallery grid.', 'drumstudy' ); ?></p>
 		</div>
 		<div class="tts-meta-row">
-			<label for="category" class="tts-meta-label"><?php esc_html_e( 'Category', 'tts-theme' ); ?></label>
+			<label for="category" class="tts-meta-label"><?php esc_html_e( 'Category', 'drumstudy' ); ?></label>
 			<input type="text" id="category" name="category" value="<?php echo esc_attr( $category ); ?>" class="widefat" />
-			<p class="description"><?php esc_html_e( 'Where it appears: Gallery filter tag. Group items by category.', 'tts-theme' ); ?></p>
+			<p class="description"><?php esc_html_e( 'Where it appears: Gallery filter tag. Group items by category.', 'drumstudy' ); ?></p>
 		</div>
 		<div class="tts-meta-row">
-			<label for="project_name" class="tts-meta-label"><?php esc_html_e( 'Project Name', 'tts-theme' ); ?></label>
+			<label for="project_name" class="tts-meta-label"><?php esc_html_e( 'Project Name', 'drumstudy' ); ?></label>
 			<input type="text" id="project_name" name="project_name" value="<?php echo esc_attr( $project_name ); ?>" class="widefat" />
 		</div>
 		<div class="tts-meta-row">
-			<label for="project_link" class="tts-meta-label"><?php esc_html_e( 'Project Link', 'tts-theme' ); ?></label>
+			<label for="project_link" class="tts-meta-label"><?php esc_html_e( 'Project Link', 'drumstudy' ); ?></label>
 			<input type="text" id="project_link" name="project_link" value="<?php echo esc_attr( $project_link ); ?>" class="widefat" />
-			<p class="description"><?php esc_html_e( 'Where it appears: Link on gallery item. Optional.', 'tts-theme' ); ?></p>
+			<p class="description"><?php esc_html_e( 'Where it appears: Link on gallery item. Optional.', 'drumstudy' ); ?></p>
 		</div>
 	</div>
 	<?php
@@ -79,14 +79,14 @@ function tts_gallery_meta_cb( WP_Post $post ): void {
  *
  * @param int $post_id Post ID.
  */
-function tts_save_gallery_meta( int $post_id ): void {
-	if ( ! isset( $_POST['tts_gallery_nonce'] )
-		|| ! wp_verify_nonce( sanitize_key( $_POST['tts_gallery_nonce'] ), 'tts_save_gallery_meta' ) ) {
+function drumstudy_save_gallery_meta( int $post_id ): void {
+	if ( ! isset( $_POST['drumstudy_gallery_nonce'] )
+		|| ! wp_verify_nonce( sanitize_key( $_POST['drumstudy_gallery_nonce'] ), 'drumstudy_save_gallery_meta' ) ) {
 		return;
 	}
 	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
 	if ( ! current_user_can( 'edit_post', $post_id ) ) return;
-	if ( 'tts_gallery' !== get_post_type( $post_id ) ) return;
+	if ( 'drumstudy_gallery' !== get_post_type( $post_id ) ) return;
 
 	foreach ( [ 'caption', 'category', 'project_name' ] as $key ) {
 		if ( isset( $_POST[ $key ] ) ) {
@@ -100,12 +100,12 @@ function tts_save_gallery_meta( int $post_id ): void {
 		update_post_meta( $post_id, 'gallery_image', absint( $_POST['gallery_image'] ) );
 	}
 }
-add_action( 'save_post', 'tts_save_gallery_meta' );
+add_action( 'save_post', 'drumstudy_save_gallery_meta' );
 
 add_filter(
-	'tts_image_meta_keys',
+	'drumstudy_image_meta_keys',
 	function ( array $keys, int $post_id ): array {
-		if ( 'tts_gallery' === get_post_type( $post_id ) ) {
+		if ( 'drumstudy_gallery' === get_post_type( $post_id ) ) {
 			$keys[] = 'gallery_image';
 		}
 		return $keys;

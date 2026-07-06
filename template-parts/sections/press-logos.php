@@ -2,11 +2,11 @@
 /**
  * Section: Press / As Seen In
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 $query = new WP_Query( [
-	'post_type'      => 'tts_press',
+	'post_type'      => 'drumstudy_press',
 	'posts_per_page' => 8,
 	'no_found_rows'  => true,
 	'orderby'        => 'menu_order date',
@@ -21,7 +21,7 @@ if ( ! $query->have_posts() ) {
 	<div class="tts-container">
 		<div class="tts-section-heading">
 			<h2 id="press-heading" class="tts-section-heading__title">
-				<?php esc_html_e( 'As Seen In', 'tts-theme' ); ?>
+				<?php esc_html_e( 'As Seen In', 'drumstudy' ); ?>
 			</h2>
 		</div>
 

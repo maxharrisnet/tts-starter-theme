@@ -2,11 +2,11 @@
 /**
  * Section: Gallery
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 $query = new WP_Query( [
-	'post_type'      => 'tts_gallery',
+	'post_type'      => 'drumstudy_gallery',
 	'posts_per_page' => 9,
 	'no_found_rows'  => true,
 ] );
@@ -19,7 +19,7 @@ if ( ! $query->have_posts() ) {
 	<div class="tts-container">
 		<div class="tts-section-heading">
 			<h2 id="gallery-heading" class="tts-section-heading__title">
-				<?php esc_html_e( 'Gallery', 'tts-theme' ); ?>
+				<?php echo esc_html( drumstudy_get_option( 'drumstudy_archive_header_gallery' ) ?: __( 'Career Highlights', 'drumstudy' ) ); ?>
 			</h2>
 		</div>
 

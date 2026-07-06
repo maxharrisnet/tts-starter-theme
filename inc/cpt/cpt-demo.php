@@ -1,13 +1,13 @@
 <?php
 /**
- * CPT: tts_demo — Demo / Video
+ * CPT: drumstudy_demo — Demo / Video
  *
  * Meta fields: video_url, thumbnail_override (ID), duration, cta_label,
  *              cta_url, video_category (Demo/Testimonial/Tutorial/Reel/Performance)
  * Native: title, content (description)
  * Admin label: "Displayed in Video/Demo section"
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -15,29 +15,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Register the tts_demo post type.
+ * Register the drumstudy_demo post type.
  */
-function tts_register_cpt_demo(): void {
+function drumstudy_register_cpt_demo(): void {
 	$labels = [
-		'name'               => __( 'Demo / Video', 'tts-theme' ),
-		'singular_name'      => __( 'Demo', 'tts-theme' ),
-		'menu_name'          => __( 'Demo / Video', 'tts-theme' ),
-		'all_items'          => __( 'All Demos', 'tts-theme' ),
-		'add_new'            => __( 'Add Demo', 'tts-theme' ),
-		'add_new_item'       => __( 'Add New Demo', 'tts-theme' ),
-		'edit_item'          => __( 'Edit Demo', 'tts-theme' ),
-		'view_item'          => __( 'View Demo', 'tts-theme' ),
-		'not_found'          => __( 'No demos found.', 'tts-theme' ),
-		'not_found_in_trash' => __( 'No demos found in Trash.', 'tts-theme' ),
+		'name'               => __( 'Demo / Video', 'drumstudy' ),
+		'singular_name'      => __( 'Demo', 'drumstudy' ),
+		'menu_name'          => __( 'Demo / Video', 'drumstudy' ),
+		'all_items'          => __( 'All Demos', 'drumstudy' ),
+		'add_new'            => __( 'Add Demo', 'drumstudy' ),
+		'add_new_item'       => __( 'Add New Demo', 'drumstudy' ),
+		'edit_item'          => __( 'Edit Demo', 'drumstudy' ),
+		'view_item'          => __( 'View Demo', 'drumstudy' ),
+		'not_found'          => __( 'No demos found.', 'drumstudy' ),
+		'not_found_in_trash' => __( 'No demos found in Trash.', 'drumstudy' ),
 	];
 
 	register_post_type(
-		'tts_demo',
+		'drumstudy_demo',
 		[
 			'labels'              => $labels,
 			'public'              => true,
 			'has_archive'         => true,
-			'show_in_menu'        => 'tts-content',
+			'show_in_menu'        => 'drumstudy-content',
 			'show_in_rest'        => true,
 			'supports'            => [ 'title', 'editor', 'thumbnail' ],
 			'menu_icon'           => 'dashicons-video-alt3',
@@ -47,7 +47,7 @@ function tts_register_cpt_demo(): void {
 		]
 	);
 }
-add_action( 'init', 'tts_register_cpt_demo' );
+add_action( 'init', 'drumstudy_register_cpt_demo' );
 
 /**
  * Custom columns for Demo list.
@@ -55,18 +55,18 @@ add_action( 'init', 'tts_register_cpt_demo' );
  * @param array<string, string> $columns Existing columns.
  * @return array<string, string>
  */
-function tts_demo_columns( array $columns ): array {
+function drumstudy_demo_columns( array $columns ): array {
 	unset( $columns['date'] );
 	return array_merge(
 		$columns,
 		[
-			'demo_category' => __( 'Category', 'tts-theme' ),
-			'demo_duration' => __( 'Duration', 'tts-theme' ),
-			'date'          => __( 'Date', 'tts-theme' ),
+			'demo_category' => __( 'Category', 'drumstudy' ),
+			'demo_duration' => __( 'Duration', 'drumstudy' ),
+			'date'          => __( 'Date', 'drumstudy' ),
 		]
 	);
 }
-add_filter( 'manage_tts_demo_posts_columns', 'tts_demo_columns' );
+add_filter( 'manage_drumstudy_demo_posts_columns', 'drumstudy_demo_columns' );
 
 /**
  * Render custom column content for Demo.
@@ -74,7 +74,7 @@ add_filter( 'manage_tts_demo_posts_columns', 'tts_demo_columns' );
  * @param string $column  Column key.
  * @param int    $post_id Post ID.
  */
-function tts_demo_column_content( string $column, int $post_id ): void {
+function drumstudy_demo_column_content( string $column, int $post_id ): void {
 	switch ( $column ) {
 		case 'demo_category':
 			$cat = get_post_meta( $post_id, 'video_category', true );
@@ -86,4 +86,4 @@ function tts_demo_column_content( string $column, int $post_id ): void {
 			break;
 	}
 }
-add_action( 'manage_tts_demo_posts_custom_column', 'tts_demo_column_content', 10, 2 );
+add_action( 'manage_drumstudy_demo_posts_custom_column', 'drumstudy_demo_column_content', 10, 2 );

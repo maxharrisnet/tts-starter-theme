@@ -3,10 +3,10 @@
  * Section: Hours & Location
  * Renders the location.php partial inside a section wrapper.
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
-if ( ! tts_has_option( 'tts_address_1' ) && ! tts_has_option( 'tts_hours' ) ) {
+if ( ! drumstudy_has_option( 'drumstudy_address_1' ) && ! drumstudy_has_option( 'drumstudy_hours' ) ) {
 	return;
 }
 ?>
@@ -14,7 +14,7 @@ if ( ! tts_has_option( 'tts_address_1' ) && ! tts_has_option( 'tts_hours' ) ) {
 	<div class="tts-container">
 		<div class="tts-section-heading">
 			<h2 id="location-heading" class="tts-section-heading__title">
-				<?php esc_html_e( 'Find Us', 'tts-theme' ); ?>
+				<?php esc_html_e( 'Find Us', 'drumstudy' ); ?>
 			</h2>
 		</div>
 		<?php get_template_part( 'template-parts/global/location' ); ?>

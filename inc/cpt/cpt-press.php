@@ -1,12 +1,12 @@
 <?php
 /**
- * CPT: tts_press — Press Items (Creative profile)
+ * CPT: drumstudy_press — Press Items (Creative profile)
  *
  * Meta fields: article_url, publish_date, outlet_logo (ID), pull_quote
  * Native: title (outlet name), content (headline)
  * Admin label: "Displayed in Press/As Seen In section"
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -14,29 +14,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Register the tts_press post type.
+ * Register the drumstudy_press post type.
  */
-function tts_register_cpt_press(): void {
+function drumstudy_register_cpt_press(): void {
 	$labels = [
-		'name'               => __( 'Press Items', 'tts-theme' ),
-		'singular_name'      => __( 'Press Item', 'tts-theme' ),
-		'menu_name'          => __( 'Press Items', 'tts-theme' ),
-		'all_items'          => __( 'All Press Items', 'tts-theme' ),
-		'add_new'            => __( 'Add Press Item', 'tts-theme' ),
-		'add_new_item'       => __( 'Add New Press Item', 'tts-theme' ),
-		'edit_item'          => __( 'Edit Press Item', 'tts-theme' ),
-		'view_item'          => __( 'View Press Item', 'tts-theme' ),
-		'not_found'          => __( 'No press items found.', 'tts-theme' ),
-		'not_found_in_trash' => __( 'No press items found in Trash.', 'tts-theme' ),
+		'name'               => __( 'Press Items', 'drumstudy' ),
+		'singular_name'      => __( 'Press Item', 'drumstudy' ),
+		'menu_name'          => __( 'Press Items', 'drumstudy' ),
+		'all_items'          => __( 'All Press Items', 'drumstudy' ),
+		'add_new'            => __( 'Add Press Item', 'drumstudy' ),
+		'add_new_item'       => __( 'Add New Press Item', 'drumstudy' ),
+		'edit_item'          => __( 'Edit Press Item', 'drumstudy' ),
+		'view_item'          => __( 'View Press Item', 'drumstudy' ),
+		'not_found'          => __( 'No press items found.', 'drumstudy' ),
+		'not_found_in_trash' => __( 'No press items found in Trash.', 'drumstudy' ),
 	];
 
 	register_post_type(
-		'tts_press',
+		'drumstudy_press',
 		[
 			'labels'              => $labels,
 			'public'              => true,
 			'has_archive'         => false,
-			'show_in_menu'        => 'tts-content',
+			'show_in_menu'        => 'drumstudy-content',
 			'show_in_rest'        => true,
 			'supports'            => [ 'title', 'editor' ],
 			'menu_icon'           => 'dashicons-megaphone',
@@ -46,7 +46,7 @@ function tts_register_cpt_press(): void {
 		]
 	);
 }
-add_action( 'init', 'tts_register_cpt_press' );
+add_action( 'init', 'drumstudy_register_cpt_press' );
 
 /**
  * Custom columns for Press Items list.
@@ -54,17 +54,17 @@ add_action( 'init', 'tts_register_cpt_press' );
  * @param array<string, string> $columns Existing columns.
  * @return array<string, string>
  */
-function tts_press_columns( array $columns ): array {
+function drumstudy_press_columns( array $columns ): array {
 	unset( $columns['date'] );
 	return array_merge(
 		$columns,
 		[
-			'press_publish_date' => __( 'Published', 'tts-theme' ),
-			'date'               => __( 'Date Added', 'tts-theme' ),
+			'press_publish_date' => __( 'Published', 'drumstudy' ),
+			'date'               => __( 'Date Added', 'drumstudy' ),
 		]
 	);
 }
-add_filter( 'manage_tts_press_posts_columns', 'tts_press_columns' );
+add_filter( 'manage_drumstudy_press_posts_columns', 'drumstudy_press_columns' );
 
 /**
  * Render custom column content for Press Items.
@@ -72,7 +72,7 @@ add_filter( 'manage_tts_press_posts_columns', 'tts_press_columns' );
  * @param string $column  Column key.
  * @param int    $post_id Post ID.
  */
-function tts_press_column_content( string $column, int $post_id ): void {
+function drumstudy_press_column_content( string $column, int $post_id ): void {
 	if ( 'press_publish_date' === $column ) {
 		$date = get_post_meta( $post_id, 'publish_date', true );
 		if ( $date ) {
@@ -83,4 +83,4 @@ function tts_press_column_content( string $column, int $post_id ): void {
 		}
 	}
 }
-add_action( 'manage_tts_press_posts_custom_column', 'tts_press_column_content', 10, 2 );
+add_action( 'manage_drumstudy_press_posts_custom_column', 'drumstudy_press_column_content', 10, 2 );

@@ -2,11 +2,11 @@
 /**
  * Section: Services
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 $query = new WP_Query( [
-	'post_type'      => 'tts_service',
+	'post_type'      => 'drumstudy_service',
 	'posts_per_page' => 6,
 	'no_found_rows'  => true,
 ] );
@@ -19,7 +19,7 @@ if ( ! $query->have_posts() ) {
 	<div class="tts-container">
 		<div class="tts-section-heading">
 			<h2 id="services-heading" class="tts-section-heading__title">
-				<?php echo esc_html( tts_get_option( 'tts_archive_header_services' ) ?: __( 'Our Services', 'tts-theme' ) ); ?>
+				<?php echo esc_html( drumstudy_get_option( 'drumstudy_archive_header_services' ) ?: __( 'Our Services', 'drumstudy' ) ); ?>
 			</h2>
 		</div>
 

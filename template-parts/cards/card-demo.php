@@ -2,7 +2,7 @@
 /**
  * Card: Demo / Video
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 $post_id    = get_the_ID();
@@ -49,13 +49,13 @@ $category   = get_post_meta( $post_id, 'video_category', true );
 				   target="_blank"
 				   rel="noopener noreferrer"
 				   class="tts-btn tts-btn--primary"
-				   aria-label="<?php printf( esc_attr__( 'Watch: %s', 'tts-theme' ), get_the_title() ); ?>">
-					<?php echo esc_html( $cta_label ?: __( 'Watch Now', 'tts-theme' ) ); ?>
+				   aria-label="<?php printf( esc_attr__( 'Watch: %s', 'drumstudy' ), get_the_title() ); ?>">
+					<?php echo esc_html( $cta_label ?: __( 'Watch Now', 'drumstudy' ) ); ?>
 				</a>
 			<?php elseif ( $cta_url ) : ?>
-				<a href="<?php echo tts_the_url( '', 0, $cta_url ); ?>"
+				<a href="<?php echo drumstudy_the_url( '', 0, $cta_url ); ?>"
 				   class="tts-btn tts-btn--primary">
-					<?php echo esc_html( $cta_label ?: __( 'Learn More', 'tts-theme' ) ); ?>
+					<?php echo esc_html( $cta_label ?: __( 'Learn More', 'drumstudy' ) ); ?>
 				</a>
 			<?php endif; ?>
 		</div>

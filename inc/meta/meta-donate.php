@@ -4,7 +4,7 @@
  *
  * Fields: headline, subheadline, body, embed, 3 impact stats
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -17,7 +17,7 @@ add_action(
 		if ( 'templates/template-donate.php' !== get_post_meta( $post->ID, '_wp_page_template', true ) ) {
 			return;
 		}
-		add_meta_box( 'tts_donate_meta', __( 'Donate Page Settings', 'tts-theme' ), 'tts_donate_meta_cb', 'page', 'normal', 'high' );
+		add_meta_box( 'drumstudy_donate_meta', __( 'Donate Page Settings', 'drumstudy' ), 'drumstudy_donate_meta_cb', 'page', 'normal', 'high' );
 	}
 );
 
@@ -26,8 +26,8 @@ add_action(
  *
  * @param WP_Post $post Current post.
  */
-function tts_donate_meta_cb( WP_Post $post ): void {
-	wp_nonce_field( 'tts_save_donate_meta', 'tts_donate_nonce' );
+function drumstudy_donate_meta_cb( WP_Post $post ): void {
+	wp_nonce_field( 'drumstudy_save_donate_meta', 'drumstudy_donate_nonce' );
 
 	$headline    = get_post_meta( $post->ID, 'donate_headline', true );
 	$subheadline = get_post_meta( $post->ID, 'donate_subheadline', true );
@@ -44,36 +44,36 @@ function tts_donate_meta_cb( WP_Post $post ): void {
 	?>
 	<div class="tts-meta-grid">
 		<div class="tts-meta-row">
-			<label for="donate_headline" class="tts-meta-label"><?php esc_html_e( 'Page Headline', 'tts-theme' ); ?></label>
+			<label for="donate_headline" class="tts-meta-label"><?php esc_html_e( 'Page Headline', 'drumstudy' ); ?></label>
 			<input type="text" id="donate_headline" name="donate_headline" value="<?php echo esc_attr( $headline ); ?>" class="widefat" />
-			<p class="description"><?php esc_html_e( 'Where it appears: Top of the Donate page.', 'tts-theme' ); ?></p>
+			<p class="description"><?php esc_html_e( 'Where it appears: Top of the Donate page.', 'drumstudy' ); ?></p>
 		</div>
 		<div class="tts-meta-row">
-			<label for="donate_subheadline" class="tts-meta-label"><?php esc_html_e( 'Subheadline', 'tts-theme' ); ?></label>
+			<label for="donate_subheadline" class="tts-meta-label"><?php esc_html_e( 'Subheadline', 'drumstudy' ); ?></label>
 			<input type="text" id="donate_subheadline" name="donate_subheadline" value="<?php echo esc_attr( $subheadline ); ?>" class="widefat" />
 		</div>
 		<div class="tts-meta-row tts-meta-row--full">
-			<label for="donate_body" class="tts-meta-label"><?php esc_html_e( 'Body Copy', 'tts-theme' ); ?></label>
+			<label for="donate_body" class="tts-meta-label"><?php esc_html_e( 'Body Copy', 'drumstudy' ); ?></label>
 			<textarea id="donate_body" name="donate_body" rows="6" class="widefat"><?php echo esc_textarea( $body ); ?></textarea>
-			<p class="description"><?php esc_html_e( 'Where it appears: Main body copy on the Donate page.', 'tts-theme' ); ?></p>
+			<p class="description"><?php esc_html_e( 'Where it appears: Main body copy on the Donate page.', 'drumstudy' ); ?></p>
 		</div>
 		<div class="tts-meta-row tts-meta-row--full">
-			<label for="donate_embed" class="tts-meta-label"><?php esc_html_e( 'Donation Platform Embed', 'tts-theme' ); ?></label>
+			<label for="donate_embed" class="tts-meta-label"><?php esc_html_e( 'Donation Platform Embed', 'drumstudy' ); ?></label>
 			<textarea id="donate_embed" name="donate_embed" rows="5" class="widefat"><?php echo esc_textarea( $embed ); ?></textarea>
-			<p class="description"><?php esc_html_e( 'Where it appears: Donation form/widget on the Donate page. Accepts Donorbox, PayPal, or any embed shortcode.', 'tts-theme' ); ?></p>
+			<p class="description"><?php esc_html_e( 'Where it appears: Donation form/widget on the Donate page. Accepts Donorbox, PayPal, or any embed shortcode.', 'drumstudy' ); ?></p>
 		</div>
 
 		<div class="tts-meta-row tts-meta-row--full">
-			<h4 style="margin: 1em 0 0.5em;"><?php esc_html_e( 'Impact Stats (optional)', 'tts-theme' ); ?></h4>
-			<p class="description"><?php esc_html_e( 'Where it appears: Three-up stat strip above the embed on the Donate page.', 'tts-theme' ); ?></p>
+			<h4 style="margin: 1em 0 0.5em;"><?php esc_html_e( 'Impact Stats (optional)', 'drumstudy' ); ?></h4>
+			<p class="description"><?php esc_html_e( 'Where it appears: Three-up stat strip above the embed on the Donate page.', 'drumstudy' ); ?></p>
 		</div>
 		<?php for ( $i = 1; $i <= 3; $i++ ) : ?>
 			<div class="tts-meta-row">
-				<label for="donate_impact_<?php echo esc_attr( (string) $i ); ?>_number" class="tts-meta-label"><?php printf( esc_html__( 'Impact %d Number', 'tts-theme' ), $i ); ?></label>
+				<label for="donate_impact_<?php echo esc_attr( (string) $i ); ?>_number" class="tts-meta-label"><?php printf( esc_html__( 'Impact %d Number', 'drumstudy' ), $i ); ?></label>
 				<input type="text" id="donate_impact_<?php echo esc_attr( (string) $i ); ?>_number" name="donate_impact_<?php echo esc_attr( (string) $i ); ?>_number" value="<?php echo esc_attr( $impact[ $i ]['number'] ); ?>" class="widefat" placeholder="e.g. $120k" />
 			</div>
 			<div class="tts-meta-row">
-				<label for="donate_impact_<?php echo esc_attr( (string) $i ); ?>_label" class="tts-meta-label"><?php printf( esc_html__( 'Impact %d Label', 'tts-theme' ), $i ); ?></label>
+				<label for="donate_impact_<?php echo esc_attr( (string) $i ); ?>_label" class="tts-meta-label"><?php printf( esc_html__( 'Impact %d Label', 'drumstudy' ), $i ); ?></label>
 				<input type="text" id="donate_impact_<?php echo esc_attr( (string) $i ); ?>_label" name="donate_impact_<?php echo esc_attr( (string) $i ); ?>_label" value="<?php echo esc_attr( $impact[ $i ]['label'] ); ?>" class="widefat" placeholder="e.g. Raised this year" />
 			</div>
 		<?php endfor; ?>
@@ -86,9 +86,9 @@ function tts_donate_meta_cb( WP_Post $post ): void {
  *
  * @param int $post_id Post ID.
  */
-function tts_save_donate_meta( int $post_id ): void {
-	if ( ! isset( $_POST['tts_donate_nonce'] )
-		|| ! wp_verify_nonce( sanitize_key( $_POST['tts_donate_nonce'] ), 'tts_save_donate_meta' ) ) {
+function drumstudy_save_donate_meta( int $post_id ): void {
+	if ( ! isset( $_POST['drumstudy_donate_nonce'] )
+		|| ! wp_verify_nonce( sanitize_key( $_POST['drumstudy_donate_nonce'] ), 'drumstudy_save_donate_meta' ) ) {
 		return;
 	}
 	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
@@ -112,4 +112,4 @@ function tts_save_donate_meta( int $post_id ): void {
 		}
 	}
 }
-add_action( 'save_post', 'tts_save_donate_meta' );
+add_action( 'save_post', 'drumstudy_save_donate_meta' );

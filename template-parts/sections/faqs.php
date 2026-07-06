@@ -2,11 +2,11 @@
 /**
  * Section: FAQs — accessible accordion
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 $query = new WP_Query( [
-	'post_type'      => 'tts_faq',
+	'post_type'      => 'drumstudy_faq',
 	'posts_per_page' => -1,
 	'no_found_rows'  => true,
 	'orderby'        => 'meta_value_num',
@@ -22,7 +22,7 @@ if ( ! $query->have_posts() ) {
 	<div class="tts-container-prose">
 		<div class="tts-section-heading">
 			<h2 id="faqs-heading" class="tts-section-heading__title">
-				<?php esc_html_e( 'Frequently Asked Questions', 'tts-theme' ); ?>
+				<?php esc_html_e( 'Frequently Asked Questions', 'drumstudy' ); ?>
 			</h2>
 		</div>
 

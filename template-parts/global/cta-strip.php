@@ -7,7 +7,7 @@
  *
  * Falls back to Admin Options values if args not provided.
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 $primary_label   = $args['primary_label']   ?? '';
@@ -15,5 +15,5 @@ $primary_url     = $args['primary_url']     ?? '';
 $secondary_label = $args['secondary_label'] ?? '';
 $secondary_url   = $args['secondary_url']   ?? '';
 
-// Use tts_render_cta which handles fallbacks
-tts_render_cta( $primary_label, $primary_url, $secondary_label, $secondary_url );
+// Use drumstudy_render_cta which handles fallbacks
+drumstudy_render_cta( $primary_label, $primary_url, $secondary_label, $secondary_url );

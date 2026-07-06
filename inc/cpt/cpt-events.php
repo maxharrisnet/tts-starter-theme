@@ -1,6 +1,6 @@
 <?php
 /**
- * CPT: tts_event — Events
+ * CPT: drumstudy_event — Events
  *
  * Meta fields: event_date (required), event_time, end_date, end_time,
  *              location_name, location_address, ticket_url, ticket_price,
@@ -8,7 +8,7 @@
  * Native: title, content (description)
  * Admin label: "Displayed in Events section and Events archive"
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -16,29 +16,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Register the tts_event post type.
+ * Register the drumstudy_event post type.
  */
-function tts_register_cpt_event(): void {
+function drumstudy_register_cpt_event(): void {
 	$labels = [
-		'name'               => __( 'Events', 'tts-theme' ),
-		'singular_name'      => __( 'Event', 'tts-theme' ),
-		'menu_name'          => __( 'Events', 'tts-theme' ),
-		'all_items'          => __( 'All Events', 'tts-theme' ),
-		'add_new'            => __( 'Add Event', 'tts-theme' ),
-		'add_new_item'       => __( 'Add New Event', 'tts-theme' ),
-		'edit_item'          => __( 'Edit Event', 'tts-theme' ),
-		'view_item'          => __( 'View Event', 'tts-theme' ),
-		'not_found'          => __( 'No events found.', 'tts-theme' ),
-		'not_found_in_trash' => __( 'No events found in Trash.', 'tts-theme' ),
+		'name'               => __( 'Events', 'drumstudy' ),
+		'singular_name'      => __( 'Event', 'drumstudy' ),
+		'menu_name'          => __( 'Events', 'drumstudy' ),
+		'all_items'          => __( 'All Events', 'drumstudy' ),
+		'add_new'            => __( 'Add Event', 'drumstudy' ),
+		'add_new_item'       => __( 'Add New Event', 'drumstudy' ),
+		'edit_item'          => __( 'Edit Event', 'drumstudy' ),
+		'view_item'          => __( 'View Event', 'drumstudy' ),
+		'not_found'          => __( 'No events found.', 'drumstudy' ),
+		'not_found_in_trash' => __( 'No events found in Trash.', 'drumstudy' ),
 	];
 
 	register_post_type(
-		'tts_event',
+		'drumstudy_event',
 		[
 			'labels'              => $labels,
 			'public'              => true,
 			'has_archive'         => true,
-			'show_in_menu'        => 'tts-content',
+			'show_in_menu'        => 'drumstudy-content',
 			'show_in_rest'        => true,
 			'supports'            => [ 'title', 'editor', 'thumbnail' ],
 			'menu_icon'           => 'dashicons-calendar-alt',
@@ -48,7 +48,7 @@ function tts_register_cpt_event(): void {
 		]
 	);
 }
-add_action( 'init', 'tts_register_cpt_event' );
+add_action( 'init', 'drumstudy_register_cpt_event' );
 
 /**
  * Soft warning when required fields are missing on save.
@@ -57,12 +57,12 @@ add_action(
 	'admin_notices',
 	function (): void {
 		$screen = get_current_screen();
-		if ( ! $screen || 'tts_event' !== $screen->post_type ) {
+		if ( ! $screen || 'drumstudy_event' !== $screen->post_type ) {
 			return;
 		}
 		$post_id = get_the_ID();
 		if ( $post_id && ! get_post_meta( $post_id, 'event_date', true ) ) {
-			echo '<div class="notice notice-warning"><p><strong>' . esc_html__( 'Event Date', 'tts-theme' ) . '</strong> ' . esc_html__( 'is recommended before publishing this event.', 'tts-theme' ) . '</p></div>';
+			echo '<div class="notice notice-warning"><p><strong>' . esc_html__( 'Event Date', 'drumstudy' ) . '</strong> ' . esc_html__( 'is recommended before publishing this event.', 'drumstudy' ) . '</p></div>';
 		}
 	}
 );
@@ -71,12 +71,12 @@ add_action(
  * Add tts-past-event class to past event rows in the admin list.
  *
  * @param string[] $classes  Post CSS classes.
- * @param string   $class    Additional class string.
+ * @param array    $class    Additional classes passed to post_class() (normalized to an array by WP core).
  * @param int      $post_id  Post ID.
  * @return string[]
  */
-function tts_event_post_class( array $classes, string $class, int $post_id ): array {
-	if ( get_post_type( $post_id ) !== 'tts_event' ) {
+function drumstudy_event_post_class( array $classes, array $class, int $post_id ): array {
+	if ( get_post_type( $post_id ) !== 'drumstudy_event' ) {
 		return $classes;
 	}
 	$event_date = get_post_meta( $post_id, 'event_date', true );
@@ -85,7 +85,7 @@ function tts_event_post_class( array $classes, string $class, int $post_id ): ar
 	}
 	return $classes;
 }
-add_filter( 'post_class', 'tts_event_post_class', 10, 3 );
+add_filter( 'post_class', 'drumstudy_event_post_class', 10, 3 );
 
 /**
  * Custom columns for Events list.
@@ -93,18 +93,18 @@ add_filter( 'post_class', 'tts_event_post_class', 10, 3 );
  * @param array<string, string> $columns Existing columns.
  * @return array<string, string>
  */
-function tts_event_columns( array $columns ): array {
+function drumstudy_event_columns( array $columns ): array {
 	unset( $columns['date'] );
 	return array_merge(
 		$columns,
 		[
-			'event_date'   => __( 'Event Date', 'tts-theme' ),
-			'event_status' => __( 'Status', 'tts-theme' ),
-			'date'         => __( 'Date Added', 'tts-theme' ),
+			'event_date'   => __( 'Event Date', 'drumstudy' ),
+			'event_status' => __( 'Status', 'drumstudy' ),
+			'date'         => __( 'Date Added', 'drumstudy' ),
 		]
 	);
 }
-add_filter( 'manage_tts_event_posts_columns', 'tts_event_columns' );
+add_filter( 'manage_drumstudy_event_posts_columns', 'drumstudy_event_columns' );
 
 /**
  * Make Event Date column sortable.
@@ -112,11 +112,11 @@ add_filter( 'manage_tts_event_posts_columns', 'tts_event_columns' );
  * @param array<string, string> $columns Sortable columns.
  * @return array<string, string>
  */
-function tts_event_sortable_columns( array $columns ): array {
+function drumstudy_event_sortable_columns( array $columns ): array {
 	$columns['event_date'] = 'event_date';
 	return $columns;
 }
-add_filter( 'manage_edit-tts_event_sortable_columns', 'tts_event_sortable_columns' );
+add_filter( 'manage_edit-drumstudy_event_sortable_columns', 'drumstudy_event_sortable_columns' );
 
 /**
  * Render custom column content for Events.
@@ -124,7 +124,7 @@ add_filter( 'manage_edit-tts_event_sortable_columns', 'tts_event_sortable_column
  * @param string $column  Column key.
  * @param int    $post_id Post ID.
  */
-function tts_event_column_content( string $column, int $post_id ): void {
+function drumstudy_event_column_content( string $column, int $post_id ): void {
 	$event_date = get_post_meta( $post_id, 'event_date', true );
 
 	switch ( $column ) {
@@ -139,9 +139,9 @@ function tts_event_column_content( string $column, int $post_id ): void {
 		case 'event_status':
 			if ( $event_date ) {
 				if ( $event_date < gmdate( 'Y-m-d' ) ) {
-					echo '<span style="color:#999;">' . esc_html__( 'Past', 'tts-theme' ) . '</span>';
+					echo '<span style="color:#999;">' . esc_html__( 'Past', 'drumstudy' ) . '</span>';
 				} else {
-					echo '<span style="color:#2ea44f;">' . esc_html__( 'Upcoming', 'tts-theme' ) . '</span>';
+					echo '<span style="color:#2ea44f;">' . esc_html__( 'Upcoming', 'drumstudy' ) . '</span>';
 				}
 			} else {
 				echo '&mdash;';
@@ -149,4 +149,4 @@ function tts_event_column_content( string $column, int $post_id ): void {
 			break;
 	}
 }
-add_action( 'manage_tts_event_posts_custom_column', 'tts_event_column_content', 10, 2 );
+add_action( 'manage_drumstudy_event_posts_custom_column', 'drumstudy_event_column_content', 10, 2 );

@@ -1,5 +1,5 @@
 /**
- * TTS Theme — Front-end JavaScript
+ * Drum Study Theme — Front-end JavaScript
  *
  * Handles: reduce motion, banner dismiss, FAQ accordion, mobile nav toggle.
  */

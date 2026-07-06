@@ -3,7 +3,7 @@
  * Template Name: Full Width
  * For legal pages, terms, privacy policy — native WP content, no sidebar.
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 get_template_part( 'template-parts/global/header' );
@@ -19,7 +19,7 @@ get_template_part( 'template-parts/global/header' );
 						<?php
 						printf(
 							/* translators: %s: date */
-							esc_html__( 'Last updated: %s', 'tts-theme' ),
+							esc_html__( 'Last updated: %s', 'drumstudy' ),
 							esc_html( get_the_modified_date() )
 						);
 						?>

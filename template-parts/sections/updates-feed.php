@@ -2,7 +2,7 @@
 /**
  * Section: Updates / News Feed
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 $query = new WP_Query( [
@@ -19,7 +19,7 @@ if ( ! $query->have_posts() ) {
 	<div class="tts-container">
 		<div class="tts-section-heading">
 			<h2 id="updates-heading" class="tts-section-heading__title">
-				<?php esc_html_e( 'Latest Updates', 'tts-theme' ); ?>
+				<?php esc_html_e( 'Latest Updates', 'drumstudy' ); ?>
 			</h2>
 		</div>
 

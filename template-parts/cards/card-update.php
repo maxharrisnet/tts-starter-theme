@@ -2,7 +2,7 @@
 /**
  * Card: Update / News Post (native WP post)
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 $post_id        = get_the_ID();

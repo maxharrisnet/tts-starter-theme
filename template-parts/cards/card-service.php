@@ -2,13 +2,13 @@
 /**
  * Card: Service
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 $post_id   = get_the_ID();
 $price     = get_post_meta( $post_id, 'price', true );
 $img_id    = absint( get_post_meta( $post_id, 'service_image', true ) );
-$cta_label = get_post_meta( $post_id, 'cta_label', true ) ?: tts_get_option( 'tts_cta_primary_label' );
+$cta_label = get_post_meta( $post_id, 'cta_label', true ) ?: drumstudy_get_option( 'drumstudy_cta_primary_label' );
 $cta_url   = get_post_meta( $post_id, 'cta_url', true ) ?: get_permalink();
 ?>
 <article class="tts-card" aria-label="<?php the_title_attribute(); ?>">
@@ -34,7 +34,7 @@ $cta_url   = get_post_meta( $post_id, 'cta_url', true ) ?: get_permalink();
 		<?php endif; ?>
 
 		<?php if ( $cta_label && $cta_url ) : ?>
-			<a href="<?php echo tts_the_url( '', 0, $cta_url ); ?>"
+			<a href="<?php echo drumstudy_the_url( '', 0, $cta_url ); ?>"
 			   class="tts-btn tts-btn--primary">
 				<?php echo esc_html( $cta_label ); ?>
 			</a>

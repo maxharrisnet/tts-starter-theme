@@ -2,18 +2,18 @@
 /**
  * Location block — address + map embed from Admin Options
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
-$address_1 = tts_get_option( 'tts_address_1' );
-$address_2 = tts_get_option( 'tts_address_2' );
-$city      = tts_get_option( 'tts_city' );
-$state     = tts_get_option( 'tts_state' );
-$postal    = tts_get_option( 'tts_postal' );
-$phone     = tts_get_option( 'tts_phone' );
-$email     = tts_get_option( 'tts_email' );
-$hours     = tts_get_option( 'tts_hours' );
-$map_embed = tts_get_option( 'tts_map_embed' );
+$address_1 = drumstudy_get_option( 'drumstudy_address_1' );
+$address_2 = drumstudy_get_option( 'drumstudy_address_2' );
+$city      = drumstudy_get_option( 'drumstudy_city' );
+$state     = drumstudy_get_option( 'drumstudy_state' );
+$postal    = drumstudy_get_option( 'drumstudy_postal' );
+$phone     = drumstudy_get_option( 'drumstudy_phone' );
+$email     = drumstudy_get_option( 'drumstudy_email' );
+$hours     = drumstudy_get_option( 'drumstudy_hours' );
+$map_embed = drumstudy_get_option( 'drumstudy_map_embed' );
 
 if ( ! $address_1 ) {
 	return;
@@ -57,7 +57,7 @@ if ( ! $address_1 ) {
 				allowfullscreen
 				loading="lazy"
 				referrerpolicy="no-referrer-when-downgrade"
-				title="<?php esc_attr_e( 'Location map', 'tts-theme' ); ?>">
+				title="<?php esc_attr_e( 'Location map', 'drumstudy' ); ?>">
 			</iframe>
 		</div>
 	<?php endif; ?>

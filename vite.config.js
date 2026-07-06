@@ -4,6 +4,10 @@ import legacy from '@vitejs/plugin-legacy';
 import path from 'path';
 
 export default defineConfig({
+  // Relative base so built asset URLs (e.g. @font-face src) resolve correctly
+  // regardless of the theme's install path — WP themes are never served from
+  // the domain root, so the default absolute '/' base would 404 every asset.
+  base: './',
   plugins: [
     tailwindcss(),
     legacy({ targets: ['defaults', 'not IE 11'] }),

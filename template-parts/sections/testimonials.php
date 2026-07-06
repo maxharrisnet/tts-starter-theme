@@ -2,11 +2,11 @@
 /**
  * Section: Testimonials
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 $query = new WP_Query( [
-	'post_type'      => 'tts_testimonial',
+	'post_type'      => 'drumstudy_testim',
 	'posts_per_page' => 6,
 	'no_found_rows'  => true,
 ] );
@@ -19,7 +19,7 @@ if ( ! $query->have_posts() ) {
 	<div class="tts-container">
 		<div class="tts-section-heading">
 			<h2 id="testimonials-heading" class="tts-section-heading__title">
-				<?php esc_html_e( 'What People Say', 'tts-theme' ); ?>
+				<?php esc_html_e( 'What People Say', 'drumstudy' ); ?>
 			</h2>
 		</div>
 

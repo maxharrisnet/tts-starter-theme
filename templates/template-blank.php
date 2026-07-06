@@ -3,7 +3,7 @@
  * Template Name: Blank
  * No header, no footer — for full custom landing pages or embeds.
  *
- * @package tts-theme
+ * @package drumstudy
  */
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>

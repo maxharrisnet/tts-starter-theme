@@ -3,7 +3,7 @@
  * Template Name: Features
  * 6 fixed feature slots — renders only if headline is populated.
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 get_template_part( 'template-parts/global/header' );
@@ -21,7 +21,7 @@ $cta_url      = get_post_meta( $post_id, 'features_cta_url', true );
 		<div class="tts-container">
 			<div class="tts-section-heading">
 				<h1 id="features-page-heading" class="tts-section-heading__title">
-					<?php echo esc_html( $headline ?: tts_placeholder( 'Features Headline' ) ); ?>
+					<?php echo esc_html( $headline ?: drumstudy_placeholder( 'Features Headline' ) ); ?>
 				</h1>
 				<?php if ( $subheadline ) : ?>
 					<p class="tts-section-heading__sub"><?php echo esc_html( $subheadline ); ?></p>
@@ -62,7 +62,7 @@ $cta_url      = get_post_meta( $post_id, 'features_cta_url', true );
 
 			<?php if ( $cta_label && $cta_url ) : ?>
 				<div class="tts-cta-strip mt-12">
-					<?php tts_render_cta( $cta_label, $cta_url ); ?>
+					<?php drumstudy_render_cta( $cta_label, $cta_url ); ?>
 				</div>
 			<?php endif; ?>
 		</div>

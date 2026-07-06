@@ -39,13 +39,13 @@ p {
 </head>
 <body>
 <div class="wrap">
-	<h1><?php echo esc_html( tts_get_option( 'tts_business_name' ) ?: get_bloginfo( 'name' ) ); ?></h1>
+	<h1><?php echo esc_html( drumstudy_get_option( 'drumstudy_business_name' ) ?: get_bloginfo( 'name' ) ); ?></h1>
 	<p>
 		<?php
-		$message = tts_get_option( 'tts_maintenance_message' );
+		$message = drumstudy_get_option( 'drumstudy_maintenance_message' );
 		echo $message
 			? esc_html( $message )
-			: esc_html__( "We're working on something. Check back soon.", 'tts-theme' );
+			: esc_html__( "We're working on something. Check back soon.", 'drumstudy' );
 		?>
 	</p>
 </div>

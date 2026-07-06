@@ -5,7 +5,7 @@
  * Profile-aware: headline/CTA variants based on site profile.
  * Background image uses loading="eager" (above the fold).
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 $post_id     = get_the_ID() ?: 0;
@@ -17,14 +17,14 @@ $cta1_url    = get_post_meta( $post_id, 'home_hero_cta1_url', true );
 $cta2_label  = get_post_meta( $post_id, 'home_hero_cta2_label', true );
 $cta2_url    = get_post_meta( $post_id, 'home_hero_cta2_url', true );
 
-$profile = tts_get_profile();
+$profile = drumstudy_get_profile();
 
 // Profile-aware headline fallback
 if ( ! $headline ) {
-	$headline = tts_get_option( 'tts_tagline' ) ?: tts_placeholder( 'Hero Headline' );
+	$headline = drumstudy_get_option( 'drumstudy_tagline' ) ?: drumstudy_placeholder( 'Hero Headline' );
 }
 ?>
-<section class="tts-hero" aria-label="<?php esc_attr_e( 'Hero', 'tts-theme' ); ?>">
+<section class="tts-hero" aria-label="<?php esc_attr_e( 'Hero', 'drumstudy' ); ?>">
 
 	<?php if ( $bg_id ) : ?>
 		<?php
@@ -39,7 +39,8 @@ if ( ! $headline ) {
 		<div class="tts-hero__overlay" aria-hidden="true"></div>
 	<?php endif; ?>
 
-	<div class="tts-container-prose tts-hero__content">
+	<div class="tts-container tts-hero__content">
+		<div class="tts-hero__panel">
 		<h1 class="tts-hero__headline"><?php echo esc_html( $headline ); ?></h1>
 
 		<?php if ( $subheadline ) : ?>
@@ -53,15 +54,16 @@ if ( ! $headline ) {
 		$final_cta2_label = $cta2_label;
 		$final_cta2_url   = $cta2_url;
 
-		if ( tts_is_profile( 'booking' ) && ! $final_cta1_url ) {
-			$embed_url = tts_get_option( 'tts_embed_booking' );
+		if ( drumstudy_is_profile( 'booking' ) && ! $final_cta1_url ) {
+			$embed_url = drumstudy_get_option( 'drumstudy_embed_booking' );
 			if ( $embed_url ) {
-				$final_cta1_label = $final_cta1_label ?: __( 'Book Now', 'tts-theme' );
+				$final_cta1_label = $final_cta1_label ?: __( 'Book Now', 'drumstudy' );
 				$final_cta1_url   = '#booking';
 			}
 		}
 
-		tts_render_cta( $final_cta1_label, $final_cta1_url, $final_cta2_label, $final_cta2_url );
+		drumstudy_render_cta( $final_cta1_label, $final_cta1_url, $final_cta2_label, $final_cta2_url );
 		?>
+		</div>
 	</div>
 </section>

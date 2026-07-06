@@ -2,7 +2,7 @@
 /**
  * Card: Location (Directory)
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 $post_id  = get_the_ID();
@@ -66,7 +66,7 @@ $manager  = get_post_meta( $post_id, 'manager_name', true );
 		<?php endif; ?>
 
 		<a href="<?php the_permalink(); ?>" class="tts-btn tts-btn--secondary">
-			<?php esc_html_e( 'View Location', 'tts-theme' ); ?>
+			<?php esc_html_e( 'View Location', 'drumstudy' ); ?>
 		</a>
 	</div>
 </article>

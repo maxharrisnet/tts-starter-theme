@@ -2,7 +2,7 @@
 /**
  * Card: Gallery Item
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 $post_id      = get_the_ID();
@@ -20,7 +20,7 @@ $alt = get_post_meta( $img_id, '_wp_attachment_image_alt', true )
 ?>
 <figure class="tts-card tts-card--gallery">
 	<?php if ( $project_link ) : ?>
-		<a href="<?php echo tts_the_url( '', 0, $project_link ); ?>"
+		<a href="<?php echo drumstudy_the_url( '', 0, $project_link ); ?>"
 		   target="_blank"
 		   rel="noopener noreferrer"
 		   aria-label="<?php echo esc_attr( $project_name ?: get_the_title() ); ?>">

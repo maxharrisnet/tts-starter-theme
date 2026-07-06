@@ -2,7 +2,7 @@
 /**
  * SEO, Open Graph, Schema.org, Sitemap, GTM/GA, llms.txt
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -22,7 +22,7 @@ add_filter(
 	'document_title_parts',
 	function ( array $title ): array {
 		if ( is_front_page() ) {
-			$tagline = tts_get_option( 'tts_tagline' );
+			$tagline = drumstudy_get_option( 'drumstudy_tagline' );
 			if ( $tagline ) {
 				$title['tagline'] = $tagline;
 			}
@@ -44,7 +44,7 @@ add_action(
 			$description = has_excerpt( $post ) ? get_the_excerpt( $post ) : '';
 		}
 		if ( ! $description ) {
-			$description = tts_get_option( 'tts_tagline' );
+			$description = drumstudy_get_option( 'drumstudy_tagline' );
 		}
 		if ( $description ) {
 			printf(
@@ -83,7 +83,7 @@ add_action(
 	function (): void {
 		global $post;
 
-		$site_name   = tts_get_option( 'tts_business_name' ) ?: get_bloginfo( 'name' );
+		$site_name   = drumstudy_get_option( 'drumstudy_business_name' ) ?: get_bloginfo( 'name' );
 		$og_type     = is_singular() ? 'article' : 'website';
 		$og_title    = is_singular() && $post ? get_the_title( $post ) : get_bloginfo( 'name' );
 		$og_url      = is_singular() && $post ? get_permalink( $post ) : home_url( '/' );
@@ -93,7 +93,7 @@ add_action(
 			$og_desc = has_excerpt( $post ) ? get_the_excerpt( $post ) : '';
 		}
 		if ( ! $og_desc ) {
-			$og_desc = tts_get_option( 'tts_tagline' );
+			$og_desc = drumstudy_get_option( 'drumstudy_tagline' );
 		}
 
 		// OG image — featured image → site logo
@@ -105,7 +105,7 @@ add_action(
 			}
 		}
 		if ( ! $og_image_url ) {
-			$logo_id = absint( tts_get_option( 'tts_logo' ) );
+			$logo_id = absint( drumstudy_get_option( 'drumstudy_logo' ) );
 			if ( $logo_id ) {
 				$src = wp_get_attachment_image_src( $logo_id, 'tts-og' );
 				if ( $src ) {
@@ -137,7 +137,7 @@ add_action(
 		if ( $og_image_url ) {
 			echo '<meta name="twitter:image" content="' . esc_url( $og_image_url ) . '" />' . "\n";
 		}
-		$twitter = tts_get_option( 'tts_social_x' );
+		$twitter = drumstudy_get_option( 'drumstudy_social_x' );
 		if ( $twitter ) {
 			// Extract handle from URL if full URL provided
 			$handle = preg_replace( '#^https?://(www\.)?x\.com/(twitter\.com/)?#', '', rtrim( $twitter, '/' ) );
@@ -154,8 +154,8 @@ add_action(
 /**
  * GTM head snippet — fires in <head>.
  */
-function tts_gtm_head(): void {
-	$gtm_id = tts_get_option( 'tts_gtm_id' );
+function drumstudy_gtm_head(): void {
+	$gtm_id = drumstudy_get_option( 'drumstudy_gtm_id' );
 	if ( ! $gtm_id ) {
 		return;
 	}
@@ -164,16 +164,16 @@ function tts_gtm_head(): void {
 		esc_attr( $gtm_id )
 	);
 }
-add_action( 'wp_head', 'tts_gtm_head', 2 );
+add_action( 'wp_head', 'drumstudy_gtm_head', 2 );
 
 /**
  * Fallback GA4 — only fires when no GTM ID is set.
  */
-function tts_ga_head(): void {
-	if ( tts_has_option( 'tts_gtm_id' ) ) {
+function drumstudy_ga_head(): void {
+	if ( drumstudy_has_option( 'drumstudy_gtm_id' ) ) {
 		return;
 	}
-	$ga_id = tts_get_option( 'tts_ga_id' );
+	$ga_id = drumstudy_get_option( 'drumstudy_ga_id' );
 	if ( ! $ga_id ) {
 		return;
 	}
@@ -183,13 +183,13 @@ function tts_ga_head(): void {
 		esc_attr( $ga_id )
 	);
 }
-add_action( 'wp_head', 'tts_ga_head', 3 );
+add_action( 'wp_head', 'drumstudy_ga_head', 3 );
 
 /**
  * Facebook Pixel.
  */
-function tts_pixel_head(): void {
-	$pixel_id = tts_get_option( 'tts_pixel_id' );
+function drumstudy_pixel_head(): void {
+	$pixel_id = drumstudy_get_option( 'drumstudy_pixel_id' );
 	if ( ! $pixel_id ) {
 		return;
 	}
@@ -198,14 +198,14 @@ function tts_pixel_head(): void {
 		esc_attr( $pixel_id )
 	);
 }
-add_action( 'wp_head', 'tts_pixel_head', 4 );
+add_action( 'wp_head', 'drumstudy_pixel_head', 4 );
 
 /**
  * GTM noscript — must fire immediately after <body> opens.
  * Called from header.php via wp_body_open().
  */
-function tts_gtm_body(): void {
-	$gtm_id = tts_get_option( 'tts_gtm_id' );
+function drumstudy_gtm_body(): void {
+	$gtm_id = drumstudy_get_option( 'drumstudy_gtm_id' );
 	if ( ! $gtm_id ) {
 		return;
 	}
@@ -214,14 +214,14 @@ function tts_gtm_body(): void {
 		esc_attr( $gtm_id )
 	);
 }
-add_action( 'wp_body_open', 'tts_gtm_body' );
+add_action( 'wp_body_open', 'drumstudy_gtm_body' );
 
 // ── Schema.org (JSON-LD) ─────────────────────────────────────────────────────
 
 add_action(
 	'wp_head',
 	function (): void {
-		$schema = tts_build_schema();
+		$schema = drumstudy_build_schema();
 		if ( empty( $schema ) ) {
 			return;
 		}
@@ -237,20 +237,20 @@ add_action(
  *
  * @return array<string, mixed>
  */
-function tts_build_schema(): array {
-	$business_name = tts_get_option( 'tts_business_name' ) ?: get_bloginfo( 'name' );
-	$phone         = tts_get_option( 'tts_phone' );
-	$email         = tts_get_option( 'tts_email' );
-	$address_1     = tts_get_option( 'tts_address_1' );
-	$city          = tts_get_option( 'tts_city' );
-	$state         = tts_get_option( 'tts_state' );
-	$postal        = tts_get_option( 'tts_postal' );
-	$country       = tts_get_option( 'tts_country' );
-	$social_links  = array_values( tts_social_links() );
+function drumstudy_build_schema(): array {
+	$business_name = drumstudy_get_option( 'drumstudy_business_name' ) ?: get_bloginfo( 'name' );
+	$phone         = drumstudy_get_option( 'drumstudy_phone' );
+	$email         = drumstudy_get_option( 'drumstudy_email' );
+	$address_1     = drumstudy_get_option( 'drumstudy_address_1' );
+	$city          = drumstudy_get_option( 'drumstudy_city' );
+	$state         = drumstudy_get_option( 'drumstudy_state' );
+	$postal        = drumstudy_get_option( 'drumstudy_postal' );
+	$country       = drumstudy_get_option( 'drumstudy_country' );
+	$social_links  = array_values( drumstudy_social_links() );
 
 	// Logo
 	$logo_url = '';
-	$logo_id  = absint( tts_get_option( 'tts_logo' ) );
+	$logo_id  = absint( drumstudy_get_option( 'drumstudy_logo' ) );
 	if ( $logo_id ) {
 		$src = wp_get_attachment_image_src( $logo_id, 'full' );
 		if ( $src ) {
@@ -259,7 +259,7 @@ function tts_build_schema(): array {
 	}
 
 	// Base org type by profile
-	$profile  = tts_get_profile();
+	$profile  = drumstudy_get_profile();
 	$org_type = match ( $profile ) {
 		'community' => 'NGO',
 		'local'     => 'LocalBusiness',
@@ -306,7 +306,7 @@ function tts_build_schema(): array {
 	}
 
 	// Single event schema
-	if ( is_singular( 'tts_event' ) ) {
+	if ( is_singular( 'drumstudy_event' ) ) {
 		$event_date = get_post_meta( get_the_ID(), 'event_date', true );
 		$event_time = get_post_meta( get_the_ID(), 'event_time', true );
 		$ticket_url = get_post_meta( get_the_ID(), 'ticket_url', true );
@@ -343,9 +343,9 @@ function tts_build_schema(): array {
 add_filter(
 	'wp_sitemaps_post_types',
 	function ( array $post_types ): array {
-		unset( $post_types['tts_gallery'] );
-		unset( $post_types['tts_testimonial'] );
-		unset( $post_types['tts_faq'] );
+		unset( $post_types['drumstudy_gallery'] );
+		unset( $post_types['drumstudy_testim'] );
+		unset( $post_types['drumstudy_faq'] );
 		return $post_types;
 	}
 );
@@ -373,14 +373,14 @@ add_filter(
 add_action(
 	'init',
 	function (): void {
-		add_rewrite_rule( '^llms\.txt$', 'index.php?tts_llms_txt=1', 'top' );
+		add_rewrite_rule( '^llms\.txt$', 'index.php?drumstudy_llms_txt=1', 'top' );
 	}
 );
 
 add_filter(
 	'query_vars',
 	function ( array $vars ): array {
-		$vars[] = 'tts_llms_txt';
+		$vars[] = 'drumstudy_llms_txt';
 		return $vars;
 	}
 );
@@ -388,20 +388,20 @@ add_filter(
 add_action(
 	'template_redirect',
 	function (): void {
-		if ( ! get_query_var( 'tts_llms_txt' ) ) {
+		if ( ! get_query_var( 'drumstudy_llms_txt' ) ) {
 			return;
 		}
 
-		$business_name = tts_get_option( 'tts_business_name' ) ?: get_bloginfo( 'name' );
-		$tagline       = tts_get_option( 'tts_tagline' );
-		$phone         = tts_get_option( 'tts_phone' );
-		$email         = tts_get_option( 'tts_email' );
-		$address_1     = tts_get_option( 'tts_address_1' );
-		$city          = tts_get_option( 'tts_city' );
-		$state         = tts_get_option( 'tts_state' );
+		$business_name = drumstudy_get_option( 'drumstudy_business_name' ) ?: get_bloginfo( 'name' );
+		$tagline       = drumstudy_get_option( 'drumstudy_tagline' );
+		$phone         = drumstudy_get_option( 'drumstudy_phone' );
+		$email         = drumstudy_get_option( 'drumstudy_email' );
+		$address_1     = drumstudy_get_option( 'drumstudy_address_1' );
+		$city          = drumstudy_get_option( 'drumstudy_city' );
+		$state         = drumstudy_get_option( 'drumstudy_state' );
 
 		$services_query = new WP_Query( [
-			'post_type'      => 'tts_service',
+			'post_type'      => 'drumstudy_service',
 			'posts_per_page' => -1,
 			'no_found_rows'  => true,
 			'fields'         => 'ids',

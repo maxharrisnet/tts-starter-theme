@@ -5,7 +5,7 @@
  * Profile-aware section inclusion. Profile conditionals are only allowed here
  * and in hero.php.
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 get_template_part( 'template-parts/global/header' );
@@ -19,17 +19,20 @@ get_template_part( 'template-parts/global/header' );
 	get_template_part( 'template-parts/sections/stats' );
 
 	// Profile-aware section order.
-	$profile = tts_get_profile();
+	$profile = drumstudy_get_profile();
 
 	switch ( $profile ) {
 
 		case 'booking':
-			get_template_part( 'template-parts/sections/booking-embed' );
-			get_template_part( 'template-parts/sections/services' );
 			get_template_part( 'template-parts/sections/team' );
+			get_template_part( 'template-parts/sections/services' );
+			get_template_part( 'template-parts/sections/intro' );
+			get_template_part( 'template-parts/sections/booking-embed' );
+			get_template_part( 'template-parts/sections/gallery' );
 			get_template_part( 'template-parts/sections/testimonials' );
-			get_template_part( 'template-parts/sections/hours-location' );
 			get_template_part( 'template-parts/sections/faqs' );
+			get_template_part( 'template-parts/sections/gear-guide' );
+			get_template_part( 'template-parts/sections/hours-location' );
 			break;
 
 		case 'local':

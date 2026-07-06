@@ -2,7 +2,7 @@
 /**
  * Card: Press Item
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 $post_id      = get_the_ID();
@@ -52,8 +52,8 @@ $outlet_name = get_the_title();
 				   target="_blank"
 				   rel="noopener noreferrer"
 				   class="tts-btn tts-btn--secondary"
-				   aria-label="<?php printf( esc_attr__( 'Read article in %s', 'tts-theme' ), $outlet_name ); ?>">
-					<?php esc_html_e( 'Read Article', 'tts-theme' ); ?>
+				   aria-label="<?php printf( esc_attr__( 'Read article in %s', 'drumstudy' ), $outlet_name ); ?>">
+					<?php esc_html_e( 'Read Article', 'drumstudy' ); ?>
 				</a>
 			<?php endif; ?>
 		</div>

@@ -3,9 +3,9 @@
  * Asset Enqueuing
  *
  * Loads compiled Vite assets in production (via manifest.json) and
- * the Vite dev server in development (TTS_DEV constant).
+ * the Vite dev server in development (DRUMSTUDY_DEV constant).
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -15,10 +15,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Enqueue front-end styles and scripts.
  */
-function tts_enqueue_assets(): void {
-	$manifest_path = TTS_THEME_DIR . '/assets/dist/manifest.json';
+function drumstudy_enqueue_assets(): void {
+	$manifest_path = DRUMSTUDY_THEME_DIR . '/assets/dist/.vite/manifest.json';
 
-	if ( defined( 'TTS_DEV' ) && TTS_DEV ) {
+	if ( defined( 'DRUMSTUDY_DEV' ) && DRUMSTUDY_DEV ) {
 		// Development: load directly from Vite dev server.
 		wp_enqueue_style(
 			'tts-main',
@@ -45,20 +45,20 @@ function tts_enqueue_assets(): void {
 
 		wp_enqueue_style(
 			'tts-main',
-			TTS_THEME_URI . '/assets/dist/' . $css_file,
+			DRUMSTUDY_THEME_URI . '/assets/dist/' . $css_file,
 			[],
-			TTS_THEME_VERSION
+			DRUMSTUDY_THEME_VERSION
 		);
 		wp_enqueue_script(
 			'tts-app',
-			TTS_THEME_URI . '/assets/dist/' . $js_file,
+			DRUMSTUDY_THEME_URI . '/assets/dist/' . $js_file,
 			[],
-			TTS_THEME_VERSION,
+			DRUMSTUDY_THEME_VERSION,
 			true
 		);
 	}
 }
-add_action( 'wp_enqueue_scripts', 'tts_enqueue_assets' );
+add_action( 'wp_enqueue_scripts', 'drumstudy_enqueue_assets' );
 
 /**
  * Enqueue admin styles and scripts.
@@ -66,15 +66,15 @@ add_action( 'wp_enqueue_scripts', 'tts_enqueue_assets' );
  *
  * @param string $hook Current admin page hook suffix.
  */
-function tts_enqueue_admin_assets( string $hook ): void {
-	$allowed_hooks = [ 'post.php', 'post-new.php', 'settings_page_tts-options' ];
+function drumstudy_enqueue_admin_assets( string $hook ): void {
+	$allowed_hooks = [ 'post.php', 'post-new.php', 'settings_page_drumstudy-options' ];
 	if ( ! in_array( $hook, $allowed_hooks, true ) ) {
 		return;
 	}
 
-	$manifest_path = TTS_THEME_DIR . '/assets/dist/manifest.json';
+	$manifest_path = DRUMSTUDY_THEME_DIR . '/assets/dist/.vite/manifest.json';
 
-	if ( defined( 'TTS_DEV' ) && TTS_DEV ) {
+	if ( defined( 'DRUMSTUDY_DEV' ) && DRUMSTUDY_DEV ) {
 		wp_enqueue_style(
 			'tts-admin',
 			'http://localhost:5173/assets/src/admin.css', // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
@@ -100,17 +100,17 @@ function tts_enqueue_admin_assets( string $hook ): void {
 		if ( isset( $manifest['assets/src/admin.css'] ) ) {
 			wp_enqueue_style(
 				'tts-admin',
-				TTS_THEME_URI . '/assets/dist/' . $css_file,
+				DRUMSTUDY_THEME_URI . '/assets/dist/' . $css_file,
 				[],
-				TTS_THEME_VERSION
+				DRUMSTUDY_THEME_VERSION
 			);
 		}
 
 		wp_enqueue_script(
 			'tts-admin',
-			TTS_THEME_URI . '/assets/dist/' . $js_file,
+			DRUMSTUDY_THEME_URI . '/assets/dist/' . $js_file,
 			[],
-			TTS_THEME_VERSION,
+			DRUMSTUDY_THEME_VERSION,
 			true
 		);
 	}
@@ -118,4 +118,4 @@ function tts_enqueue_admin_assets( string $hook ): void {
 	// Media uploader support for image and file fields.
 	wp_enqueue_media();
 }
-add_action( 'admin_enqueue_scripts', 'tts_enqueue_admin_assets' );
+add_action( 'admin_enqueue_scripts', 'drumstudy_enqueue_admin_assets' );

@@ -2,11 +2,11 @@
 /**
  * Section: Video / Demo
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 $query = new WP_Query( [
-	'post_type'      => 'tts_demo',
+	'post_type'      => 'drumstudy_demo',
 	'posts_per_page' => 3,
 	'no_found_rows'  => true,
 ] );
@@ -19,7 +19,7 @@ if ( ! $query->have_posts() ) {
 	<div class="tts-container">
 		<div class="tts-section-heading">
 			<h2 id="demos-heading" class="tts-section-heading__title">
-				<?php esc_html_e( 'See It in Action', 'tts-theme' ); ?>
+				<?php esc_html_e( 'See It in Action', 'drumstudy' ); ?>
 			</h2>
 		</div>
 

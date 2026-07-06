@@ -5,7 +5,7 @@
  * Pass $args['meta_key'] to specify which meta field to read.
  * Falls back to 'home_embed_block' if not specified.
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 $meta_key = $args['meta_key'] ?? 'home_embed_block';
@@ -18,6 +18,6 @@ if ( ! $embed ) {
 ?>
 <div class="tts-embed-block tts-section tts-section--sm">
 	<div class="tts-container-prose">
-		<?php echo tts_render_embed( $embed ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+		<?php echo drumstudy_render_embed( $embed ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 	</div>
 </div>

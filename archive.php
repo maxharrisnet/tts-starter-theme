@@ -2,7 +2,7 @@
 /**
  * Archive: Native Posts (Updates / News)
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 get_template_part( 'template-parts/global/header' );
@@ -17,11 +17,11 @@ get_template_part( 'template-parts/global/header' );
 					if ( is_category() ) {
 						echo esc_html( single_cat_title( '', false ) );
 					} elseif ( is_tag() ) {
-						printf( esc_html__( 'Tag: %s', 'tts-theme' ), single_tag_title( '', false ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						printf( esc_html__( 'Tag: %s', 'drumstudy' ), single_tag_title( '', false ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					} elseif ( is_post_type_archive() ) {
 						post_type_archive_title();
 					} else {
-						esc_html_e( 'Updates', 'tts-theme' );
+						esc_html_e( 'Updates', 'drumstudy' );
 					}
 					?>
 				</h1>
@@ -39,7 +39,7 @@ get_template_part( 'template-parts/global/header' );
 				</div>
 				<?php get_template_part( 'template-parts/global/pagination' ); ?>
 			<?php else : ?>
-				<p class="py-12 text-center"><?php esc_html_e( 'No posts found.', 'tts-theme' ); ?></p>
+				<p class="py-12 text-center"><?php esc_html_e( 'No posts found.', 'drumstudy' ); ?></p>
 			<?php endif; ?>
 		</div>
 	</section>

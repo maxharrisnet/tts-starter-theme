@@ -2,7 +2,7 @@
 /**
  * Template Name: About
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 get_template_part( 'template-parts/global/header' );
@@ -21,12 +21,12 @@ $values_headline      = get_post_meta( $post_id, 'about_values_headline', true )
 			<div class="flex flex-col md:flex-row gap-12 items-start">
 				<div class="w-full md:w-1/2">
 					<h1 id="about-heading">
-						<?php echo esc_html( $headline ?: tts_placeholder( 'About Headline' ) ); ?>
+						<?php echo esc_html( $headline ?: drumstudy_placeholder( 'About Headline' ) ); ?>
 					</h1>
 					<?php if ( $story ) : ?>
 						<div class="tts-prose"><?php echo wp_kses_post( wpautop( $story ) ); ?></div>
 					<?php else : ?>
-						<p><?php echo esc_html( tts_placeholder( 'About Story' ) ); ?></p>
+						<p><?php echo esc_html( drumstudy_placeholder( 'About Story' ) ); ?></p>
 					<?php endif; ?>
 				</div>
 

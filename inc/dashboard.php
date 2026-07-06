@@ -5,7 +5,7 @@
  * Removes unnecessary WP defaults.
  * Adds: Site Overview, Content Status, Setup Checklist.
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Register custom dashboard widgets and remove unused defaults.
  */
-function tts_setup_dashboard(): void {
+function drumstudy_setup_dashboard(): void {
 	remove_meta_box( 'dashboard_quick_press',   'dashboard', 'side' );
 	remove_meta_box( 'dashboard_primary',        'dashboard', 'side' );
 	remove_meta_box( 'dashboard_secondary',      'dashboard', 'side' );
@@ -27,56 +27,56 @@ function tts_setup_dashboard(): void {
 	remove_meta_box( 'dashboard_recent_drafts',  'dashboard', 'side' );
 
 	wp_add_dashboard_widget(
-		'tts_welcome',
-		__( 'Site Overview', 'tts-theme' ),
-		'tts_dashboard_welcome'
+		'drumstudy_welcome',
+		__( 'Site Overview', 'drumstudy' ),
+		'drumstudy_dashboard_welcome'
 	);
 	wp_add_dashboard_widget(
-		'tts_status',
-		__( 'Content Status', 'tts-theme' ),
-		'tts_dashboard_status'
+		'drumstudy_status',
+		__( 'Content Status', 'drumstudy' ),
+		'drumstudy_dashboard_status'
 	);
 	wp_add_dashboard_widget(
-		'tts_checklist',
-		__( 'Setup Checklist', 'tts-theme' ),
-		'tts_dashboard_checklist'
+		'drumstudy_checklist',
+		__( 'Setup Checklist', 'drumstudy' ),
+		'drumstudy_dashboard_checklist'
 	);
 }
-add_action( 'wp_dashboard_setup', 'tts_setup_dashboard' );
+add_action( 'wp_dashboard_setup', 'drumstudy_setup_dashboard' );
 
 // ── Widget: Site Overview ─────────────────────────────────────────────────────
 
 /**
  * Render the Site Overview widget.
  */
-function tts_dashboard_welcome(): void {
-	$profile       = tts_get_profile();
-	$business_name = tts_get_option( 'tts_business_name' ) ?: get_bloginfo( 'name' );
-	$options_url   = admin_url( 'options-general.php?page=tts-options' );
+function drumstudy_dashboard_welcome(): void {
+	$profile       = drumstudy_get_profile();
+	$business_name = drumstudy_get_option( 'drumstudy_business_name' ) ?: get_bloginfo( 'name' );
+	$options_url   = admin_url( 'options-general.php?page=drumstudy-options' );
 
 	$profile_labels = [
-		'booking'   => __( 'Booking', 'tts-theme' ),
-		'local'     => __( 'Local Business', 'tts-theme' ),
-		'creative'  => __( 'Creative', 'tts-theme' ),
-		'venture'   => __( 'Venture', 'tts-theme' ),
-		'sales'     => __( 'Sales', 'tts-theme' ),
-		'events'    => __( 'Events', 'tts-theme' ),
-		'directory' => __( 'Directory', 'tts-theme' ),
-		'community' => __( 'Community', 'tts-theme' ),
+		'booking'   => __( 'Booking', 'drumstudy' ),
+		'local'     => __( 'Local Business', 'drumstudy' ),
+		'creative'  => __( 'Creative', 'drumstudy' ),
+		'venture'   => __( 'Venture', 'drumstudy' ),
+		'sales'     => __( 'Sales', 'drumstudy' ),
+		'events'    => __( 'Events', 'drumstudy' ),
+		'directory' => __( 'Directory', 'drumstudy' ),
+		'community' => __( 'Community', 'drumstudy' ),
 	];
 	$profile_label = $profile_labels[ $profile ] ?? ucfirst( $profile );
 	?>
 	<p>
 		<strong><?php echo esc_html( $business_name ); ?></strong>
-		&mdash; <?php echo esc_html( $profile_label ); ?> <?php esc_html_e( 'profile', 'tts-theme' ); ?>
+		&mdash; <?php echo esc_html( $profile_label ); ?> <?php esc_html_e( 'profile', 'drumstudy' ); ?>
 	</p>
 	<p style="margin-top:0.75em;">
 		<a href="<?php echo esc_url( $options_url ); ?>" class="button button-primary">
-			<?php esc_html_e( 'Site Settings', 'tts-theme' ); ?>
+			<?php esc_html_e( 'Site Settings', 'drumstudy' ); ?>
 		</a>
 		&nbsp;
 		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" target="_blank" rel="noopener" class="button">
-			<?php esc_html_e( 'View Site', 'tts-theme' ); ?>
+			<?php esc_html_e( 'View Site', 'drumstudy' ); ?>
 		</a>
 	</p>
 	<hr style="margin:1em 0;">
@@ -84,8 +84,8 @@ function tts_dashboard_welcome(): void {
 		<?php
 		printf(
 			/* translators: 1: link open, 2: link close */
-			esc_html__( 'Content is managed via %1$sContent menu%2$s. Layout is controlled by the developer.', 'tts-theme' ),
-			'<a href="' . esc_url( admin_url( 'edit.php?post_type=tts_service' ) ) . '">',
+			esc_html__( 'Content is managed via %1$sContent menu%2$s. Layout is controlled by the developer.', 'drumstudy' ),
+			'<a href="' . esc_url( admin_url( 'edit.php?post_type=drumstudy_service' ) ) . '">',
 			'</a>'
 		);
 		?>
@@ -98,18 +98,18 @@ function tts_dashboard_welcome(): void {
 /**
  * Render the Content Status widget — counts per CPT.
  */
-function tts_dashboard_status(): void {
+function drumstudy_dashboard_status(): void {
 	$cpts = [
-		'tts_service'     => __( 'Services', 'tts-theme' ),
-		'tts_testimonial' => __( 'Testimonials', 'tts-theme' ),
-		'tts_team'        => __( 'Team Members', 'tts-theme' ),
-		'tts_gallery'     => __( 'Gallery Items', 'tts-theme' ),
-		'tts_faq'         => __( 'FAQs', 'tts-theme' ),
-		'tts_event'       => __( 'Events', 'tts-theme' ),
-		'tts_location'    => __( 'Locations', 'tts-theme' ),
-		'tts_press'       => __( 'Press Items', 'tts-theme' ),
-		'tts_demo'        => __( 'Demo / Video', 'tts-theme' ),
-		'post'            => __( 'Updates', 'tts-theme' ),
+		'drumstudy_service'     => __( 'Services', 'drumstudy' ),
+		'drumstudy_testim'      => __( 'Testimonials', 'drumstudy' ),
+		'drumstudy_team'        => __( 'Team Members', 'drumstudy' ),
+		'drumstudy_gallery'     => __( 'Gallery Items', 'drumstudy' ),
+		'drumstudy_faq'         => __( 'FAQs', 'drumstudy' ),
+		'drumstudy_event'       => __( 'Events', 'drumstudy' ),
+		'drumstudy_location'    => __( 'Locations', 'drumstudy' ),
+		'drumstudy_press'       => __( 'Press Items', 'drumstudy' ),
+		'drumstudy_demo'        => __( 'Demo / Video', 'drumstudy' ),
+		'post'            => __( 'Updates', 'drumstudy' ),
 	];
 
 	echo '<table style="width:100%; border-collapse:collapse;">';
@@ -134,54 +134,54 @@ function tts_dashboard_status(): void {
 /**
  * Render the Setup Checklist widget.
  */
-function tts_dashboard_checklist(): void {
-	$options_url = admin_url( 'options-general.php?page=tts-options' );
+function drumstudy_dashboard_checklist(): void {
+	$options_url = admin_url( 'options-general.php?page=drumstudy-options' );
 	$menus_url   = admin_url( 'nav-menus.php' );
 
 	$items = [
 		[
-			'done'  => tts_has_option( 'tts_site_profile' ),
-			'label' => __( 'Site profile selected', 'tts-theme' ),
+			'done'  => drumstudy_has_option( 'drumstudy_site_profile' ),
+			'label' => __( 'Site profile selected', 'drumstudy' ),
 			'link'  => $options_url,
 		],
 		[
-			'done'  => tts_has_option( 'tts_logo' ),
-			'label' => __( 'Logo uploaded', 'tts-theme' ),
+			'done'  => drumstudy_has_option( 'drumstudy_logo' ),
+			'label' => __( 'Logo uploaded', 'drumstudy' ),
 			'link'  => $options_url,
 		],
 		[
-			'done'  => tts_has_option( 'tts_business_name' ),
-			'label' => __( 'Business name set', 'tts-theme' ),
+			'done'  => drumstudy_has_option( 'drumstudy_business_name' ),
+			'label' => __( 'Business name set', 'drumstudy' ),
 			'link'  => $options_url,
 		],
 		[
-			'done'  => tts_has_option( 'tts_color_primary' ),
-			'label' => __( 'Brand colors set', 'tts-theme' ),
+			'done'  => drumstudy_has_option( 'drumstudy_color_primary' ),
+			'label' => __( 'Brand colors set', 'drumstudy' ),
 			'link'  => $options_url,
 		],
 		[
-			'done'  => tts_has_option( 'tts_cta_primary_label' ),
-			'label' => __( 'Primary CTA configured', 'tts-theme' ),
+			'done'  => drumstudy_has_option( 'drumstudy_cta_primary_label' ),
+			'label' => __( 'Primary CTA configured', 'drumstudy' ),
 			'link'  => $options_url,
 		],
 		[
 			'done'  => has_nav_menu( 'primary' ),
-			'label' => __( 'Primary menu assigned', 'tts-theme' ),
+			'label' => __( 'Primary menu assigned', 'drumstudy' ),
 			'link'  => $menus_url,
 		],
 		[
 			'done'  => has_nav_menu( 'footer' ),
-			'label' => __( 'Footer menu assigned', 'tts-theme' ),
+			'label' => __( 'Footer menu assigned', 'drumstudy' ),
 			'link'  => $menus_url,
 		],
 		[
-			'done'  => (int) wp_count_posts( 'tts_service' )->publish > 0,
-			'label' => __( 'At least one Service added', 'tts-theme' ),
-			'link'  => admin_url( 'edit.php?post_type=tts_service' ),
+			'done'  => (int) wp_count_posts( 'drumstudy_service' )->publish > 0,
+			'label' => __( 'At least one Service added', 'drumstudy' ),
+			'link'  => admin_url( 'edit.php?post_type=drumstudy_service' ),
 		],
 		[
-			'done'  => ! tts_maintenance_active(),
-			'label' => __( 'Maintenance mode OFF', 'tts-theme' ),
+			'done'  => ! drumstudy_maintenance_active(),
+			'label' => __( 'Maintenance mode OFF', 'drumstudy' ),
 			'link'  => $options_url,
 		],
 	];
@@ -193,7 +193,7 @@ function tts_dashboard_checklist(): void {
 		'<p style="margin-bottom:0.75em; font-size:0.875rem; color:#666;">%d / %d %s</p>',
 		$done_count,
 		$total_count,
-		esc_html__( 'items complete', 'tts-theme' )
+		esc_html__( 'items complete', 'drumstudy' )
 	);
 
 	echo '<ul style="margin:0; padding:0; list-style:none;">';

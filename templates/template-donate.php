@@ -2,7 +2,7 @@
 /**
  * Template Name: Donate
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 get_template_part( 'template-parts/global/header' );
@@ -28,7 +28,7 @@ for ( $i = 1; $i <= 3; $i++ ) {
 		<div class="tts-container">
 			<div class="tts-section-heading">
 				<h1 id="donate-heading" class="tts-section-heading__title">
-					<?php echo esc_html( $headline ?: tts_placeholder( 'Donate Headline' ) ); ?>
+					<?php echo esc_html( $headline ?: drumstudy_placeholder( 'Donate Headline' ) ); ?>
 				</h1>
 				<?php if ( $subheadline ) : ?>
 					<p class="tts-section-heading__sub"><?php echo esc_html( $subheadline ); ?></p>
@@ -56,11 +56,11 @@ for ( $i = 1; $i <= 3; $i++ ) {
 
 			<?php if ( $embed ) : ?>
 				<div class="tts-embed-block">
-					<?php echo tts_render_embed( $embed ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					<?php echo drumstudy_render_embed( $embed ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				</div>
 			<?php else : ?>
 				<div class="tts-embed-block">
-					<p><?php echo esc_html( tts_placeholder( 'Donation Platform Embed' ) ); ?></p>
+					<p><?php echo esc_html( drumstudy_placeholder( 'Donation Platform Embed' ) ); ?></p>
 				</div>
 			<?php endif; ?>
 		</div>

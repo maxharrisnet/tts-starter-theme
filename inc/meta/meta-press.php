@@ -1,10 +1,10 @@
 <?php
 /**
- * Meta Boxes: tts_press
+ * Meta Boxes: drumstudy_press
  *
  * Fields: article_url, publish_date, outlet_logo (ID), pull_quote
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -15,10 +15,10 @@ add_action(
 	'add_meta_boxes',
 	function (): void {
 		add_meta_box(
-			'tts_press_meta',
-			__( 'Press Item Details', 'tts-theme' ),
-			'tts_press_meta_cb',
-			'tts_press',
+			'drumstudy_press_meta',
+			__( 'Press Item Details', 'drumstudy' ),
+			'drumstudy_press_meta_cb',
+			'drumstudy_press',
 			'normal',
 			'high'
 		);
@@ -30,8 +30,8 @@ add_action(
  *
  * @param WP_Post $post Current post.
  */
-function tts_press_meta_cb( WP_Post $post ): void {
-	wp_nonce_field( 'tts_save_press_meta', 'tts_press_nonce' );
+function drumstudy_press_meta_cb( WP_Post $post ): void {
+	wp_nonce_field( 'drumstudy_save_press_meta', 'drumstudy_press_nonce' );
 
 	$article_url  = get_post_meta( $post->ID, 'article_url', true );
 	$publish_date = get_post_meta( $post->ID, 'publish_date', true );
@@ -39,32 +39,32 @@ function tts_press_meta_cb( WP_Post $post ): void {
 	$pull_quote   = get_post_meta( $post->ID, 'pull_quote', true );
 	$img_preview  = $img_id ? wp_get_attachment_image( $img_id, 'tts-logo' ) : '';
 	?>
-	<p class="description"><?php esc_html_e( 'Post title = outlet name. Post content = article headline.', 'tts-theme' ); ?></p>
+	<p class="description"><?php esc_html_e( 'Post title = outlet name. Post content = article headline.', 'drumstudy' ); ?></p>
 	<div class="tts-meta-grid">
 		<div class="tts-meta-row">
-			<label for="article_url" class="tts-meta-label"><?php esc_html_e( 'Article URL', 'tts-theme' ); ?></label>
+			<label for="article_url" class="tts-meta-label"><?php esc_html_e( 'Article URL', 'drumstudy' ); ?></label>
 			<input type="url" id="article_url" name="article_url" value="<?php echo esc_attr( $article_url ); ?>" class="widefat" />
-			<p class="description"><?php esc_html_e( 'Where it appears: Press logo links to this article.', 'tts-theme' ); ?></p>
+			<p class="description"><?php esc_html_e( 'Where it appears: Press logo links to this article.', 'drumstudy' ); ?></p>
 		</div>
 		<div class="tts-meta-row">
-			<label for="publish_date" class="tts-meta-label"><?php esc_html_e( 'Publish Date', 'tts-theme' ); ?></label>
+			<label for="publish_date" class="tts-meta-label"><?php esc_html_e( 'Publish Date', 'drumstudy' ); ?></label>
 			<input type="date" id="publish_date" name="publish_date" value="<?php echo esc_attr( $publish_date ); ?>" class="widefat" />
-			<p class="description"><?php esc_html_e( 'Where it appears: Date shown on press card.', 'tts-theme' ); ?></p>
+			<p class="description"><?php esc_html_e( 'Where it appears: Date shown on press card.', 'drumstudy' ); ?></p>
 		</div>
 		<div class="tts-meta-row">
-			<label class="tts-meta-label"><?php esc_html_e( 'Outlet Logo', 'tts-theme' ); ?></label>
+			<label class="tts-meta-label"><?php esc_html_e( 'Outlet Logo', 'drumstudy' ); ?></label>
 			<input type="hidden" id="outlet_logo" name="outlet_logo" value="<?php echo esc_attr( (string) $img_id ); ?>" />
 			<div id="outlet_logo_preview" class="tts-image-preview"><?php echo $img_preview; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
-			<button type="button" class="button tts-media-upload-btn" data-field="outlet_logo" data-preview="outlet_logo_preview"><?php esc_html_e( 'Select Logo', 'tts-theme' ); ?></button>
+			<button type="button" class="button tts-media-upload-btn" data-field="outlet_logo" data-preview="outlet_logo_preview"><?php esc_html_e( 'Select Logo', 'drumstudy' ); ?></button>
 			<?php if ( $img_id ) : ?>
-				<button type="button" class="button tts-media-remove-btn" data-field="outlet_logo" data-preview="outlet_logo_preview"><?php esc_html_e( 'Remove', 'tts-theme' ); ?></button>
+				<button type="button" class="button tts-media-remove-btn" data-field="outlet_logo" data-preview="outlet_logo_preview"><?php esc_html_e( 'Remove', 'drumstudy' ); ?></button>
 			<?php endif; ?>
-			<p class="description"><?php esc_html_e( 'Where it appears: Press logo bar and press card.', 'tts-theme' ); ?></p>
+			<p class="description"><?php esc_html_e( 'Where it appears: Press logo bar and press card.', 'drumstudy' ); ?></p>
 		</div>
 		<div class="tts-meta-row tts-meta-row--full">
-			<label for="pull_quote" class="tts-meta-label"><?php esc_html_e( 'Pull Quote', 'tts-theme' ); ?></label>
+			<label for="pull_quote" class="tts-meta-label"><?php esc_html_e( 'Pull Quote', 'drumstudy' ); ?></label>
 			<textarea id="pull_quote" name="pull_quote" rows="3" class="widefat"><?php echo esc_textarea( $pull_quote ); ?></textarea>
-			<p class="description"><?php esc_html_e( 'Where it appears: Excerpt displayed on the press card. Optional.', 'tts-theme' ); ?></p>
+			<p class="description"><?php esc_html_e( 'Where it appears: Excerpt displayed on the press card. Optional.', 'drumstudy' ); ?></p>
 		</div>
 	</div>
 	<?php
@@ -75,14 +75,14 @@ function tts_press_meta_cb( WP_Post $post ): void {
  *
  * @param int $post_id Post ID.
  */
-function tts_save_press_meta( int $post_id ): void {
-	if ( ! isset( $_POST['tts_press_nonce'] )
-		|| ! wp_verify_nonce( sanitize_key( $_POST['tts_press_nonce'] ), 'tts_save_press_meta' ) ) {
+function drumstudy_save_press_meta( int $post_id ): void {
+	if ( ! isset( $_POST['drumstudy_press_nonce'] )
+		|| ! wp_verify_nonce( sanitize_key( $_POST['drumstudy_press_nonce'] ), 'drumstudy_save_press_meta' ) ) {
 		return;
 	}
 	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
 	if ( ! current_user_can( 'edit_post', $post_id ) ) return;
-	if ( 'tts_press' !== get_post_type( $post_id ) ) return;
+	if ( 'drumstudy_press' !== get_post_type( $post_id ) ) return;
 
 	if ( isset( $_POST['article_url'] ) ) {
 		update_post_meta( $post_id, 'article_url', esc_url_raw( wp_unslash( $_POST['article_url'] ) ) );
@@ -97,12 +97,12 @@ function tts_save_press_meta( int $post_id ): void {
 		update_post_meta( $post_id, 'pull_quote', wp_kses_post( wp_unslash( $_POST['pull_quote'] ) ) );
 	}
 }
-add_action( 'save_post', 'tts_save_press_meta' );
+add_action( 'save_post', 'drumstudy_save_press_meta' );
 
 add_filter(
-	'tts_image_meta_keys',
+	'drumstudy_image_meta_keys',
 	function ( array $keys, int $post_id ): array {
-		if ( 'tts_press' === get_post_type( $post_id ) ) {
+		if ( 'drumstudy_press' === get_post_type( $post_id ) ) {
 			$keys[] = 'outlet_logo';
 		}
 		return $keys;

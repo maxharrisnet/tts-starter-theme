@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="TTS Theme">
-    <description>TTS WordPress Theme coding standards</description>
+<ruleset name="Drum Study Theme">
+    <description>Drum Study WordPress Theme coding standards</description>
 
     <file>.</file>
     <exclude-pattern>*/vendor/*</exclude-pattern>
@@ -19,13 +19,13 @@
     <!-- Theme-specific prefix -->
     <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
         <properties>
-            <property name="prefixes" type="array" value="tts"/>
+            <property name="prefixes" type="array" value="drumstudy"/>
         </properties>
     </rule>
 
     <rule ref="WordPress.WP.I18n">
         <properties>
-            <property name="text_domain" type="array" value="tts-theme"/>
+            <property name="text_domain" type="array" value="drumstudy"/>
         </properties>
     </rule>
 </ruleset>

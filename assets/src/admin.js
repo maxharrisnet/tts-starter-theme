@@ -1,5 +1,5 @@
 /**
- * TTS Theme — Admin JavaScript
+ * Drum Study Theme — Admin JavaScript
  *
  * Handles: options page tab switching, media uploader, meta box visibility.
  */
@@ -100,13 +100,13 @@
 	if ( ! templateSelect ) return;
 
 	const metaBoxMap = {
-		'templates/template-home.php':      [ 'tts_home_meta' ],
-		'templates/template-about.php':     [ 'tts_about_meta' ],
-		'templates/template-contact.php':   [ 'tts_contact_meta' ],
-		'templates/template-features.php':  [ 'tts_features_meta' ],
-		'templates/template-donate.php':    [ 'tts_donate_meta' ],
-		'templates/template-splash.php':    [ 'tts_splash_meta' ],
-		'templates/template-portfolio.php': [ 'tts_portfolio_meta' ],
+		'templates/template-home.php':      [ 'drumstudy_home_meta' ],
+		'templates/template-about.php':     [ 'drumstudy_about_meta' ],
+		'templates/template-contact.php':   [ 'drumstudy_contact_meta' ],
+		'templates/template-features.php':  [ 'drumstudy_features_meta' ],
+		'templates/template-donate.php':    [ 'drumstudy_donate_meta' ],
+		'templates/template-splash.php':    [ 'drumstudy_splash_meta' ],
+		'templates/template-portfolio.php': [ 'drumstudy_portfolio_meta' ],
 	};
 
 	const allBoxIds = Object.values( metaBoxMap ).flat();

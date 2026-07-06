@@ -1348,38 +1348,38 @@ if ( is_page_template( 'templates/template-home.php' ) && tts_is_profile( 'booki
 ### Font pairings by profile
 
 Two curated pairings, assigned as profile defaults in Tab 01. Overridable per site.
-Both loaded via Google Fonts. No fonts below 18px anywhere in the theme.
+Both self-hosted (woff2, latin subset, variable fonts in `assets/fonts/`).
+**Sans-serif only — no serif font may appear in any pairing or fallback stack.**
+No fonts below 18px anywhere in the theme.
 
 | Pairing | Heading Font | Body Font | Profiles |
 |---------|-------------|-----------|---------|
-| A — Editorial | DM Serif Display | Manrope | Booking, Local Business, Sales, Directory |
-| B — Expressive | Zalando Sans SemiExpanded | Figtree | Creative, Venture, Events, Community |
+| A — Editorial | Manrope (700) | Manrope | Booking, Local Business, Sales, Directory |
+| B — Expressive (default) | Archivo (850–900, ALL CAPS) | Manrope | Creative, Venture, Events, Community |
 
 Load via `@font-face` with `font-display: swap`. Preload primary heading font in `<head>`.
 Define in `@theme` block in `main.css`:
 ```css
 @theme {
-  --font-heading-editorial:   'DM Serif Display', ui-serif, Georgia, serif;
+  --font-heading-editorial:   'Manrope', ui-sans-serif, system-ui, sans-serif;
   --font-body-editorial:      'Manrope', ui-sans-serif, system-ui, sans-serif;
-  --font-heading-expressive:  'Zalando Sans SemiExpanded', ui-sans-serif, system-ui, sans-serif;
-  --font-body-expressive:     'Figtree', ui-sans-serif, system-ui, sans-serif;
+  --font-heading-expressive:  'Archivo', ui-sans-serif, system-ui, sans-serif;
+  --font-body-expressive:     'Manrope', ui-sans-serif, system-ui, sans-serif;
 }
 ```
 
 Active pairing output as CSS vars via PHP (same pattern as brand colors):
 ```php
 function tts_output_font_vars(): void {
-    $pairing = tts_get_option( 'tts_font_pairing' ) ?: 'editorial';
+    $pairing = tts_get_option( 'tts_font_pairing' ) ?: 'expressive';
     $headings = $pairing === 'expressive'
-        ? "'Zalando Sans SemiExpanded', ui-sans-serif, system-ui, sans-serif"
-        : "'DM Serif Display', ui-serif, Georgia, serif";
-    $body = $pairing === 'expressive'
-        ? "'Figtree', ui-sans-serif, system-ui, sans-serif"
+        ? "'Archivo', ui-sans-serif, system-ui, sans-serif"
         : "'Manrope', ui-sans-serif, system-ui, sans-serif";
+    $body = "'Manrope', ui-sans-serif, system-ui, sans-serif";
     printf(
         '<style>:root { --tts-font-heading: %s; --tts-font-body: %s; }</style>',
-        esc_attr( $headings ),
-        esc_attr( $body )
+        $headings,   // fixed literals — never esc_attr() inside <style>
+        $body
     );
 }
 add_action( 'wp_head', 'tts_output_font_vars', 1 );

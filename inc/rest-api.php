@@ -5,7 +5,7 @@
  * Used by n8n for intake-to-launch content population.
  * Authentication via WordPress Application Passwords.
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Guard: allow disabling REST endpoints via constant
-if ( defined( 'TTS_REST_API_ENABLED' ) && ! TTS_REST_API_ENABLED ) {
+if ( defined( 'DRUMSTUDY_REST_API_ENABLED' ) && ! DRUMSTUDY_REST_API_ENABLED ) {
 	return;
 }
 
@@ -24,12 +24,12 @@ add_action(
 	function (): void {
 		// Intake: push Admin Options from form data
 		register_rest_route(
-			'tts/v1',
+			'drumstudy/v1',
 			'/intake',
 			[
 				'methods'             => 'POST',
-				'callback'            => 'tts_rest_handle_intake',
-				'permission_callback' => 'tts_rest_can_manage',
+				'callback'            => 'drumstudy_rest_handle_intake',
+				'permission_callback' => 'drumstudy_rest_can_manage',
 				'args'                => [
 					'site_profile'  => [ 'type' => 'string',  'sanitize_callback' => 'sanitize_key' ],
 					'business_name' => [ 'type' => 'string',  'sanitize_callback' => 'sanitize_text_field' ],
@@ -44,21 +44,21 @@ add_action(
 					'country'       => [ 'type' => 'string',  'sanitize_callback' => 'sanitize_text_field' ],
 					'hours'         => [ 'type' => 'string',  'sanitize_callback' => 'sanitize_textarea_field' ],
 					'cta_primary_label'   => [ 'type' => 'string', 'sanitize_callback' => 'sanitize_text_field' ],
-					'cta_primary_url'     => [ 'type' => 'string', 'sanitize_callback' => 'tts_rest_sanitize_url' ],
+					'cta_primary_url'     => [ 'type' => 'string', 'sanitize_callback' => 'drumstudy_rest_sanitize_url' ],
 					'cta_secondary_label' => [ 'type' => 'string', 'sanitize_callback' => 'sanitize_text_field' ],
-					'cta_secondary_url'   => [ 'type' => 'string', 'sanitize_callback' => 'tts_rest_sanitize_url' ],
+					'cta_secondary_url'   => [ 'type' => 'string', 'sanitize_callback' => 'drumstudy_rest_sanitize_url' ],
 				],
 			]
 		);
 
-		// Services: create tts_service CPT entries
+		// Services: create drumstudy_service CPT entries
 		register_rest_route(
-			'tts/v1',
+			'drumstudy/v1',
 			'/services',
 			[
 				'methods'             => 'POST',
-				'callback'            => 'tts_rest_create_service',
-				'permission_callback' => 'tts_rest_can_edit',
+				'callback'            => 'drumstudy_rest_create_service',
+				'permission_callback' => 'drumstudy_rest_can_edit',
 				'args'                => [
 					'title'       => [ 'type' => 'string', 'required' => true,  'sanitize_callback' => 'sanitize_text_field' ],
 					'description' => [ 'type' => 'string', 'sanitize_callback' => 'wp_kses_post' ],
@@ -69,14 +69,14 @@ add_action(
 			]
 		);
 
-		// Team: create tts_team CPT entries
+		// Team: create drumstudy_team CPT entries
 		register_rest_route(
-			'tts/v1',
+			'drumstudy/v1',
 			'/team',
 			[
 				'methods'             => 'POST',
-				'callback'            => 'tts_rest_create_team',
-				'permission_callback' => 'tts_rest_can_edit',
+				'callback'            => 'drumstudy_rest_create_team',
+				'permission_callback' => 'drumstudy_rest_can_edit',
 				'args'                => [
 					'title' => [ 'type' => 'string', 'required' => true,  'sanitize_callback' => 'sanitize_text_field' ],
 					'bio'   => [ 'type' => 'string', 'sanitize_callback' => 'wp_kses_post' ],
@@ -87,14 +87,14 @@ add_action(
 			]
 		);
 
-		// Testimonials: create tts_testimonial CPT entries
+		// Testimonials: create drumstudy_testimonial CPT entries
 		register_rest_route(
-			'tts/v1',
+			'drumstudy/v1',
 			'/testimonials',
 			[
 				'methods'             => 'POST',
-				'callback'            => 'tts_rest_create_testimonial',
-				'permission_callback' => 'tts_rest_can_edit',
+				'callback'            => 'drumstudy_rest_create_testimonial',
+				'permission_callback' => 'drumstudy_rest_can_edit',
 				'args'                => [
 					'quote'       => [ 'type' => 'string', 'required' => true,  'sanitize_callback' => 'sanitize_textarea_field' ],
 					'author_name' => [ 'type' => 'string', 'required' => true,  'sanitize_callback' => 'sanitize_text_field' ],
@@ -114,12 +114,12 @@ add_action(
  *
  * @return bool|WP_Error
  */
-function tts_rest_can_edit() {
+function drumstudy_rest_can_edit() {
 	if ( ! is_user_logged_in() ) {
-		return new WP_Error( 'rest_not_logged_in', __( 'Authentication required.', 'tts-theme' ), [ 'status' => 401 ] );
+		return new WP_Error( 'rest_not_logged_in', __( 'Authentication required.', 'drumstudy' ), [ 'status' => 401 ] );
 	}
 	if ( ! current_user_can( 'edit_posts' ) ) {
-		return new WP_Error( 'rest_forbidden', __( 'Insufficient permissions.', 'tts-theme' ), [ 'status' => 403 ] );
+		return new WP_Error( 'rest_forbidden', __( 'Insufficient permissions.', 'drumstudy' ), [ 'status' => 403 ] );
 	}
 	return true;
 }
@@ -130,12 +130,12 @@ function tts_rest_can_edit() {
  *
  * @return bool|WP_Error
  */
-function tts_rest_can_manage() {
+function drumstudy_rest_can_manage() {
 	if ( ! is_user_logged_in() ) {
-		return new WP_Error( 'rest_not_logged_in', __( 'Authentication required.', 'tts-theme' ), [ 'status' => 401 ] );
+		return new WP_Error( 'rest_not_logged_in', __( 'Authentication required.', 'drumstudy' ), [ 'status' => 401 ] );
 	}
 	if ( ! current_user_can( 'manage_options' ) ) {
-		return new WP_Error( 'rest_forbidden', __( 'Administrator required.', 'tts-theme' ), [ 'status' => 403 ] );
+		return new WP_Error( 'rest_forbidden', __( 'Administrator required.', 'drumstudy' ), [ 'status' => 403 ] );
 	}
 	return true;
 }
@@ -147,7 +147,7 @@ function tts_rest_can_manage() {
  * @param string $url Raw URL value from REST request.
  * @return string Sanitized URL or empty string if invalid.
  */
-function tts_rest_sanitize_url( string $url ): string {
+function drumstudy_rest_sanitize_url( string $url ): string {
 	$url = trim( $url );
 	if ( ! $url ) {
 		return '';
@@ -185,29 +185,29 @@ function tts_rest_sanitize_url( string $url ): string {
 // ── Callbacks ─────────────────────────────────────────────────────────────────
 
 /**
- * Handle /tts/v1/intake — push business data to Admin Options.
+ * Handle /drumstudy/v1/intake — push business data to Admin Options.
  *
  * @param WP_REST_Request $request Request object.
  * @return WP_REST_Response
  */
-function tts_rest_handle_intake( WP_REST_Request $request ): WP_REST_Response {
+function drumstudy_rest_handle_intake( WP_REST_Request $request ): WP_REST_Response {
 	$map = [
-		'site_profile'        => 'tts_site_profile',
-		'business_name'       => 'tts_business_name',
-		'tagline'             => 'tts_tagline',
-		'phone'               => 'tts_phone',
-		'email'               => 'tts_email',
-		'address_1'           => 'tts_address_1',
-		'address_2'           => 'tts_address_2',
-		'city'                => 'tts_city',
-		'state'               => 'tts_state',
-		'postal'              => 'tts_postal',
-		'country'             => 'tts_country',
-		'hours'               => 'tts_hours',
-		'cta_primary_label'   => 'tts_cta_primary_label',
-		'cta_primary_url'     => 'tts_cta_primary_url',
-		'cta_secondary_label' => 'tts_cta_secondary_label',
-		'cta_secondary_url'   => 'tts_cta_secondary_url',
+		'site_profile'        => 'drumstudy_site_profile',
+		'business_name'       => 'drumstudy_business_name',
+		'tagline'             => 'drumstudy_tagline',
+		'phone'               => 'drumstudy_phone',
+		'email'               => 'drumstudy_email',
+		'address_1'           => 'drumstudy_address_1',
+		'address_2'           => 'drumstudy_address_2',
+		'city'                => 'drumstudy_city',
+		'state'               => 'drumstudy_state',
+		'postal'              => 'drumstudy_postal',
+		'country'             => 'drumstudy_country',
+		'hours'               => 'drumstudy_hours',
+		'cta_primary_label'   => 'drumstudy_cta_primary_label',
+		'cta_primary_url'     => 'drumstudy_cta_primary_url',
+		'cta_secondary_label' => 'drumstudy_cta_secondary_label',
+		'cta_secondary_url'   => 'drumstudy_cta_secondary_url',
 	];
 
 	$updated = [];
@@ -229,14 +229,14 @@ function tts_rest_handle_intake( WP_REST_Request $request ): WP_REST_Response {
 }
 
 /**
- * Handle /tts/v1/services — create a Service CPT post.
+ * Handle /drumstudy/v1/services — create a Service CPT post.
  *
  * @param WP_REST_Request $request Request object.
  * @return WP_REST_Response|WP_Error
  */
-function tts_rest_create_service( WP_REST_Request $request ) {
+function drumstudy_rest_create_service( WP_REST_Request $request ) {
 	$post_id = wp_insert_post( [
-		'post_type'    => 'tts_service',
+		'post_type'    => 'drumstudy_service',
 		'post_title'   => $request->get_param( 'title' ),
 		'post_content' => $request->get_param( 'description' ) ?? '',
 		'post_status'  => 'publish',
@@ -265,14 +265,14 @@ function tts_rest_create_service( WP_REST_Request $request ) {
 }
 
 /**
- * Handle /tts/v1/team — create a Team Member CPT post.
+ * Handle /drumstudy/v1/team — create a Team Member CPT post.
  *
  * @param WP_REST_Request $request Request object.
  * @return WP_REST_Response|WP_Error
  */
-function tts_rest_create_team( WP_REST_Request $request ) {
+function drumstudy_rest_create_team( WP_REST_Request $request ) {
 	$post_id = wp_insert_post( [
-		'post_type'    => 'tts_team',
+		'post_type'    => 'drumstudy_team',
 		'post_title'   => $request->get_param( 'title' ),
 		'post_content' => $request->get_param( 'bio' ) ?? '',
 		'post_status'  => 'publish',
@@ -299,16 +299,16 @@ function tts_rest_create_team( WP_REST_Request $request ) {
 }
 
 /**
- * Handle /tts/v1/testimonials — create a Testimonial CPT post.
+ * Handle /drumstudy/v1/testimonials — create a Testimonial CPT post.
  *
  * @param WP_REST_Request $request Request object.
  * @return WP_REST_Response|WP_Error
  */
-function tts_rest_create_testimonial( WP_REST_Request $request ) {
+function drumstudy_rest_create_testimonial( WP_REST_Request $request ) {
 	$author_name = $request->get_param( 'author_name' );
 
 	$post_id = wp_insert_post( [
-		'post_type'   => 'tts_testimonial',
+		'post_type'   => 'drumstudy_testim',
 		'post_title'  => $author_name,
 		'post_status' => 'publish',
 	], true );
@@ -345,7 +345,7 @@ add_filter(
 			return $result;
 		}
 		// Allow access to public read endpoints (wp/v2/posts, etc.)
-		// Only restrict custom tts/v1 write endpoints — handled per-route above
+		// Only restrict custom drumstudy/v1 write endpoints — handled per-route above
 		return $result;
 	}
 );

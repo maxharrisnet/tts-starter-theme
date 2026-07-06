@@ -2,7 +2,7 @@
 /**
  * Card: Event
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 $post_id     = get_the_ID();
@@ -60,15 +60,15 @@ if ( $event_date ) {
 				<?php if ( $ticket_price ) : ?>
 					<span class="tts-card__price"><?php echo esc_html( $ticket_price ); ?></span>
 				<?php endif; ?>
-				<a href="<?php echo tts_the_url( '', 0, $ticket_url ); ?>"
+				<a href="<?php echo drumstudy_the_url( '', 0, $ticket_url ); ?>"
 				   class="tts-btn tts-btn--primary"
 				   target="_blank"
 				   rel="noopener noreferrer">
-					<?php esc_html_e( 'Get Tickets', 'tts-theme' ); ?>
+					<?php esc_html_e( 'Get Tickets', 'drumstudy' ); ?>
 				</a>
 			</div>
 		<?php elseif ( $is_past ) : ?>
-			<p class="tts-card__past-notice"><?php esc_html_e( 'This event has passed.', 'tts-theme' ); ?></p>
+			<p class="tts-card__past-notice"><?php esc_html_e( 'This event has passed.', 'drumstudy' ); ?></p>
 		<?php endif; ?>
 	</div>
 </article>

@@ -2,7 +2,7 @@
 /**
  * Section: Stats Strip
  *
- * @package tts-theme
+ * @package drumstudy
  */
 
 $post_id = get_the_ID() ?: 0;
@@ -19,7 +19,7 @@ if ( empty( $stats ) ) {
 	return;
 }
 ?>
-<section class="tts-section tts-section--sm" aria-label="<?php esc_attr_e( 'Key statistics', 'tts-theme' ); ?>">
+<section class="tts-section tts-section--sm" aria-label="<?php esc_attr_e( 'Key statistics', 'drumstudy' ); ?>">
 	<div class="tts-container">
 		<div class="tts-stats" role="list">
 			<?php foreach ( $stats as $stat ) : ?>
