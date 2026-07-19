@@ -9,6 +9,13 @@ $query = new WP_Query( [
 	'post_type'      => 'drumstudy_service',
 	'posts_per_page' => 6,
 	'no_found_rows'  => true,
+	'meta_query'     => [ // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+		[
+			'relation' => 'OR',
+			[ 'key' => 'show_on_marketing', 'compare' => 'NOT EXISTS' ],
+			[ 'key' => 'show_on_marketing', 'value' => '0', 'compare' => '!=' ],
+		],
+	],
 ] );
 
 if ( ! $query->have_posts() ) {
@@ -23,7 +30,7 @@ if ( ! $query->have_posts() ) {
 			</h2>
 		</div>
 
-		<div class="tts-grid-3">
+		<div class="tts-grid-2">
 			<?php
 			while ( $query->have_posts() ) {
 				$query->the_post();

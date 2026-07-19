@@ -104,10 +104,7 @@ $address_line = array_filter( [
 						get_template_part(
 							'template-parts/cards/card-booking-service',
 							null,
-							[
-								'post_id' => $post_id,
-								'service' => $service,
-							]
+							[ 'service' => $service ]
 						);
 					}
 					?>

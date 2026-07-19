@@ -706,7 +706,10 @@ main > section:nth-of-type(even):not(.tts-hero) {
 }
 
 .tts-grid-2 > * {
-  flex: 1 1 calc(50% - 0.75rem);
+  /* flex-grow: 0 — an unfilled last row keeps each card at its column
+     width instead of stretching to fill the row (e.g. 3 items in a
+     2-up grid would otherwise blow the 3rd card up to full width). */
+  flex: 0 1 calc(50% - 0.75rem);
   min-width: min(280px, 100%);
 }
 
@@ -717,7 +720,7 @@ main > section:nth-of-type(even):not(.tts-hero) {
 }
 
 .tts-grid-3 > * {
-  flex: 1 1 calc(33.333% - 1rem);
+  flex: 0 1 calc(33.333% - 1rem);
   min-width: min(280px, 100%);
 }
 

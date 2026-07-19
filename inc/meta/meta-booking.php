@@ -43,13 +43,6 @@ function drumstudy_booking_meta_cb( WP_Post $post ): void {
 	$crosslink_label     = get_post_meta( $post->ID, 'booking_crosslink_label', true );
 	$crosslink_url       = get_post_meta( $post->ID, 'booking_crosslink_url', true );
 	$hero_bg_preview     = $hero_bg_id ? wp_get_attachment_image( $hero_bg_id, 'tts-card' ) : '';
-
-	$embed_fields = [
-		'booking_embed_phone_consultation' => __( 'Phone Consultation', 'drumstudy' ),
-		'booking_embed_private_virtual'  => __( 'Private Virtual Lesson', 'drumstudy' ),
-		'booking_embed_private_studio'   => __( 'Private Lesson at The Drum Study', 'drumstudy' ),
-		'booking_embed_offsite_surcharge' => __( 'Offsite Lesson Surcharge', 'drumstudy' ),
-	];
 	?>
 	<div class="tts-meta-grid">
 		<div class="tts-meta-row tts-meta-row--full">
@@ -124,26 +117,17 @@ function drumstudy_booking_meta_cb( WP_Post $post ): void {
 			<p class="description"><?php esc_html_e( 'Where it appears: Destination for the cross-link. Use a relative path to the other booking page.', 'drumstudy' ); ?></p>
 		</div>
 
-		<?php foreach ( $embed_fields as $key => $label ) : ?>
-			<?php $embed_value = get_post_meta( $post->ID, $key, true ); ?>
-			<div class="tts-meta-row tts-meta-row--full">
-				<label for="<?php echo esc_attr( $key ); ?>" class="tts-meta-label">
-					<?php
-					echo esc_html(
-						sprintf(
-							/* translators: %s: service name */
-							__( 'Square Embed — %s', 'drumstudy' ),
-							$label
-						)
-					);
-					?>
-				</label>
-				<textarea id="<?php echo esc_attr( $key ); ?>" name="<?php echo esc_attr( $key ); ?>" rows="4" class="widefat"><?php echo esc_textarea( $embed_value ); ?></textarea>
-				<p class="description">
-					<?php esc_html_e( 'Where it appears: Inline booking widget for this service card. Leave blank to show a placeholder until Square embed codes are ready.', 'drumstudy' ); ?>
-				</p>
-			</div>
-		<?php endforeach; ?>
+		<div class="tts-meta-row tts-meta-row--full">
+			<p class="description">
+				<?php
+				printf(
+					/* translators: %s: URL to the Services admin list */
+					wp_kses_post( __( 'Square booking embed codes are managed per service, not per page — check "New clients" and/or "Existing clients" on each <a href="%s">Service</a> to control which cards appear here.', 'drumstudy' ) ),
+					esc_url( admin_url( 'edit.php?post_type=drumstudy_service' ) )
+				);
+				?>
+			</p>
+		</div>
 	</div>
 	<?php
 }
@@ -202,16 +186,7 @@ function drumstudy_save_booking_meta( int $post_id ): void {
 		update_post_meta( $post_id, 'booking_menu_intro', wp_kses_post( wp_unslash( $_POST['booking_menu_intro'] ) ) );
 	}
 
-	$embed_fields = [
-		'booking_embed_phone_consultation',
-		'booking_embed_private_virtual',
-		'booking_embed_private_studio',
-		'booking_embed_offsite_surcharge',
-	];
-	foreach ( $embed_fields as $key ) {
-		if ( isset( $_POST[ $key ] ) ) {
-			update_post_meta( $post_id, $key, wp_kses_post( wp_unslash( $_POST[ $key ] ) ) );
-		}
-	}
+	// Embed codes are saved per-service in drumstudy_save_service_meta()
+	// (inc/meta/meta-services.php) — nothing embed-related to save here.
 }
 add_action( 'save_post', 'drumstudy_save_booking_meta' );

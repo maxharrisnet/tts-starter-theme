@@ -317,52 +317,16 @@ function drumstudy_render_embed( string $content ): string {
 }
 
 /**
- * Full catalog of bookable services keyed by slug.
- *
- * @return array<string, array{title: string, description: string, price: string, duration: string, audiences: string[], embed_meta_key: string}>
- */
-function drumstudy_get_booking_service_catalog(): array {
-	return [
-		'phone-consultation'     => [
-			'title'          => __( 'Phone Consultation', 'drumstudy' ),
-			'description'    => __( '15 minute phone consultation. Jordan will call you at the time of your appointment.', 'drumstudy' ),
-			'price'          => '$0.00',
-			'duration'       => __( '15 mins', 'drumstudy' ),
-			'audiences'      => [ 'new_client' ],
-			'embed_meta_key' => 'booking_embed_phone_consultation',
-		],
-		'private-virtual-lesson' => [
-			'title'          => __( 'Private Virtual Lesson', 'drumstudy' ),
-			'description'    => __( "One virtual private lesson via Zoom. Jordan's zoom link will be included in your booking confirmation and reminder emails.", 'drumstudy' ),
-			'price'          => '$45.00+',
-			'duration'       => __( '30 mins+', 'drumstudy' ),
-			'audiences'      => [ 'existing_client' ],
-			'embed_meta_key' => 'booking_embed_private_virtual',
-		],
-		'private-studio-lesson'  => [
-			'title'          => __( 'Private Lesson at The Drum Study', 'drumstudy' ),
-			'description'    => __( 'Private lesson with Jordan Cohen at The Drum Study', 'drumstudy' ),
-			'price'          => '$45.00+',
-			'duration'       => __( '30 mins+', 'drumstudy' ),
-			'audiences'      => [ 'existing_client' ],
-			'embed_meta_key' => 'booking_embed_private_studio',
-		],
-		'offsite-surcharge'      => [
-			'title'          => __( 'Offsite Lesson Surcharge', 'drumstudy' ),
-			'description'    => __( 'If I have to drive to the student\'s home a $10 surcharge is added to the listed prices.', 'drumstudy' ),
-			'price'          => '$10.00',
-			'duration'       => __( '30 mins', 'drumstudy' ),
-			'audiences'      => [ 'existing_client' ],
-			'embed_meta_key' => 'booking_embed_offsite_surcharge',
-		],
-	];
-}
-
-/**
  * Services for a booking page audience.
  *
+ * drumstudy_service is the single source of truth for bookable line items —
+ * a service becomes bookable by checking "New clients" and/or "Existing
+ * clients" in its Service Details meta box (booking_audiences). The
+ * marketing price field doubles as the booking-card price/duration string,
+ * so there is only ever one price to keep in sync.
+ *
  * @param string $audience new_client|existing_client
- * @return array<string, array{title: string, description: string, price: string, duration: string, audiences: string[], embed_meta_key: string, slug: string}>
+ * @return array<string, array{id: int, title: string, description: string, price: string, duration: string, embed_meta_key: string, slug: string}>
  */
 function drumstudy_get_booking_services( string $audience ): array {
 	$valid = [ 'new_client', 'existing_client' ];
@@ -370,12 +334,35 @@ function drumstudy_get_booking_services( string $audience ): array {
 		$audience = 'new_client';
 	}
 
+	$query = new WP_Query( [
+		'post_type'      => 'drumstudy_service',
+		'posts_per_page' => -1,
+		'no_found_rows'  => true,
+		'orderby'        => 'menu_order title',
+		'order'          => 'ASC',
+		'meta_query'     => [ // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+			[
+				'key'     => 'booking_audiences',
+				'value'   => $audience,
+				'compare' => 'LIKE',
+			],
+		],
+	] );
+
 	$services = [];
-	foreach ( drumstudy_get_booking_service_catalog() as $slug => $service ) {
-		if ( in_array( $audience, $service['audiences'], true ) ) {
-			$service['slug'] = $slug;
-			$services[ $slug ] = $service;
-		}
+	foreach ( $query->posts as $post ) {
+		$description = get_post_meta( $post->ID, 'booking_description', true )
+			?: wp_strip_all_tags( str_replace( "\n\n", ' ', $post->post_excerpt ) );
+
+		$services[ $post->post_name ] = [
+			'id'             => $post->ID,
+			'slug'           => $post->post_name,
+			'title'          => get_the_title( $post ),
+			'description'    => $description,
+			'price'          => get_post_meta( $post->ID, 'price', true ),
+			'duration'       => '', // folded into `price` — see meta-services.php field description.
+			'embed_meta_key' => 'booking_embed_' . $post->post_name,
+		];
 	}
 
 	return $services;
@@ -384,13 +371,13 @@ function drumstudy_get_booking_services( string $audience ): array {
 /**
  * Square embed markup for a booking service on a page.
  *
- * @param int    $post_id Post ID for embed meta lookup.
+ * @param int    $service_id     The drumstudy_service post ID the embed code lives on.
  * @param string $embed_meta_key Meta key holding Square embed code.
- * @param string $service_title Service label for placeholder copy.
+ * @param string $service_title  Service label for placeholder copy.
  * @return string
  */
-function drumstudy_get_booking_service_embed( int $post_id, string $embed_meta_key, string $service_title ): string {
-	$embed = trim( (string) get_post_meta( $post_id, $embed_meta_key, true ) );
+function drumstudy_get_booking_service_embed( int $service_id, string $embed_meta_key, string $service_title ): string {
+	$embed = trim( (string) get_post_meta( $service_id, $embed_meta_key, true ) );
 
 	if ( $embed ) {
 		return drumstudy_render_embed( $embed );

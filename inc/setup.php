@@ -224,6 +224,33 @@ function drumstudy_output_footer_scripts(): void {
 }
 add_action( 'wp_footer', 'drumstudy_output_footer_scripts', 99 );
 
+// ── Services archive — hide booking-only line items ─────────────────────────
+
+/**
+ * Exclude services marked "don't show on marketing pages" (e.g. a phone
+ * consultation or a surcharge line item) from the drumstudy_service archive.
+ * The homepage services section applies the same rule via its own
+ * WP_Query meta_query (template-parts/sections/services.php).
+ */
+add_action(
+	'pre_get_posts',
+	function ( WP_Query $query ): void {
+		if ( ! $query->is_main_query() || ! $query->is_post_type_archive( 'drumstudy_service' ) ) {
+			return;
+		}
+		$query->set(
+			'meta_query', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+			[
+				[
+					'relation' => 'OR',
+					[ 'key' => 'show_on_marketing', 'compare' => 'NOT EXISTS' ],
+					[ 'key' => 'show_on_marketing', 'value' => '0', 'compare' => '!=' ],
+				],
+			]
+		);
+	}
+);
+
 // ── Search — exclude drumstudy_gallery from results ────────────────────────────────
 
 add_action(
