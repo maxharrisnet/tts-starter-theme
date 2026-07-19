@@ -26,7 +26,7 @@ $cta_url   = get_post_meta( $post_id, 'cta_url', true ) ?: get_permalink();
 		<h3 class="tts-card__title"><?php the_title(); ?></h3>
 
 		<?php if ( has_excerpt() ) : ?>
-			<p class="tts-card__excerpt"><?php the_excerpt(); ?></p>
+			<div class="tts-card__excerpt"><?php the_excerpt(); ?></div>
 		<?php endif; ?>
 
 		<?php if ( $price ) : ?>

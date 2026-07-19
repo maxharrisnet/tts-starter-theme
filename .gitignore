@@ -56,3 +56,4 @@ tests/coverage/
 # ── Local working material (not part of the theme) ─────────
 AGENT/
 populate-content.php
+update-bio.php

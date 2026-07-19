@@ -77,11 +77,13 @@ $values_headline      = get_post_meta( $post_id, 'about_values_headline', true )
 						$body  = get_post_meta( $post_id, "about_value_{$i}_body", true );
 						if ( ! $title ) continue;
 						?>
-						<div class="tts-card flex flex-col gap-3">
-							<h3 class="tts-card__title"><?php echo esc_html( $title ); ?></h3>
-							<?php if ( $body ) : ?>
-								<p><?php echo wp_kses_post( $body ); ?></p>
-							<?php endif; ?>
+						<div class="tts-card">
+							<div class="tts-card__body">
+								<h3 class="tts-card__title"><?php echo esc_html( $title ); ?></h3>
+								<?php if ( $body ) : ?>
+									<p><?php echo wp_kses_post( $body ); ?></p>
+								<?php endif; ?>
+							</div>
 						</div>
 					<?php endfor; ?>
 				</div>

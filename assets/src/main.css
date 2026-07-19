@@ -232,9 +232,10 @@ main > section:nth-of-type(even):not(.tts-hero) {
   font-family: var(--font-heading);
   font-size: var(--text-small);
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
-  line-height: 1;
+  line-height: 1.2;
+  text-align: center;
   border-radius: 2px;
   border: 2px solid transparent;
   cursor: pointer;
@@ -360,7 +361,7 @@ main > section:nth-of-type(even):not(.tts-hero) {
 }
 
 .tts-header__logo img {
-  height: 3.25rem;
+  height: 4.5rem;
   width: auto;
 }
 
@@ -414,7 +415,7 @@ main > section:nth-of-type(even):not(.tts-hero) {
   text-transform: uppercase;
   color: var(--color-brand-primary);
   text-decoration: none;
-  border-radius: 2px;
+  border-radius: 0;
   /* Underline drawn as a bottom inset shadow so layout never shifts */
   box-shadow: inset 0 0 0 0 transparent;
   transition: background-color 0.1s ease, box-shadow 0.15s ease;
@@ -545,7 +546,13 @@ main > section:nth-of-type(even):not(.tts-hero) {
 }
 
 .tts-hero__panel {
-  max-width: 44rem;
+  max-width: 75%;
+}
+
+@media (max-width: 767px) {
+  .tts-hero__panel {
+    max-width: 100%;
+  }
 }
 
 .tts-hero__headline {
@@ -572,6 +579,12 @@ main > section:nth-of-type(even):not(.tts-hero) {
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: flex-start;
+}
+
+/* Modifier, not a Tailwind utility: justify-center from @layer utilities
+   would lose the property fight against the unlayered rule above. */
+.tts-cta-pair--center {
+  justify-content: center;
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -657,6 +670,29 @@ main > section:nth-of-type(even):not(.tts-hero) {
   margin-bottom: 1rem;
   line-height: 1.6;
   font-size: var(--text-body);
+}
+
+.tts-card__excerpt p {
+  margin-bottom: 0.75em;
+}
+
+.tts-card__excerpt p:last-child {
+  margin-bottom: 0;
+}
+
+/* Gallery cards (Career Highlights) — image runs full bleed to the card
+   edges, only the caption text gets breathing room. */
+.tts-card--gallery {
+  margin: 0;
+}
+
+.tts-card__caption {
+  padding: 1rem 1.5rem 1.25rem;
+  font-family: var(--font-heading);
+  font-size: var(--text-small);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -902,6 +938,18 @@ main > section:nth-of-type(even):not(.tts-hero) {
   margin-bottom: var(--spacing-inner);
 }
 
+/* Numbered eyebrow above section titles ("01" / "02" / …) */
+.tts-eyebrow {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: var(--text-small);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.14em;
+  color: color-mix(in srgb, var(--color-brand-accent) 88%, white);
+  margin-bottom: 0.5rem;
+}
+
 .tts-section-heading__title {
   font-size: var(--text-h2);
   margin-bottom: 0.5rem;
@@ -916,6 +964,13 @@ main > section:nth-of-type(even):not(.tts-hero) {
   margin: 1rem auto 0;
   border: 2px solid var(--color-brand-accent);
   transform: rotate(45deg);
+}
+
+/* The diamond is a centered-section motif — headings used outside the
+   .tts-section-heading wrapper (e.g. the left-aligned intro block) skip it
+   rather than render a floating, misaligned ornament. */
+:not(.tts-section-heading) > .tts-section-heading__title::after {
+  content: none;
 }
 
 .tts-section-heading__subtitle {
@@ -976,4 +1031,186 @@ main > section:nth-of-type(even):not(.tts-hero) {
   line-height: 1.4;
   font-size: var(--text-body);
   color: var(--color-brand-primary);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Booking pages
+───────────────────────────────────────────────────────────────────────────── */
+
+.tts-booking-menu {
+  background: color-mix(in srgb, var(--color-brand-primary) 6%, var(--color-brand-secondary));
+}
+
+.tts-booking-menu__header {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .tts-booking-menu__header {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+}
+
+.tts-booking-menu__intro {
+  flex: 1 1 auto;
+}
+
+.tts-booking-menu__contact,
+.tts-booking-menu__address {
+  font-size: var(--text-body);
+  margin-top: 0.75rem;
+}
+
+.tts-booking-menu__contact a,
+.tts-booking-menu__crosslink-link,
+.tts-booking-location__directions a,
+.tts-booking-service__cta {
+  color: var(--color-brand-accent);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.tts-booking-menu__contact a:hover,
+.tts-booking-menu__crosslink-link:hover,
+.tts-booking-location__directions a:hover,
+.tts-booking-service__cta:hover {
+  color: color-mix(in srgb, var(--color-brand-accent) 80%, white);
+}
+
+.tts-booking-menu__address {
+  opacity: 0.85;
+}
+
+.tts-booking-menu__body {
+  margin-top: 1rem;
+  max-width: 42rem;
+}
+
+.tts-booking-menu__crosslink {
+  margin-top: 1.25rem;
+  font-size: var(--text-body);
+}
+
+.tts-booking-menu__crosslink-link {
+  font-weight: 600;
+  text-decoration-thickness: 1px;
+}
+
+.tts-booking-menu__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 16rem;
+  flex-shrink: 0;
+}
+
+.tts-booking-menu__placeholder-btn {
+  pointer-events: none;
+  opacity: 0.72;
+  text-align: center;
+}
+
+.tts-booking-menu__services-label {
+  font-size: var(--text-h3);
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid color-mix(in srgb, var(--color-brand-accent) 70%, transparent);
+  display: inline-block;
+}
+
+.tts-booking-service__body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.tts-booking-service__title {
+  margin-bottom: 0.75rem;
+}
+
+.tts-booking-service__description {
+  flex: 1 1 auto;
+  margin-bottom: 1rem;
+}
+
+.tts-booking-service__description p {
+  margin: 0;
+}
+
+.tts-booking-service__embed {
+  margin-bottom: 1.25rem;
+}
+
+.tts-booking-service__embed-placeholder {
+  padding: 1rem 1.25rem;
+  border: 1px dashed color-mix(in srgb, var(--color-brand-primary) 28%, transparent);
+  background: color-mix(in srgb, var(--color-brand-secondary) 92%, white);
+}
+
+.tts-booking-service__embed-notice {
+  margin: 0 0 0.5rem;
+  font-weight: 700;
+}
+
+.tts-booking-service__embed-hint {
+  margin: 0;
+  opacity: 0.8;
+}
+
+.tts-booking-service__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid color-mix(in srgb, var(--color-brand-primary) 12%, transparent);
+}
+
+.tts-booking-service__cta {
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.tts-booking-service__meta {
+  margin: 0;
+  font-weight: 600;
+  text-align: right;
+}
+
+.tts-booking-location__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .tts-booking-location__grid {
+    flex-direction: row;
+    gap: 3rem;
+  }
+
+  .tts-booking-location__column {
+    flex: 1 1 50%;
+  }
+}
+
+.tts-booking-location__label {
+  font-size: var(--text-h3);
+  margin-bottom: 1rem;
+}
+
+.tts-booking-location__directions {
+  margin-top: 1rem;
+}
+
+.tts-booking-location__map {
+  margin-top: 2rem;
 }

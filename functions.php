@@ -37,6 +37,7 @@ require DRUMSTUDY_THEME_DIR . '/inc/options/options-fields.php';
 require DRUMSTUDY_THEME_DIR . '/inc/meta/meta-home.php';
 require DRUMSTUDY_THEME_DIR . '/inc/meta/meta-about.php';
 require DRUMSTUDY_THEME_DIR . '/inc/meta/meta-contact.php';
+require DRUMSTUDY_THEME_DIR . '/inc/meta/meta-booking.php';
 require DRUMSTUDY_THEME_DIR . '/inc/meta/meta-features.php';
 require DRUMSTUDY_THEME_DIR . '/inc/meta/meta-donate.php';
 require DRUMSTUDY_THEME_DIR . '/inc/meta/meta-splash.php';

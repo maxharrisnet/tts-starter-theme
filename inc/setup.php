@@ -179,6 +179,26 @@ function drumstudy_output_font_vars(): void {
 }
 add_action( 'wp_head', 'drumstudy_output_font_vars', 1 );
 
+// ── Favicons — theme logo fallback ───────────────────────────────────────────
+
+/**
+ * Output favicon links from the theme-bundled logo icons.
+ * Skipped when a Site Icon is set in the Customizer — WordPress outputs its
+ * own icon links in that case, and duplicating them confuses browsers.
+ */
+function drumstudy_output_favicons(): void {
+	if ( has_site_icon() ) {
+		return;
+	}
+
+	$img = get_template_directory_uri() . '/assets/img';
+
+	printf( '<link rel="icon" type="image/png" sizes="32x32" href="%s">' . "\n", esc_url( $img . '/favicon-32.png' ) );
+	printf( '<link rel="icon" type="image/png" sizes="192x192" href="%s">' . "\n", esc_url( $img . '/favicon-192.png' ) );
+	printf( '<link rel="apple-touch-icon" href="%s">' . "\n", esc_url( $img . '/apple-touch-icon.png' ) );
+}
+add_action( 'wp_head', 'drumstudy_output_favicons', 2 );
+
 // ── Custom scripts from Admin Options ───────────────────────────────────────
 
 /**

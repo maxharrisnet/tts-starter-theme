@@ -103,6 +103,7 @@
 		'templates/template-home.php':      [ 'drumstudy_home_meta' ],
 		'templates/template-about.php':     [ 'drumstudy_about_meta' ],
 		'templates/template-contact.php':   [ 'drumstudy_contact_meta' ],
+		'templates/template-booking.php':   [ 'drumstudy_booking_meta' ],
 		'templates/template-features.php':  [ 'drumstudy_features_meta' ],
 		'templates/template-donate.php':    [ 'drumstudy_donate_meta' ],
 		'templates/template-splash.php':    [ 'drumstudy_splash_meta' ],

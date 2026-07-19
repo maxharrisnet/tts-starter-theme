@@ -315,3 +315,97 @@ function drumstudy_render_embed( string $content ): string {
 
 	return wp_kses_post( $content );
 }
+
+/**
+ * Full catalog of bookable services keyed by slug.
+ *
+ * @return array<string, array{title: string, description: string, price: string, duration: string, audiences: string[], embed_meta_key: string}>
+ */
+function drumstudy_get_booking_service_catalog(): array {
+	return [
+		'phone-consultation'     => [
+			'title'          => __( 'Phone Consultation', 'drumstudy' ),
+			'description'    => __( '15 minute phone consultation. Jordan will call you at the time of your appointment.', 'drumstudy' ),
+			'price'          => '$0.00',
+			'duration'       => __( '15 mins', 'drumstudy' ),
+			'audiences'      => [ 'new_client' ],
+			'embed_meta_key' => 'booking_embed_phone_consultation',
+		],
+		'private-virtual-lesson' => [
+			'title'          => __( 'Private Virtual Lesson', 'drumstudy' ),
+			'description'    => __( "One virtual private lesson via Zoom. Jordan's zoom link will be included in your booking confirmation and reminder emails.", 'drumstudy' ),
+			'price'          => '$45.00+',
+			'duration'       => __( '30 mins+', 'drumstudy' ),
+			'audiences'      => [ 'existing_client' ],
+			'embed_meta_key' => 'booking_embed_private_virtual',
+		],
+		'private-studio-lesson'  => [
+			'title'          => __( 'Private Lesson at The Drum Study', 'drumstudy' ),
+			'description'    => __( 'Private lesson with Jordan Cohen at The Drum Study', 'drumstudy' ),
+			'price'          => '$45.00+',
+			'duration'       => __( '30 mins+', 'drumstudy' ),
+			'audiences'      => [ 'existing_client' ],
+			'embed_meta_key' => 'booking_embed_private_studio',
+		],
+		'offsite-surcharge'      => [
+			'title'          => __( 'Offsite Lesson Surcharge', 'drumstudy' ),
+			'description'    => __( 'If I have to drive to the student\'s home a $10 surcharge is added to the listed prices.', 'drumstudy' ),
+			'price'          => '$10.00',
+			'duration'       => __( '30 mins', 'drumstudy' ),
+			'audiences'      => [ 'existing_client' ],
+			'embed_meta_key' => 'booking_embed_offsite_surcharge',
+		],
+	];
+}
+
+/**
+ * Services for a booking page audience.
+ *
+ * @param string $audience new_client|existing_client
+ * @return array<string, array{title: string, description: string, price: string, duration: string, audiences: string[], embed_meta_key: string, slug: string}>
+ */
+function drumstudy_get_booking_services( string $audience ): array {
+	$valid = [ 'new_client', 'existing_client' ];
+	if ( ! in_array( $audience, $valid, true ) ) {
+		$audience = 'new_client';
+	}
+
+	$services = [];
+	foreach ( drumstudy_get_booking_service_catalog() as $slug => $service ) {
+		if ( in_array( $audience, $service['audiences'], true ) ) {
+			$service['slug'] = $slug;
+			$services[ $slug ] = $service;
+		}
+	}
+
+	return $services;
+}
+
+/**
+ * Square embed markup for a booking service on a page.
+ *
+ * @param int    $post_id Post ID for embed meta lookup.
+ * @param string $embed_meta_key Meta key holding Square embed code.
+ * @param string $service_title Service label for placeholder copy.
+ * @return string
+ */
+function drumstudy_get_booking_service_embed( int $post_id, string $embed_meta_key, string $service_title ): string {
+	$embed = trim( (string) get_post_meta( $post_id, $embed_meta_key, true ) );
+
+	if ( $embed ) {
+		return drumstudy_render_embed( $embed );
+	}
+
+	return sprintf(
+		'<div class="tts-booking-service__embed-placeholder" id="square-embed-%1$s"><p class="tts-booking-service__embed-notice">%2$s</p><p class="tts-booking-service__embed-hint">%3$s</p></div>',
+		esc_attr( sanitize_key( $embed_meta_key ) ),
+		esc_html(
+			sprintf(
+				/* translators: %s: service title */
+				__( '[PLACEHOLDER: Square booking embed for %s]', 'drumstudy' ),
+				$service_title
+			)
+		),
+		esc_html__( 'Paste the Square Appointments embed code in the page settings when it is ready.', 'drumstudy' )
+	);
+}

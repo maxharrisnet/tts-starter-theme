@@ -32,8 +32,26 @@ $is_solo = 1 === $query->post_count;
 		<?php if ( $is_solo ) : ?>
 			<?php
 			$query->the_post();
-			$img_id = absint( get_post_meta( get_the_ID(), 'team_image', true ) );
-			$role   = get_post_meta( get_the_ID(), 'role', true );
+			$img_id  = absint( get_post_meta( get_the_ID(), 'team_image', true ) );
+			$img2_id = absint( get_post_meta( get_the_ID(), 'team_image_2', true ) );
+			$role    = get_post_meta( get_the_ID(), 'role', true );
+
+			// Split content into paragraphs. With a secondary image set, the bio
+			// renders as two alternating image/text rows; without one it stays a
+			// single row.
+			$content    = get_the_content();
+			$paragraphs = array_values( array_filter( array_map( 'trim', explode( '</p>', $content ) ) ) );
+			$paragraphs = array_map( fn( $p ) => str_replace( '<p>', '', $p ), $paragraphs );
+
+			$split  = ( $img2_id && count( $paragraphs ) > 2 ) ? (int) ceil( count( $paragraphs ) / 2 ) : count( $paragraphs );
+			$first  = array_slice( $paragraphs, 0, $split );
+			$second = array_slice( $paragraphs, $split );
+
+			$highlights = [
+				[ 'icon' => '🏆', 'text' => 'Pro-Level Experience: Performance background with <em>Blue Man Group</em> & <em>Powerman 5000</em>.' ],
+				[ 'icon' => '🎒', 'text' => 'All Ages Welcome: Friendly, patient instruction tailored for kids (ages 7+) and adults.' ],
+				[ 'icon' => '📐', 'text' => 'Ergonomics-Focused: Learn the proper hand technique, wrist rotation, and posture to prevent strain.' ],
+			];
 			?>
 			<div class="flex flex-col md:flex-row items-start gap-10">
 				<?php if ( $img_id ) : ?>
@@ -57,44 +75,61 @@ $is_solo = 1 === $query->post_count;
 					<?php if ( $role ) : ?>
 						<p class="tts-card__meta mb-6"><?php echo esc_html( $role ); ?></p>
 					<?php endif; ?>
-					
+
 					<?php
-					// Extract intro paragraph and rest of content
-					$content = get_the_content();
-					$paragraphs = array_filter( array_map( 'trim', explode( '</p>', $content ) ) );
-					
-					if ( ! empty( $paragraphs ) ) {
-						// First paragraph as intro
-						echo '<p class="font-bold mb-4">' . wp_kses_post( str_replace( '<p>', '', $paragraphs[0] ) ) . '</p>';
-						
-						// Remaining paragraphs as body copy
-						for ( $i = 1; $i < count( $paragraphs ); $i++ ) {
-							echo '<p class="mb-4">' . wp_kses_post( str_replace( '<p>', '', $paragraphs[ $i ] ) ) . '</p>';
-						}
+					foreach ( $first as $i => $paragraph ) {
+						$class = 0 === $i ? 'font-bold mb-4' : 'mb-4';
+						echo '<p class="' . esc_attr( $class ) . '">' . wp_kses_post( $paragraph ) . '</p>';
 					}
 					?>
-					
-					<div class="instructor-highlights">
-						<?php
-						// Render three highlight items with icons
-						$highlights = [
-							[ 'icon' => '🏆', 'text' => 'Pro-Level Experience: Performance background with <em>Blue Man Group</em> & <em>Powerman 5000</em>.' ],
-							[ 'icon' => '🎒', 'text' => 'All Ages Welcome: Friendly, patient instruction tailored for kids (ages 7+) and adults.' ],
-							[ 'icon' => '📐', 'text' => 'Ergonomics-Focused: Learn the proper hand technique, wrist rotation, and posture to prevent strain.' ],
-						];
-						
-						foreach ( $highlights as $highlight ) {
-							?>
-							<div class="instructor-highlight">
-								<div class="instructor-highlight__icon"><?php echo $highlight['icon']; ?></div>
-								<div class="instructor-highlight__text"><?php echo wp_kses_post( $highlight['text'] ); ?></div>
-							</div>
-							<?php
-						}
-						?>
-					</div>
+
+					<?php if ( ! $second ) : ?>
+						<div class="instructor-highlights">
+							<?php foreach ( $highlights as $highlight ) : ?>
+								<div class="instructor-highlight">
+									<div class="instructor-highlight__icon"><?php echo $highlight['icon']; ?></div>
+									<div class="instructor-highlight__text"><?php echo wp_kses_post( $highlight['text'] ); ?></div>
+								</div>
+							<?php endforeach; ?>
+						</div>
+					<?php endif; ?>
 				</div>
 			</div>
+
+			<?php if ( $second ) : ?>
+				<div class="flex flex-col md:flex-row-reverse items-start gap-10 mt-12">
+					<div class="md:w-1/2 w-full">
+						<?php
+						echo wp_get_attachment_image(
+							$img2_id,
+							'tts-feature',
+							false,
+							[
+								'class'   => 'w-full h-auto',
+								'loading' => 'lazy',
+								'alt'     => get_post_meta( $img2_id, '_wp_attachment_image_alt', true ) ?: get_the_title(),
+							]
+						);
+						?>
+					</div>
+					<div class="md:w-1/2 w-full">
+						<?php
+						foreach ( $second as $paragraph ) {
+							echo '<p class="mb-4">' . wp_kses_post( $paragraph ) . '</p>';
+						}
+						?>
+
+						<div class="instructor-highlights">
+							<?php foreach ( $highlights as $highlight ) : ?>
+								<div class="instructor-highlight">
+									<div class="instructor-highlight__icon"><?php echo $highlight['icon']; ?></div>
+									<div class="instructor-highlight__text"><?php echo wp_kses_post( $highlight['text'] ); ?></div>
+								</div>
+							<?php endforeach; ?>
+						</div>
+					</div>
+				</div>
+			<?php endif; ?>
 			<?php wp_reset_postdata(); ?>
 		<?php else : ?>
 			<div class="tts-grid-3">

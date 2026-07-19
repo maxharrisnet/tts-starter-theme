@@ -2,7 +2,7 @@
 /**
  * Meta Boxes: drumstudy_team
  *
- * Fields: role (required), team_image (ID), email, phone, linkedin, twitter
+ * Fields: role (required), team_image (ID), team_image_2 (ID), email, phone, linkedin, twitter
  *
  * @package drumstudy
  */
@@ -35,11 +35,13 @@ function drumstudy_team_meta_cb( WP_Post $post ): void {
 
 	$role        = get_post_meta( $post->ID, 'role', true );
 	$img_id      = absint( get_post_meta( $post->ID, 'team_image', true ) );
+	$img2_id     = absint( get_post_meta( $post->ID, 'team_image_2', true ) );
 	$email       = get_post_meta( $post->ID, 'email', true );
 	$phone       = get_post_meta( $post->ID, 'phone', true );
 	$linkedin    = get_post_meta( $post->ID, 'linkedin', true );
 	$twitter     = get_post_meta( $post->ID, 'twitter', true );
-	$img_preview = $img_id ? wp_get_attachment_image( $img_id, 'tts-card' ) : '';
+	$img_preview  = $img_id ? wp_get_attachment_image( $img_id, 'tts-card' ) : '';
+	$img2_preview = $img2_id ? wp_get_attachment_image( $img2_id, 'tts-card' ) : '';
 	?>
 	<div class="tts-meta-grid">
 		<div class="tts-meta-row">
@@ -56,6 +58,16 @@ function drumstudy_team_meta_cb( WP_Post $post ): void {
 				<button type="button" class="button tts-media-remove-btn" data-field="team_image" data-preview="team_image_preview"><?php esc_html_e( 'Remove', 'drumstudy' ); ?></button>
 			<?php endif; ?>
 			<p class="description"><?php esc_html_e( 'Where it appears: Team card photo. Stored as attachment ID.', 'drumstudy' ); ?></p>
+		</div>
+		<div class="tts-meta-row">
+			<label class="tts-meta-label"><?php esc_html_e( 'Secondary Photo', 'drumstudy' ); ?></label>
+			<input type="hidden" id="team_image_2" name="team_image_2" value="<?php echo esc_attr( (string) $img2_id ); ?>" />
+			<div id="team_image_2_preview" class="tts-image-preview"><?php echo $img2_preview; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
+			<button type="button" class="button tts-media-upload-btn" data-field="team_image_2" data-preview="team_image_2_preview"><?php esc_html_e( 'Select Photo', 'drumstudy' ); ?></button>
+			<?php if ( $img2_id ) : ?>
+				<button type="button" class="button tts-media-remove-btn" data-field="team_image_2" data-preview="team_image_2_preview"><?php esc_html_e( 'Remove', 'drumstudy' ); ?></button>
+			<?php endif; ?>
+			<p class="description"><?php esc_html_e( 'Where it appears: Second row of the solo instructor bio (home page). Splits the bio into two image/text rows when set.', 'drumstudy' ); ?></p>
 		</div>
 		<div class="tts-meta-row">
 			<label for="email" class="tts-meta-label"><?php esc_html_e( 'Email', 'drumstudy' ); ?></label>
@@ -108,8 +120,10 @@ function drumstudy_save_team_meta( int $post_id ): void {
 			update_post_meta( $post_id, $url_field, esc_url_raw( wp_unslash( $_POST[ $url_field ] ) ) );
 		}
 	}
-	if ( isset( $_POST['team_image'] ) ) {
-		update_post_meta( $post_id, 'team_image', absint( $_POST['team_image'] ) );
+	foreach ( [ 'team_image', 'team_image_2' ] as $img_field ) {
+		if ( isset( $_POST[ $img_field ] ) ) {
+			update_post_meta( $post_id, $img_field, absint( $_POST[ $img_field ] ) );
+		}
 	}
 }
 add_action( 'save_post', 'drumstudy_save_team_meta' );
@@ -119,6 +133,7 @@ add_filter(
 	function ( array $keys, int $post_id ): array {
 		if ( 'drumstudy_team' === get_post_type( $post_id ) ) {
 			$keys[] = 'team_image';
+			$keys[] = 'team_image_2';
 		}
 		return $keys;
 	},
