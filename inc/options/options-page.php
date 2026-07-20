@@ -57,6 +57,7 @@ function drumstudy_register_settings(): void {
 	register_setting( 'drumstudy_options', 'drumstudy_postal',        [ 'sanitize_callback' => 'drumstudy_sanitize_text' ] );
 	register_setting( 'drumstudy_options', 'drumstudy_country',       [ 'sanitize_callback' => 'drumstudy_sanitize_text' ] );
 	register_setting( 'drumstudy_options', 'drumstudy_map_embed',     [ 'sanitize_callback' => 'drumstudy_sanitize_url' ] );
+	register_setting( 'drumstudy_options', 'drumstudy_google_review_url', [ 'sanitize_callback' => 'drumstudy_sanitize_url' ] );
 	register_setting( 'drumstudy_options', 'drumstudy_hours',         [ 'sanitize_callback' => 'drumstudy_sanitize_textarea' ] );
 	register_setting( 'drumstudy_options', 'drumstudy_lat',           [ 'sanitize_callback' => 'drumstudy_sanitize_text' ] );
 	register_setting( 'drumstudy_options', 'drumstudy_lng',           [ 'sanitize_callback' => 'drumstudy_sanitize_text' ] );

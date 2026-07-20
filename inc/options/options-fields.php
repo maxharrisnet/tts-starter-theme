@@ -269,6 +269,7 @@ function drumstudy_render_options_fields(): void {
 					drumstudy_options_text_field( 'drumstudy_lat', __( 'Latitude', 'drumstudy' ),  __( 'Used in LocalBusiness schema geo field.', 'drumstudy' ) );
 					drumstudy_options_text_field( 'drumstudy_lng', __( 'Longitude', 'drumstudy' ), __( 'Used in LocalBusiness schema geo field.', 'drumstudy' ) );
 					drumstudy_options_text_field( 'drumstudy_map_embed', __( 'Google Maps Embed URL', 'drumstudy' ), __( 'Full embed URL from Google Maps → Share → Embed a map. Appears in Hours & Location section.', 'drumstudy' ), 'url' );
+					drumstudy_options_text_field( 'drumstudy_google_review_url', __( 'Google Review Link', 'drumstudy' ), __( 'The "Write a review" link from your Google Business Profile. Appears as a CTA below testimonials and in the footer.', 'drumstudy' ), 'url' );
 					drumstudy_options_textarea_field( 'drumstudy_hours', __( 'Business Hours', 'drumstudy' ), __( 'Displayed in Hours & Location section and footer. Plain text, one line per day.', 'drumstudy' ) );
 					?>
 				</div>

@@ -14,6 +14,7 @@ $email         = drumstudy_get_option( 'drumstudy_email' );
 $logo_id       = absint( drumstudy_get_option( 'drumstudy_logo' ) );
 $logo_alt      = drumstudy_get_option( 'drumstudy_logo_alt' ) ?: $business_name;
 $social_links  = drumstudy_social_links();
+$review_url    = drumstudy_get_option( 'drumstudy_google_review_url' );
 ?>
 <footer class="tts-footer" role="contentinfo">
 	<div class="tts-container">
@@ -48,6 +49,14 @@ $social_links  = drumstudy_social_links();
 							</li>
 						<?php endforeach; ?>
 					</ul>
+				<?php endif; ?>
+
+				<?php if ( $review_url ) : ?>
+					<p class="mt-4">
+						<a href="<?php echo esc_url( $review_url ); ?>" target="_blank" rel="noopener noreferrer">
+							<?php esc_html_e( 'Leave us a review on Google', 'drumstudy' ); ?>
+						</a>
+					</p>
 				<?php endif; ?>
 			</div>
 

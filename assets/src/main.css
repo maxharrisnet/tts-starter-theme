@@ -827,6 +827,21 @@ main > section:nth-of-type(even):not(.tts-hero) {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
+   Review prompt (below testimonials)
+───────────────────────────────────────────────────────────────────────────── */
+
+.tts-review-prompt {
+  text-align: center;
+  margin-top: var(--spacing-inner);
+  font-size: var(--text-body);
+}
+
+.tts-review-prompt a {
+  font-weight: 700;
+  margin-left: 0.4em;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
    Embed block
 ───────────────────────────────────────────────────────────────────────────── */
 
