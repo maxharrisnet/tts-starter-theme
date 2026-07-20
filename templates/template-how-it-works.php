@@ -10,15 +10,34 @@
  */
 
 get_template_part( 'template-parts/global/header' );
+
+// Fixed hero background — attachment 86, imported from the theme's stock
+// photo set (pexels-hernan-santarelli-4166599-6059430.jpg). This page has
+// no meta box (dev-maintained, per the file header above), so the ID is
+// hardcoded here rather than pulled from post meta.
+$hiw_hero_bg_id = 86;
 ?>
 <main id="main-content" role="main">
 
 	<!-- Page heading -->
-	<section class="tts-section" aria-labelledby="hiw-heading">
-		<div class="tts-container">
-			<div class="tts-section-heading">
-				<h1 id="hiw-heading" class="tts-section-heading__title"><?php esc_html_e( 'How It Works', 'drumstudy' ); ?></h1>
-				<p class="tts-section-heading__subtitle">
+	<section class="tts-hero" aria-labelledby="hiw-heading">
+		<?php if ( $hiw_hero_bg_id ) : ?>
+			<?php
+			echo wp_get_attachment_image( $hiw_hero_bg_id, 'tts-hero', false, [
+				'class'         => 'tts-hero__bg',
+				'loading'       => 'eager',
+				'fetchpriority' => 'high',
+				'alt'           => '',
+				'aria-hidden'   => 'true',
+			] );
+			?>
+			<div class="tts-hero__overlay" aria-hidden="true"></div>
+		<?php endif; ?>
+
+		<div class="tts-container tts-hero__content">
+			<div class="tts-hero__panel">
+				<h1 id="hiw-heading" class="tts-hero__headline"><?php esc_html_e( 'How It Works', 'drumstudy' ); ?></h1>
+				<p class="tts-hero__subheadline">
 					<?php esc_html_e( 'Learning the drums doesn\'t have to be overwhelming. At The Drum Study, we break down complex rhythms into step-by-step, bite-sized lesson plans designed to take you from a total beginner to a confident groove-maker.', 'drumstudy' ); ?>
 				</p>
 			</div>
