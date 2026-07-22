@@ -860,25 +860,190 @@ main > section:nth-of-type(even):not(.tts-hero) {
 .tts-footer {
   background-color: color-mix(in srgb, var(--color-brand-secondary) 92%, black);
   color: var(--color-brand-primary);
-  padding-block: var(--spacing-inner);
+  padding-block: var(--spacing-section);
   border-top: 1px dashed color-mix(in srgb, var(--color-brand-primary) 30%, transparent);
 }
 
 .tts-footer a {
-  color: color-mix(in srgb, var(--color-brand-primary) 80%, transparent);
+  color: color-mix(in srgb, var(--color-brand-primary) 82%, transparent);
   text-decoration: none;
+  transition: color 0.15s ease;
 }
 
 .tts-footer a:hover {
   color: var(--color-brand-primary);
 }
 
+/* Layout: single column on mobile, brand + three columns from md up. */
+.tts-footer__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .tts-footer__grid {
+    grid-template-columns: 1.6fr 1fr 1.5fr;
+    gap: 3rem;
+    align-items: start;
+  }
+}
+
+.tts-footer__logo {
+  display: inline-block;
+  margin-bottom: 1.25rem;
+}
+
+.tts-footer__logo img {
+  height: 3.5rem;
+  width: auto;
+}
+
+.tts-footer__tagline {
+  font-size: var(--text-small);
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--color-brand-primary) 70%, transparent);
+  margin-bottom: 1.25rem;
+  max-width: 26ch;
+}
+
+/* Contact now lives in the brand column, beneath the tagline. */
+.tts-footer__brand .tts-footer__contact {
+  margin-bottom: 1.5rem;
+}
+
+/* Shared column heading — matches the uppercase-Archivo system used site-wide. */
+.tts-footer__heading {
+  font-family: var(--font-heading);
+  font-size: var(--text-small);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-brand-primary) 55%, transparent);
+  margin-bottom: 1rem;
+}
+
+.tts-footer__contact p {
+  font-size: var(--text-small);
+  margin-bottom: 0.5rem;
+}
+
+.tts-footer__contact p:last-child {
+  margin-bottom: 0;
+}
+
+/* Google review callout — a bordered card so it reads as a deliberate
+   invitation, not a stray text link. */
+.tts-footer__review {
+  border: 1px solid color-mix(in srgb, var(--color-brand-primary) 22%, transparent);
+  border-radius: 2px;
+  padding: 1.25rem;
+  background: color-mix(in srgb, var(--color-brand-primary) 5%, transparent);
+}
+
+.tts-footer__review-stars {
+  color: color-mix(in srgb, var(--color-brand-accent) 78%, white);
+  font-size: var(--text-body);
+  letter-spacing: 0.18em;
+  line-height: 1;
+  margin-bottom: 0.75rem;
+}
+
+.tts-footer__review-text {
+  font-size: var(--text-small);
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--color-brand-primary) 78%, transparent);
+  margin-bottom: 1rem;
+}
+
+/* Stamp-style CTA, echoing .tts-btn but sized for the footer. */
+.tts-footer__review-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-family: var(--font-heading);
+  font-size: var(--text-small);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--color-brand-primary) !important;
+  border: 2px solid color-mix(in srgb, var(--color-brand-primary) 45%, transparent);
+  border-radius: 2px;
+  padding: 0.7em 1.1em;
+  min-height: 44px;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.tts-footer__review-link:hover {
+  background-color: var(--color-brand-primary);
+  color: var(--color-brand-secondary) !important;
+  border-color: var(--color-brand-primary);
+}
+
+.tts-footer__review-link .tts-footer__review-arrow {
+  transition: transform 0.2s ease;
+}
+
+.tts-footer__review-link:hover .tts-footer__review-arrow {
+  transform: translateX(3px);
+}
+
 .tts-footer__legal {
-  border-top: 1px solid color-mix(in srgb, var(--color-brand-primary) 15%, transparent);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  border-top: 1px dashed color-mix(in srgb, var(--color-brand-primary) 22%, transparent);
   padding-top: 1.5rem;
-  margin-top: 2rem;
+  margin-top: var(--spacing-inner);
   font-size: var(--text-small);
   color: color-mix(in srgb, var(--color-brand-primary) 60%, transparent);
+}
+
+.tts-footer__legal p {
+  margin: 0;
+}
+
+@media (min-width: 640px) {
+  .tts-footer__legal {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Footer navigation — vertical list (base .tts-nav is a horizontal header row)
+───────────────────────────────────────────────────────────────────────────── */
+
+.tts-nav-footer {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+}
+
+.tts-nav-footer a {
+  padding-inline: 0;
+  box-shadow: none;
+}
+
+.tts-nav-footer a:hover {
+  background: none;
+  color: var(--color-brand-primary);
+}
+
+.tts-nav-legal {
+  gap: 1.25rem;
+}
+
+.tts-nav-legal a {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  padding: 0;
+  min-height: 0;
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -901,12 +1066,16 @@ main > section:nth-of-type(even):not(.tts-hero) {
   width: 44px;
   height: 44px;
   border-radius: 50%;
+  font-family: var(--font-heading);
+  font-weight: 700;
   border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
-  transition: background-color 0.15s ease;
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 .tts-social-links a:hover {
-  background-color: color-mix(in srgb, currentColor 15%, transparent);
+  background-color: var(--color-brand-primary);
+  color: var(--color-brand-secondary) !important;
+  border-color: var(--color-brand-primary);
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
