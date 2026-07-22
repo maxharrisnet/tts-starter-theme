@@ -235,6 +235,32 @@ function drumstudy_has_meta( string $meta_key, int $post_id = 0 ): bool {
 }
 
 /**
+ * Permalink of the first published page using a given page template.
+ *
+ * Lets sections link to a template-driven page (e.g. About) without
+ * hardcoding a slug that an editor could rename.
+ *
+ * @param string $template Template path, e.g. 'templates/template-about.php'.
+ * @return string Permalink, or '' when no published page uses the template.
+ */
+function drumstudy_get_template_page_url( string $template ): string {
+	$pages = get_posts(
+		[
+			'post_type'      => 'page',
+			'post_status'    => 'publish',
+			'posts_per_page' => 1,
+			'fields'         => 'ids',
+			'no_found_rows'  => true,
+			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key, WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+			'meta_key'       => '_wp_page_template',
+			'meta_value'     => $template,
+		]
+	);
+
+	return $pages ? (string) get_permalink( $pages[0] ) : '';
+}
+
+/**
  * Return an array of [platform => url] for all non-empty social options.
  *
  * @return array<string, string>

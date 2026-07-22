@@ -108,7 +108,7 @@ $values_headline      = get_post_meta( $post_id, 'about_values_headline', true )
 		</section>
 	<?php endif; ?>
 
-	<?php get_template_part( 'template-parts/sections/team' ); ?>
+	<?php get_template_part( 'template-parts/sections/team', null, [ 'variant' => 'full' ] ); ?>
 	<?php get_template_part( 'template-parts/sections/testimonials' ); ?>
 
 </main>

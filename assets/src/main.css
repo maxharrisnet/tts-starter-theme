@@ -58,9 +58,9 @@
   --text-small:  1.125rem;   /* 18px minimum — never go below */
 
   /* Container widths (layout, independent of breakpoints) */
-  --width-container:       1280px;
+  --width-container:       1600px;
   --width-container-prose: 800px;
-  --width-container-wide:  1440px;
+  --width-container-wide:  1760px;
 
   /* Breakpoints (viewport thresholds only) */
   --breakpoint-sm:   480px;
@@ -520,7 +520,9 @@ main > section:nth-of-type(even):not(.tts-hero) {
   width: 100%;
   height: 100%;
   z-index: 0;
-  filter: grayscale(1) contrast(1.08);
+  /* Muted color rather than full grayscale — keeps photos from looking
+     washed out while still reading as one restrained palette. */
+  filter: saturate(0.8) contrast(1.05);
 }
 
 /* Directional overlay: near-solid on the left where the copy sits, the
@@ -621,18 +623,19 @@ main > section:nth-of-type(even):not(.tts-hero) {
   object-fit: cover;
 }
 
-/* B&W at rest, color blooms on hover — the one allowed color moment.
-   Covers card thumbnails, gallery figures, and the solo-instructor bio image.
+/* Muted color at rest — full saturation read as too busy against the dark
+   theme, so photos are gently desaturated rather than grayscale. Covers
+   card thumbnails, gallery figures, and the solo-instructor bio image.
    Logos and icons are untouched. */
 .tts-card img,
 #team img {
-  filter: grayscale(1) contrast(1.06);
+  filter: saturate(0.8) contrast(1.04);
   transition: filter 0.35s ease, transform 0.35s ease;
 }
 
 .tts-card:hover img,
 #team img:hover {
-  filter: grayscale(0) contrast(1);
+  filter: saturate(1) contrast(1.04);
 }
 
 .tts-card:hover .tts-card__image img {
@@ -678,6 +681,91 @@ main > section:nth-of-type(even):not(.tts-hero) {
 
 .tts-card__excerpt p:last-child {
   margin-bottom: 0;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Testimonial cards
+───────────────────────────────────────────────────────────────────────────── */
+
+.tts-card--testimonial {
+  position: relative;
+  padding: 2rem 1.75rem 1.75rem;
+  /* Alternates two hairline-close tints of the same card surface — enough
+     to break three identical boxes apart without introducing a second
+     accent color. */
+  background: color-mix(in srgb, var(--color-brand-secondary) 88%, white);
+}
+
+.tts-card--testimonial:nth-child(2n) {
+  background: color-mix(in srgb, var(--color-brand-secondary) 91%, white);
+}
+
+/* Oversized quotation mark, set behind the star row so it reads as
+   texture rather than competing with the rating. */
+.tts-card--testimonial::before {
+  content: '\201C';
+  position: absolute;
+  top: -0.4rem;
+  left: 1.5rem;
+  font-family: var(--font-heading);
+  font-size: 5rem;
+  font-weight: 900;
+  line-height: 1;
+  color: color-mix(in srgb, var(--color-brand-accent) 55%, transparent);
+  pointer-events: none;
+}
+
+.tts-card__rating {
+  position: relative;
+  color: color-mix(in srgb, var(--color-brand-accent) 85%, white);
+  font-size: 1rem;
+  letter-spacing: 0.15em;
+  margin-bottom: 1.25rem;
+}
+
+.tts-card__quote {
+  margin: 0 0 1.5rem;
+}
+
+.tts-card__quote p {
+  margin: 0;
+  font-size: var(--text-body);
+  font-style: italic;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--color-brand-primary) 92%, transparent);
+}
+
+.tts-card__author {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding-top: 1.25rem;
+  border-top: 1px dashed color-mix(in srgb, var(--color-brand-primary) 22%, transparent);
+}
+
+.tts-card__avatar {
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.tts-card__author-name {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: var(--text-small);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  font-style: normal;
+  color: var(--color-brand-primary);
+}
+
+.tts-card__author-role {
+  margin: 0.125rem 0 0;
+  font-size: var(--text-small);
+  color: color-mix(in srgb, var(--color-brand-primary) 62%, transparent);
 }
 
 /* Gallery cards (Career Highlights) — image runs full bleed to the card
