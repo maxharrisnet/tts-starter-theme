@@ -753,6 +753,12 @@ main > section:nth-of-type(even):not(.tts-hero) {
   overflow: hidden;
 }
 
+/* Shorter, more letterboxed crop — the default 3:2 ran quite tall on
+   service cards, especially in the 2-up "Unlock Your Potential" grid. */
+.tts-card__image--short {
+  aspect-ratio: 16 / 9;
+}
+
 .tts-card__image img {
   width: 100%;
   height: 100%;

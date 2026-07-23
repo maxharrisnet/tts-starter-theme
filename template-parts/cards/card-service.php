@@ -13,7 +13,7 @@ $cta_url   = get_post_meta( $post_id, 'cta_url', true ) ?: get_permalink();
 ?>
 <article class="tts-card" aria-label="<?php the_title_attribute(); ?>">
 	<?php if ( $img_id ) : ?>
-		<div class="tts-card__image">
+		<div class="tts-card__image tts-card__image--short">
 			<?php echo wp_get_attachment_image( $img_id, 'tts-card', false, [
 				'class'   => 'w-full h-full object-cover',
 				'loading' => 'lazy',

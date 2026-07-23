@@ -38,7 +38,7 @@ function drumstudy_register_cpt_service(): void {
 			'has_archive'         => true,
 			'show_in_menu'        => 'drumstudy-content',
 			'show_in_rest'        => true,
-			'supports'            => [ 'title', 'editor', 'thumbnail' ],
+			'supports'            => [ 'title', 'editor', 'thumbnail', 'page-attributes' ],
 			'menu_icon'           => 'dashicons-hammer',
 			'rewrite'             => [ 'slug' => 'services', 'with_front' => false ],
 			'capability_type'     => 'post',

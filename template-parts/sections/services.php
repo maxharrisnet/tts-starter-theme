@@ -9,6 +9,8 @@ $query = new WP_Query( [
 	'post_type'      => 'drumstudy_service',
 	'posts_per_page' => 6,
 	'no_found_rows'  => true,
+	'orderby'        => 'menu_order date',
+	'order'          => 'ASC',
 	'meta_query'     => [ // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 		[
 			'relation' => 'OR',
