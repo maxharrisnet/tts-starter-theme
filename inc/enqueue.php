@@ -74,6 +74,15 @@ function drumstudy_enqueue_admin_assets( string $hook ): void {
 
 	$manifest_path = DRUMSTUDY_THEME_DIR . '/assets/dist/.vite/manifest.json';
 
+	// Media uploader support for image and file fields. Enqueued before our
+	// own script (and declared as its dependency below) so wp.media is
+	// guaranteed to exist by the time admin.js runs — without this, WordPress
+	// has no reason to print admin.js after the media scripts, and on some
+	// admin screens it printed first, meaning admin.js's own
+	// `if ( ! wp.media ) return;` guard fired and silently skipped attaching
+	// the upload-button click handler for the rest of the page load.
+	wp_enqueue_media();
+
 	if ( defined( 'DRUMSTUDY_DEV' ) && DRUMSTUDY_DEV ) {
 		wp_enqueue_style(
 			'tts-admin',
@@ -84,7 +93,7 @@ function drumstudy_enqueue_admin_assets( string $hook ): void {
 		wp_enqueue_script(
 			'tts-admin',
 			'http://localhost:5173/assets/src/admin.js', // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
-			[],
+			[ 'media-editor' ],
 			null,
 			true
 		);
@@ -109,13 +118,10 @@ function drumstudy_enqueue_admin_assets( string $hook ): void {
 		wp_enqueue_script(
 			'tts-admin',
 			DRUMSTUDY_THEME_URI . '/assets/dist/' . $js_file,
-			[],
+			[ 'media-editor' ],
 			DRUMSTUDY_THEME_VERSION,
 			true
 		);
 	}
-
-	// Media uploader support for image and file fields.
-	wp_enqueue_media();
 }
 add_action( 'admin_enqueue_scripts', 'drumstudy_enqueue_admin_assets' );

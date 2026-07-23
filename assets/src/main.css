@@ -789,7 +789,9 @@ main > section:nth-of-type(even):not(.tts-hero) {
 
 .tts-card--testimonial {
   position: relative;
-  padding: 2rem 1.75rem 1.75rem;
+  /* Generous top padding — the card leads with an oversized quote mark and
+     the star row, both of which felt cramped hard against the card edge. */
+  padding: 3rem 1.75rem 1.75rem;
   /* Alternates two hairline-close tints of the same card surface — enough
      to break three identical boxes apart without introducing a second
      accent color. */
@@ -801,17 +803,19 @@ main > section:nth-of-type(even):not(.tts-hero) {
 }
 
 /* Oversized quotation mark, set behind the star row so it reads as
-   texture rather than competing with the rating. */
+   texture rather than competing with the rating. Positioned in-bounds
+   (not hanging above the card edge) since .tts-card clips overflow —
+   a negative offset here was previously getting sliced off. */
 .tts-card--testimonial::before {
   content: '\201C';
   position: absolute;
-  top: -0.4rem;
+  top: 0.75rem;
   left: 1.5rem;
   font-family: var(--font-heading);
-  font-size: 5rem;
+  font-size: 4.5rem;
   font-weight: 900;
   line-height: 1;
-  color: color-mix(in srgb, var(--color-brand-accent) 55%, transparent);
+  color: color-mix(in srgb, var(--color-brand-accent) 45%, transparent);
   pointer-events: none;
 }
 
@@ -820,7 +824,7 @@ main > section:nth-of-type(even):not(.tts-hero) {
   color: color-mix(in srgb, var(--color-brand-accent) 85%, white);
   font-size: 1rem;
   letter-spacing: 0.15em;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
 }
 
 .tts-card__quote {
