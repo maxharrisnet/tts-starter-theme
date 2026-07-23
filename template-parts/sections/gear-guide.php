@@ -60,7 +60,7 @@ if ( empty( $items ) ) {
 					<div class="tts-card__body">
 						<h3 class="tts-card__title">
 							<?php if ( $item['url'] ) : ?>
-								<a href="<?php echo esc_attr( drumstudy_the_url( '', 0, $item['url'] ) ); ?>"><?php echo esc_html( $item['label'] ); ?></a>
+								<a href="<?php echo esc_attr( drumstudy_the_url( '', 0, $item['url'] ) ); ?>" target="_blank" rel="noopener noreferrer nofollow"><?php echo esc_html( $item['label'] ); ?></a>
 							<?php else : ?>
 								<?php echo esc_html( $item['label'] ); ?>
 							<?php endif; ?>
