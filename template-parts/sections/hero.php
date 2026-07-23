@@ -18,6 +18,7 @@ $cta2_label  = get_post_meta( $post_id, 'home_hero_cta2_label', true );
 $cta2_url    = get_post_meta( $post_id, 'home_hero_cta2_url', true );
 
 $profile = drumstudy_get_profile();
+$logo_id = absint( drumstudy_get_option( 'drumstudy_logo' ) );
 
 // Profile-aware headline fallback
 if ( ! $headline ) {
@@ -72,4 +73,18 @@ if ( ! $headline ) {
 		<?php endif; ?>
 
 	</div>
+
+	<?php if ( $logo_id ) : ?>
+		<!-- Badge straddling the seam between the two hero columns. Hidden
+		     on mobile where the columns stack, since "the middle of the
+		     two columns" stops meaning anything once they're vertical. -->
+		<div class="tts-hero__badge" aria-hidden="true">
+			<?php
+			echo wp_get_attachment_image( $logo_id, 'tts-logo', false, [
+				'class' => 'tts-hero__badge-img',
+				'alt'   => '',
+			] );
+			?>
+		</div>
+	<?php endif; ?>
 </section>

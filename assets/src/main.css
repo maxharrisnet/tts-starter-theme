@@ -367,7 +367,7 @@ main > section:nth-of-type(even):not(.tts-hero) {
 }
 
 .tts-header__logo img {
-  height: 4.5rem;
+  height: 5.5rem;
   width: auto;
 }
 
@@ -514,6 +514,11 @@ main > section:nth-of-type(even):not(.tts-hero) {
   display: flex;
   align-items: center;
   min-height: min(78dvh, 44rem);
+  /* min-height is a floor, not a ceiling — on a very large monitor 78dvh
+     can still exceed it, and fluid (vw-based) content can push the box
+     taller still. Cap it outright so the hero never balloons past a
+     sensible height regardless of screen size. */
+  max-height: 900px;
   padding-block: clamp(5rem, 12vw, 9rem);
   overflow: hidden;
 }
@@ -564,6 +569,7 @@ main > section:nth-of-type(even):not(.tts-hero) {
   display: grid;
   grid-template-columns: 1fr;
   min-height: min(78dvh, 44rem);
+  max-height: 900px;
 }
 
 @media (min-width: 768px) {
@@ -637,6 +643,36 @@ main > section:nth-of-type(even):not(.tts-hero) {
      viewport width keeps the panel filling a sensible share of its column
      at any screen size, still capped so lines never run too long to read. */
   max-width: clamp(28rem, 42vw, 46rem);
+}
+
+/* Logo badge — straddles the seam between the two columns. Desktop only;
+   the seam concept doesn't exist once columns stack on mobile. */
+.tts-hero__badge {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .tts-hero__badge {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    width: clamp(11rem, 14vw, 15.5rem);
+    /* Two layers — a tight, darker contact shadow plus a broader, softer
+       ambient one — so the badge reads as lifted off the seam whether it's
+       sitting against the black panel or the photo. */
+    filter:
+      drop-shadow(0 4px 10px rgba(0, 0, 0, 0.65))
+      drop-shadow(0 20px 40px rgba(0, 0, 0, 0.55));
+  }
+}
+
+.tts-hero__badge-img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .tts-hero__content {
@@ -1087,7 +1123,7 @@ main > section:nth-of-type(even):not(.tts-hero) {
 }
 
 .tts-footer__logo img {
-  height: 3.5rem;
+  height: 5.5rem;
   width: auto;
 }
 
