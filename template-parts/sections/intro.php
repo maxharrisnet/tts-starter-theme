@@ -38,15 +38,23 @@ if ( ! $headline ) {
 					?>
 				</div>
 			<?php endif; ?>
-			<div class="<?php echo $img_id ? 'md:w-3/5' : ''; ?> w-full text-center md:text-left">
-				<h2 id="intro-heading" class="tts-section-heading__title">
-					<?php echo esc_html( $headline ); ?>
-				</h2>
+			<div class="<?php echo $img_id ? 'md:w-3/5 w-full text-center md:text-left' : 'tts-intro__text-only'; ?>">
+				<?php if ( $img_id ) : ?>
+					<h2 id="intro-heading" class="tts-section-heading__title">
+						<?php echo esc_html( $headline ); ?>
+					</h2>
+				<?php else : ?>
+					<div class="tts-section-heading">
+						<h2 id="intro-heading" class="tts-section-heading__title">
+							<?php echo esc_html( $headline ); ?>
+						</h2>
+					</div>
+				<?php endif; ?>
 				<?php if ( $body ) : ?>
 					<?php echo wp_kses_post( wpautop( $body ) ); ?>
 				<?php endif; ?>
 				<?php if ( $cta_label && $cta_url ) : ?>
-					<div class="tts-cta-strip justify-center md:justify-start mt-2">
+					<div class="tts-cta-strip <?php echo $img_id ? 'justify-center md:justify-start' : 'justify-center'; ?> mt-2">
 						<a href="<?php echo esc_attr( drumstudy_the_url( '', 0, $cta_url ) ); ?>" class="tts-btn tts-btn--primary">
 							<?php echo esc_html( $cta_label ); ?>
 						</a>

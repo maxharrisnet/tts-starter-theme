@@ -24,46 +24,52 @@ if ( ! $headline ) {
 	$headline = drumstudy_get_option( 'drumstudy_tagline' ) ?: drumstudy_placeholder( 'Hero Headline' );
 }
 ?>
-<section class="tts-hero" aria-label="<?php esc_attr_e( 'Hero', 'drumstudy' ); ?>">
 
-	<?php if ( $bg_id ) : ?>
-		<?php
-		echo wp_get_attachment_image( $bg_id, 'tts-hero', false, [
-			'class'   => 'tts-hero__bg',
-			'loading' => 'eager',
-			'fetchpriority' => 'high',
-			'alt'     => '',
-			'aria-hidden' => 'true',
-		] );
-		?>
-		<div class="tts-hero__overlay" aria-hidden="true"></div>
-	<?php endif; ?>
+<section class="tts-hero tts-hero--split" aria-label="<?php esc_attr_e( 'Hero', 'drumstudy' ); ?>">
+	<div class="tts-hero__grid">
 
-	<div class="tts-container tts-hero__content">
-		<div class="tts-hero__panel">
-		<h1 class="tts-hero__headline"><?php echo esc_html( $headline ); ?></h1>
+		<div class="tts-hero__text-col">
+			<div class="tts-hero__panel">
+				<h1 class="tts-hero__headline"><?php echo esc_html( $headline ); ?></h1>
 
-		<?php if ( $subheadline ) : ?>
-			<p class="tts-hero__subheadline"><?php echo esc_html( $subheadline ); ?></p>
+				<?php if ( $subheadline ) : ?>
+					<p class="tts-hero__subheadline"><?php echo esc_html( $subheadline ); ?></p>
+				<?php endif; ?>
+
+				<?php
+				// Profile-aware CTA override
+				$final_cta1_label = $cta1_label;
+				$final_cta1_url   = $cta1_url;
+				$final_cta2_label = $cta2_label;
+				$final_cta2_url   = $cta2_url;
+
+				if ( drumstudy_is_profile( 'booking' ) && ! $final_cta1_url ) {
+					$embed_url = drumstudy_get_option( 'drumstudy_embed_booking' );
+					if ( $embed_url ) {
+						$final_cta1_label = $final_cta1_label ?: __( 'Book Now', 'drumstudy' );
+						$final_cta1_url   = '#booking';
+					}
+				}
+
+				drumstudy_render_cta( $final_cta1_label, $final_cta1_url, $final_cta2_label, $final_cta2_url );
+				?>
+			</div>
+		</div>
+
+		<?php if ( $bg_id ) : ?>
+			<div class="tts-hero__image-col">
+				<?php
+				echo wp_get_attachment_image( $bg_id, 'tts-hero', false, [
+					'class'         => 'tts-hero__split-img',
+					'loading'       => 'eager',
+					'fetchpriority' => 'high',
+					'alt'           => '',
+					'aria-hidden'   => 'true',
+				] );
+				?>
+				<div class="tts-hero__split-fade" aria-hidden="true"></div>
+			</div>
 		<?php endif; ?>
 
-		<?php
-		// Profile-aware CTA override
-		$final_cta1_label = $cta1_label;
-		$final_cta1_url   = $cta1_url;
-		$final_cta2_label = $cta2_label;
-		$final_cta2_url   = $cta2_url;
-
-		if ( drumstudy_is_profile( 'booking' ) && ! $final_cta1_url ) {
-			$embed_url = drumstudy_get_option( 'drumstudy_embed_booking' );
-			if ( $embed_url ) {
-				$final_cta1_label = $final_cta1_label ?: __( 'Book Now', 'drumstudy' );
-				$final_cta1_url   = '#booking';
-			}
-		}
-
-		drumstudy_render_cta( $final_cta1_label, $final_cta1_url, $final_cta2_label, $final_cta2_url );
-		?>
-		</div>
 	</div>
 </section>

@@ -71,6 +71,12 @@
   /* Spacing */
   --spacing-section: clamp(4rem, 8vw, 7rem);
   --spacing-inner:   clamp(2rem, 4vw, 3.5rem);
+
+  /* Container side padding — used by all three .tts-container* widths.
+     Fluid so the gutter grows a bit on wider screens instead of staying
+     pinned at a small fixed value now that containers can run up to
+     --width-container-wide. */
+  --container-padding: clamp(1.5rem, 4vw, 3.5rem);
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -182,19 +188,19 @@ a:hover {
 .tts-container {
   max-width: var(--width-container);
   margin-inline: auto;
-  padding-inline: 1.5rem;
+  padding-inline: var(--container-padding);
 }
 
 .tts-container-prose {
   max-width: var(--width-container-prose);
   margin-inline: auto;
-  padding-inline: 1.5rem;
+  padding-inline: var(--container-padding);
 }
 
 .tts-container-wide {
   max-width: var(--width-container-wide);
   margin-inline: auto;
-  padding-inline: 1.5rem;
+  padding-inline: var(--container-padding);
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -526,7 +532,9 @@ main > section:nth-of-type(even):not(.tts-hero) {
 }
 
 /* Directional overlay: near-solid on the left where the copy sits, the
-   photograph breathes through on the right — cinema-poster framing. */
+   photograph breathes through on the right — cinema-poster framing.
+   Used by the About/How It Works/Lessons heroes (full-bleed single image).
+   The homepage hero uses the two-column split variant below instead. */
 .tts-hero__overlay {
   position: absolute;
   inset: 0;
@@ -537,6 +545,98 @@ main > section:nth-of-type(even):not(.tts-hero) {
     color-mix(in srgb, var(--color-brand-secondary) 35%, transparent) 100%
   );
   z-index: 1;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Hero — split variant (homepage only)
+   Solid-color text column + a separate image column, joined by a gradient
+   fade instead of one full-bleed photo with text over it. Sidesteps the
+   low-res source photo needing heavy upscale/zoom to clear the text, since
+   each column only has to fill half the width instead of the full hero.
+───────────────────────────────────────────────────────────────────────────── */
+
+.tts-hero--split {
+  display: block;
+  padding-block: 0;
+}
+
+.tts-hero__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  min-height: min(78dvh, 44rem);
+}
+
+@media (min-width: 768px) {
+  .tts-hero__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.tts-hero__text-col {
+  display: flex;
+  align-items: flex-start;
+  background-color: var(--color-brand-secondary);
+  padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
+}
+
+.tts-hero__image-col {
+  position: relative;
+  min-height: 45vh;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .tts-hero__image-col {
+    min-height: 100%;
+  }
+}
+
+.tts-hero__split-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  /* Muted color rather than full grayscale — keeps photos from looking
+     washed out while still reading as one restrained palette. */
+  filter: saturate(0.8) contrast(1.05);
+}
+
+/* Gradient seam: solid at the join, easing to fully transparent — the
+   photo appears to emerge from the text column's background color rather
+   than butting up against a hard edge. Vertical on mobile (stacked
+   columns), horizontal on desktop (side-by-side columns). */
+.tts-hero__split-fade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    0deg,
+    var(--color-brand-secondary) 0%,
+    color-mix(in srgb, var(--color-brand-secondary) 70%, transparent) 12%,
+    color-mix(in srgb, var(--color-brand-secondary) 25%, transparent) 24%,
+    transparent 36%
+  );
+}
+
+@media (min-width: 768px) {
+  .tts-hero__split-fade {
+    background: linear-gradient(
+      90deg,
+      var(--color-brand-secondary) 0%,
+      color-mix(in srgb, var(--color-brand-secondary) 70%, transparent) 12%,
+      color-mix(in srgb, var(--color-brand-secondary) 25%, transparent) 24%,
+      transparent 36%
+    );
+  }
+}
+
+.tts-hero--split .tts-hero__panel {
+  /* Fluid rather than a fixed cap — on a big monitor a fixed max-width
+     (e.g. 34rem) sits pinned to the left of a much wider column, leaving
+     a large dead gap of solid black before the image starts. Scaling with
+     viewport width keeps the panel filling a sensible share of its column
+     at any screen size, still capped so lines never run too long to read. */
+  max-width: clamp(28rem, 42vw, 46rem);
 }
 
 .tts-hero__content {
@@ -1246,6 +1346,14 @@ main > section:nth-of-type(even):not(.tts-hero) {
    rather than render a floating, misaligned ornament. */
 :not(.tts-section-heading) > .tts-section-heading__title::after {
   content: none;
+}
+
+/* Intro section, text-only variant (no image set) — centered column with
+   a readable line-length cap, rather than stretching full container width. */
+.tts-intro__text-only {
+  max-width: 50rem;
+  margin-inline: auto;
+  text-align: center;
 }
 
 .tts-section-heading__subtitle {
